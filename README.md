@@ -8,6 +8,7 @@ View [missing features](https://github.com/noahsug/guild-of-dungeoneering-win-ra
 
 ### Technology
 * [React.js](http://facebook.github.io/react/)
+* [Redux](https://github.com/reactjs/redux/)
 * [Webpack](http://webpack.github.io/)
 * [Babel](https://babeljs.io/)
 * [Jest](https://facebook.github.io/jest/)
