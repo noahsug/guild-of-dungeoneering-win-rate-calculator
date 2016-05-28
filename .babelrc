@@ -1,4 +1,4 @@
 {
   "presets": ["es2017", "stage-0", "react"],
-  "plugins": ["add-module-exports"]
+  "plugins": ["add-module-exports", "transform-async-to-generator"]
 }

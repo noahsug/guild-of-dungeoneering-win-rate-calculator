@@ -2,18 +2,19 @@ const solverApp = (state, action) => {
   switch (action.type) {
     case 'START':
       return {
-        result: Math.random(),
+        ...state,
         solving: true,
       };
 
-    case 'STOP':
+    case 'RESULT':
       return {
         ...state,
-        solving: false,
+        result: action.result,
       };
 
     default:
       return {
+        ...state,
         solving: false,
       };
   }
