@@ -38,7 +38,7 @@ describe('sum', () => {
   });
 
   it('can take an iteratee', () => {
-    const list = [{age: 2}, {age: 5}, {age: 1}];
+    const list = [{ age: 2 }, { age: 5 }, { age: 1 }];
     const result = _.sum(list, _.iteratee('age'));
     expect(result).toBe(8);
   });

@@ -5,10 +5,18 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parser": "babel-eslint",
   "extends": "airbnb",
+  "rules": {
+    "default-case": 0,
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "eqeqeq": 0,
+    "max-len": ["error", {"code": 80, "comments": 80}]
+  },
   "plugins": [
     "react"
   ]

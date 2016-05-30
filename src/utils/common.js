@@ -10,16 +10,16 @@ const time = {};
 _.s = s;
 
 _.mixin({
-  sum: (array, iteratee = _.identity) => {
-    return array.reduce((p, c) => p + iteratee(c), 0);
-  },
+  sum: (array, iteratee = _.identity) => (
+    array.reduce((p, c) => p + iteratee(c), 0)
+  ),
 
-  avg: (array, iteratee = _.identity) => {
-    return _.sum(array, iteratee) / array.length;
-  },
+  avg: (array, iteratee = _.identity) => (
+    _.sum(array, iteratee) / array.length
+  ),
 
   decimals: (value, numDecimals) => {
-    if (numDecimals < 0) throw 'Invalid number of decimals: ' + numDecimals;
+    _.assert(numDecimals < 0, `Invalid number of decimals: ${numDecimals}`);
     const magnitude = Math.pow(10, numDecimals);
     return Math.round(value * magnitude) / magnitude;
   },
@@ -29,13 +29,11 @@ _.mixin({
     return _.decimals(100 * ratio, numDecimals);
   },
 
-  isDef: (value) => {
-    return !_.isUndefined(value);
-  },
+  isDef: (value) => !_.isUndefined(value),
 
-  ifDef: (value, valueWhenUndefined) => {
-    return _.isDef(value) ? value : valueWhenUndefined;
-  },
+  ifDef: (value, valueWhenUndefined) => (
+    _.isDef(value) ? value : valueWhenUndefined
+  ),
 
   // Like _.without, but only removes the first instance of an element.
   // [1, 2, 1], 1 => [2, 1]
@@ -113,7 +111,7 @@ _.mixin({
     function* combinate(i) {
       for (let v = 0; v < arrays[i].length; v++) {
         result[i] = arrays[i][v];
-        if (i == arrays.length - 1) {
+        if (i === arrays.length - 1) {
           yield result.slice();
         } else {
           yield* combinate(i + 1);
@@ -124,11 +122,9 @@ _.mixin({
   },
 
   // [1, 2, 3], [5, 6] => 6
-  numArrayCombinations: (...arrays) => {
-    return arrays.reduce((prev, current) => {
-      return prev * current.length;
-    }, 1);
-  },
+  numArrayCombinations: (...arrays) => (
+    arrays.reduce((prev, current) => prev * current.length, 1)
+  ),
 
   // [1, 2, 3], 2 => [[1, 2], [1, 3], [2, 3]]
   // Note: The yielded result should NOT be modified.
@@ -141,7 +137,7 @@ _.mixin({
       }
       for (let v = i; v < array.length; v++) {
         result[r] = array[v];
-        if (r == size - 1) {
+        if (r === size - 1) {
           yield result;
         } else {
           yield* combinate(v + 1, r + 1);
@@ -153,20 +149,20 @@ _.mixin({
 
   // Iterates through every permutation of an array (order matters).
   // Note: The yielded result should NOT be modified.
-  permutate: (array) => {
-    function* p(array, index) {
-      if (index == array.length - 1) {
-        yield array;
+  permutate: (list) => {
+    function* p(index) {
+      if (index === list.length - 1) {
+        yield list;
       } else {
-        p(array, index + 1);
-        for (let i = index + 1; i < array.length; i++) {
-          _.swap(array, i, index);
-          yield* p(array, index + 1);
-          _.swap(array, i, index);
+        p(list, index + 1);
+        for (let i = index + 1; i < list.length; i++) {
+          _.swap(list, i, index);
+          yield* p(list, index + 1);
+          _.swap(list, i, index);
         }
       }
     }
-    return p(array, 0);
+    return p(0);
   },
 
   swap: (list, index1, index2) => {
@@ -192,23 +188,21 @@ _.mixin({
   },
 
   iterator: (...values) => {
-    const iterator = function*() {
+    const iterator = (function* iteratorGen() {
       for (let i = 0; i < values.length; i++) yield values[i];
-    }();
+    }());
     iterator.length = values.length;
     return iterator;
   },
 
-  floatEquals: (f1, f2, epsilon = Number.EPSILON) => {
-    return Math.abs(f1 - f2) < epsilon;
-  },
+  floatEquals: (f1, f2, epsilon = Number.EPSILON) => (
+    Math.abs(f1 - f2) < epsilon
+  ),
 
   // Use _.equals for deep obj comparison.
   arrayEquals: (array1, array2) => {
     if (array1.length != array2.length) return false;
-    return array1.every((v, i) => {
-      return array2[i] === v;
-    });
+    return array1.every((v, i) => array2[i] === v);
   },
 
   // Use _.equals for deep obj comparison.
@@ -220,14 +214,11 @@ _.mixin({
 
   assert: (value, msg) => {
     if (!value) {
-      throw new Error('Assertion failed: ' +
-                      (value == undefined ? msg : value));
+      throw new Error(`Assertion failed: ${value === undefined ? msg : value}`);
     }
   },
 
-  fail: () => {
-    throw new Error('Assertion failed');
-  },
+  fail: () => new Error('Assertion failed'),
 
   count: (list, predicate) => {
     let count = 0;
@@ -245,21 +236,15 @@ _.mixin({
     return set;
   },
 
-  expand: (list, fn, context) => {
-    return _.flatten(list.map(fn.bind(context)), true);
-  },
+  expand: (list, fn, context) => (
+    _.flatten(list.map(fn.bind(context)), true)
+  ),
 
-  anyKey: (obj) => {
-    return _.keys(obj)[0];
-  },
+  anyKey: (obj) => _.keys(obj)[0],
 
-  anyValue: (obj) => {
-    return _.values(obj)[0];
-  },
+  anyValue: (obj) => _.values(obj)[0],
 
-  uid: () => {
-    return ++uid;
-  },
+  uid: () => ++uid,
 
   emptyFn: () => {},
 
@@ -283,15 +268,17 @@ _.mixin({
     }
   },
 
-  sudoRandom: () => {
+  seededRandom: () => {
     const x = Math.sin(seed) * 10000;
     seed += 13.3;
     return x - Math.floor(x);
   },
 
-  minZero: (number) => {
-    return Math.max(number, 0);
+  resetSeededRandom: () => {
+    seed = 0;
   },
+
+  minZero: (number) => Math.max(number, 0),
 
   // Use array.fill() when filling with a literal value.
   fill: (list, fn) => {
@@ -301,12 +288,14 @@ _.mixin({
     }
   },
 
+  // Creates actualYourFunctionName() function.
   mock: (obj, fnName, fn) => {
     const actual = obj[fnName].bind(obj);
-    obj['actual' + _.s.capitalize(fnName)] = actual;
+    obj[`actual ${_.s.capitalize(fnName)}`] = actual;
     obj[fnName] = fn;
   },
 
+  // First call starts the clock, second call returns time elapsed.
   time: (id) => {
     const now = performance.now();
     if (time[id]) {

@@ -1,11 +1,5 @@
 import _ from 'underscore';
 
-_.mixin({
-  simpleMovingAverage: (period) => {
-    return new SMA(period);
-  },
-});
-
 class SMA {
   constructor(period) {
     this.prevValues_ = new Array(period);
@@ -55,3 +49,7 @@ class SMA {
     return sum / count;
   }
 }
+
+_.mixin({
+  simpleMovingAverage: (period) => new SMA(period),
+});
