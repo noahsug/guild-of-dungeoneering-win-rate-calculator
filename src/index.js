@@ -1,16 +1,24 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import solverApp from './reducers';
-import App from './components/App';
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import reducer from './reducers'
+import saga from './sagas'
+import App from './components/App'
 
-const store = createStore(solverApp, applyMiddleware(thunk));
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+)
+
+sagaMiddleware.run(saga)
 
 render(
   <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root')
-);
+)

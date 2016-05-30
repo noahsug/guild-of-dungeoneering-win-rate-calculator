@@ -4,20 +4,20 @@ const solverApp = (state, action) => {
       return {
         ...state,
         solving: true,
-      };
+      }
 
     case 'RESULT':
       return {
         ...state,
         result: action.result,
-      };
+      }
 
     default:
       return {
         ...state,
         solving: false,
-      };
+      }
   }
-};
+}
 
-export default solverApp;
+export default solverApp
