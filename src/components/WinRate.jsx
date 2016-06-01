@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
-  result: state.result,
+  result: state.solver.result,
 });
 
 const formatResult = (result) => (

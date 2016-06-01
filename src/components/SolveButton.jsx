@@ -4,7 +4,7 @@ import { startSolving, stopSolving } from '../actions';
 import Button from 'react-toolbox/lib/button';
 
 const mapStateToProps = (state) => ({
-  solving: state.solving,
+  solving: state.solver.solving,
 });
 
 const mapDispatchToProps = (dispatch) => ({

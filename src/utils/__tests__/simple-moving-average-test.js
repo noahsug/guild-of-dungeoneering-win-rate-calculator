@@ -1,4 +1,4 @@
-import _ from '.'
+import _ from '../'
 
 describe('simpleMovingAverage', () => {
   it('keeps a moving average with the given period', () => {

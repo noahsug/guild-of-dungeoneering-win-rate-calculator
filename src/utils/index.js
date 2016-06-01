@@ -216,7 +216,7 @@ _.mixin({
     if (!value) {
       throw new Error(`Assertion failed: ${value === undefined ? msg : value}`)
     }
-    return value;
+    return value
   },
 
   fail: () => new Error('Assertion failed'),
@@ -307,6 +307,10 @@ _.mixin({
     time[id] = now
     return 0
   },
+
+  deepClone: (obj) => (
+    JSON.parse(JSON.stringify(obj))
+  ),
 })
 
 export default _

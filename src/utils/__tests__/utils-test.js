@@ -1,4 +1,4 @@
-import _ from '../common'
+import _ from '../'
 
 describe('remove', () => {
   it('removes first instance of each value', () => {
