@@ -201,7 +201,7 @@ _.mixin({
 
   // Use _.equals for deep obj comparison.
   arrayEquals: (array1, array2) => {
-    if (array1.length != array2.length) return false
+    if (array1.length !== array2.length) return false
     return array1.every((v, i) => array2[i] === v)
   },
 
@@ -216,6 +216,7 @@ _.mixin({
     if (!value) {
       throw new Error(`Assertion failed: ${value === undefined ? msg : value}`)
     }
+    return value;
   },
 
   fail: () => new Error('Assertion failed'),

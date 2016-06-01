@@ -1,14 +1,28 @@
-import { takeLatest } from 'redux-saga'
-import { call, put } from 'redux-saga/effects'
-import { updateResult } from '../actions'
+import { delay } from 'redux-saga'
+import { call, fork, take, cancel } from 'redux-saga/effects'
+import { putp } from '../actions/utils'
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-function* solve() {
-  yield call(delay, 500)
-  yield put(updateResult(0.5))
+function getResult() {
+  return Math.random()
 }
 
-export default function* solveSaga() {
-  yield* takeLatest('START', solve)
+function* solve() {
+  try {
+    for (let i = 0; i < 1000; i++) {
+      const result = getResult()
+      yield putp('RESULT', result)
+      yield call(delay, 10)
+    }
+  } catch (e) {
+    yield putp('STOP')
+  }
+}
+
+export default function* solverSaga() {
+  while (true) {
+    yield take('START')
+    const solveTask = yield fork(solve)
+    yield take('STOP')
+    yield cancel(solveTask)
+  }
 }

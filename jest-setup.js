@@ -1,4 +1,4 @@
-import _ from './src/utils/common';
+import _ from './src/utils';
 
 window.crypto = {
   getRandomValues: function(array) {

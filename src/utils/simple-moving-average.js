@@ -26,7 +26,7 @@ class SMA {
 
   add(value) {
     let prevValue = this.prevValues_[this.index_]
-    if (prevValue == undefined) {
+    if (prevValue === undefined) {
       this.count_++
       prevValue = 0
     }
@@ -42,7 +42,7 @@ class SMA {
     const increment = this.count_ > 12 ? 4 : 1
     for (let i = 0; i < this.count_; i += increment) {
       const value = this.prevValues_[i]
-      if (value == undefined) continue
+      if (value === undefined) continue
       sum += Math.pow(value - avg, 2)
       count++
     }
