@@ -14,5 +14,5 @@ const actionsByType = _.object(actionTypes, actionFns)
  */
 export function putp(type, ...args) {
   const actionFn = _.assert(actionsByType[type])
-  return put(actionFn.call(null, ...args))
+  return put(actionFn.apply(null, args))
 }

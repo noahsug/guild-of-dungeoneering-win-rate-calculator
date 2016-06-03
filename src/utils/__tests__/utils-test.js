@@ -57,7 +57,7 @@ describe('avg', () => {
 
 describe('decimals', () => {
   it('sets the number of decimals', () => {
-    expect(_.decimals(Math.PI, 2)).toEqual(3.14)
+    expect(_.decimals(Math.PI, 2)).toBe(3.14)
   })
 })
 
@@ -81,7 +81,7 @@ describe('fastRemoveAt', () => {
     const a = [1, 2, 3, 4, 5]
     const removed = _.fastRemoveAt(a, 2)
     expect(removed).toBe(3)
-    expect(a).toEqualValues([1, 2, 4, 5])
+    expect(a).toSortedEqual([1, 2, 4, 5])
   })
 })
 
@@ -100,7 +100,7 @@ describe('shuffleRange', () => {
     const shuffled = a.slice()
     _.shuffleRange(shuffled, 2, 6)  // [3, 4, 5, 6]
     expect(shuffled.slice(0, 2)).toEqual(a.slice(0, 2))
-    expect(shuffled.slice(2, 6)).toEqualValues(a.slice(2, 6))
+    expect(shuffled.slice(2, 6)).toSortedEqual(a.slice(2, 6))
     expect(shuffled.slice(6, 8)).toEqual(a.slice(6, 8))
   })
 })

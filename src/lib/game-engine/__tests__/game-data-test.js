@@ -1,0 +1,47 @@
+jest.unmock('../game-data')
+
+import _ from '../../../utils'
+import gameData from '../game-data'
+
+const checkEntitySets = (entity) => {
+  _.each(entity.sets || [], (set) => {
+    if (!gameData.sets[set]) console.error('missing', set)
+    expect(gameData.sets[set]).toBeDefined()
+  })
+}
+
+const expectValidCharacters = (chars) => {
+  _.each(chars, (char) => {
+    expect(char.health).toBeDefined()
+    expect(char.sets).toBeDefined()
+    expect(char.sets).not.toBeEmpty()
+    checkEntitySets(char)
+  })
+}
+
+describe('Game data', () => {
+  it('has valid enemies', () => {
+    expectValidCharacters(gameData.enemies)
+  })
+
+  it('has valid players', () => {
+    expectValidCharacters(gameData.players)
+  })
+
+  it('has valid items', () => {
+    _.each(gameData.items, (item) => {
+      expect(item.slot).toBeDefined()
+      checkEntitySets(item)
+    })
+  })
+
+  it('has valid sets', () => {
+    _.each(gameData.sets, (cards) => {
+      _.each(cards, (card) => {
+        _.each(card.split('/'), (attr) => {
+          expect(gameData.CARD_ATTRS).toHaveKey(attr)
+        })
+      })
+    })
+  })
+})

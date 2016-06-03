@@ -19,7 +19,7 @@ _.mixin({
   ),
 
   decimals: (value, numDecimals) => {
-    _.assert(numDecimals < 0, `Invalid number of decimals: ${numDecimals}`)
+    _.assert(numDecimals >= 0, `Invalid number of decimals: ${numDecimals}`)
     const magnitude = Math.pow(10, numDecimals)
     return Math.round(value * magnitude) / magnitude
   },
@@ -176,6 +176,9 @@ _.mixin({
     return _.factorial(n) / (_.factorial(n - k) * _.factorial(k))
   },
 
+  // Alias
+  choose: (n, k) => _.binomialCoefficient(n, k),
+
   // Useful when get() is called way more often then add().
   integerWeightedRandom: () => {
     const indexes = []
@@ -289,11 +292,15 @@ _.mixin({
     }
   },
 
-  // Creates actualYourFunctionName() function.
-  mock: (obj, fnName, fn) => {
-    const actual = obj[fnName].bind(obj)
-    obj[`actual ${_.s.capitalize(fnName)}`] = actual
-    obj[fnName] = fn
+  // Creates actualYourValueName.
+  mock: (obj, valueName, value) => {
+    obj[`actual${_.s.capitalize(valueName)}`] = obj[valueName]
+    obj[valueName] = value
+  },
+
+  unmock: (obj, valueName) => {
+    obj[valueName] = obj[`actual${_.s.capitalize(valueName)}`]
+    delete obj[`actual${_.s.capitalize(valueName)}`]
   },
 
   // First call starts the clock, second call returns time elapsed.

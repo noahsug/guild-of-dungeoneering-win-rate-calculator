@@ -1,5 +1,8 @@
 import _ from './src/utils';
 
+
+/* Mocks */
+
 window.crypto = {
   getRandomValues: function(array) {
     for (let i = 0; i < array.length; i++) {
@@ -12,15 +15,46 @@ window.performance = {
   now: function() { return Date.now(); },
 };
 
-const basicMatcher = (basicMatcher) => () => ({
-  compare: (actual, expected) => ({
-    pass: basicMatcher(actual, expected)
-  })
-});
+
+/* Custom matchers */
+
+const basicMatcher = (passes, passesNegative) => () => {
+  const matcher = {
+    compare: (actual, expected, ...args) => ({
+      pass: passes(actual, expected, ...args)
+    })
+  }
+  if (passesNegative) {
+    matcher.negativeCompare = (actual, expected, ...args) => ({
+      pass: passesNegative(actual, expected, ...args)
+    })
+  }
+  return matcher;
+};
 
 const customMatchers = {
-  toEqualValues: basicMatcher((actual, expected) => (
+  toSortedEqual: basicMatcher((actual, expected) => (
     _.valuesEqual(actual, expected)
+  )),
+
+  toBeBetween: basicMatcher((actual, a, b) => (
+    a <= actual && b >= actual
+  )),
+
+  toHaveKey: basicMatcher((actual, expected) => (
+    _.isDef(actual[expected])
+  )),
+
+  toBeEmpty: basicMatcher((actual) => (
+    actual && actual.length === 0
+  ), (actual) => (
+    actual && actual.length > 0
+  )),
+
+  toEventuallyBe: basicMatcher((actual, expected) => (
+    _.some(_.range(1000), () => actual() === expected)
+  ), (actual, expected) => (
+    _.every(_.range(100), () => actual() !== expected)
   )),
 };
 
