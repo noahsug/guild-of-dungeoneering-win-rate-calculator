@@ -1,0 +1,21 @@
+/*$color-primary: $palette-blue-grey-500 !default;
+$color-primary-dark: $palette-blue-grey-700 !default;
+$color-accent: $palette-teal-a200 !default;
+$color-accent-dark: $palette-teal-700 !default;
+$color-background: #1E2225 !default;*/
+
+$unit: 1rem !default;
+
+/* Tiny input fields, use with Input.scss */
+$input-padding: 0 !default;
+$input-field-padding: 0 !default;
+$input-focus-label-top: -2 * $unit !default;
+
+/* Tiny chips */
+$chip-scale: 0.75 * $unit;
+$chip-remove-increase: 0 * $unit;
+
+$chip-height: 3.2 * $chip-scale !default;
+$chip-padding: 1.2 * $chip-scale !default;
+$chip-remove-margin: 0.4 * $chip-scale - $chip-remove-increase / 2 !default;
+$chip-remove-size: 2.4 * $chip-scale + $chip-remove-increase !default;

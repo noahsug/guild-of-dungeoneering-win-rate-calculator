@@ -27,9 +27,12 @@ module.exports = {
     }, {
       test: /\.scss$/,
       loaders: ['style',
-                'css?modules&importLoaders=1&localIdentName=' +
-                    '[name]_[local]_[hash:base64:5]',
-                'sass'],
+                'css?modules&localIdentName=[name]_[local]_[hash:base64:5]',
+                'sass',
+                'toolbox'],
     }],
+  },
+  toolbox: {
+    theme: 'src/theme.scss'
   },
 };
