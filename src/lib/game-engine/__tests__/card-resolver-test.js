@@ -5,21 +5,20 @@ jest.unmock('../card')
 jest.unmock('../game-data')
 
 import _ from '../../../utils'
-
-const CardResolver = require('../card-resolver')
-const Card = require('../card')
-const gs = require('../game-state')
-const resolver = new CardResolver()
+import CardResolver from '../card-resolver'
+import Card from '../card'
+import gs from '../game-state'
 
 let player
 let enemy
 let state
+const resolver = new CardResolver()
 
 function useState(health, playerValues = {}, enemyValues = {}) {
   playerValues.health = health
   enemyValues.health = health
   state = gs.create(playerValues, enemyValues)
-  resolver.setInitialState(state)
+  resolver.initState = state
   state = _.deepClone(state)
   player = state.player
   enemy = state.enemy

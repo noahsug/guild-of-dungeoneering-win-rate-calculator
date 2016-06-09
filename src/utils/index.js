@@ -35,6 +35,10 @@ _.mixin({
     _.isDef(value) ? value : valueWhenUndefined
   ),
 
+  isSortedEqual: (list1, list2) => (
+    _.isEqual(list1.sort(), list2.sort())
+  ),
+
   // Like _.without, but only removes the first instance of an element.
   // [1, 2, 1], 1 => [2, 1]
   remove: (array, ...values) => {

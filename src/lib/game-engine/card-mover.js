@@ -46,7 +46,8 @@ export default class CardMover {
     return states
   }
 
-  getNextStates(state, playerCardIndex) {
+  getNextStates(state, playerCard) {
+    const playerCardIndex = state.player.hand.indexOf(playerCard);
     const played = state.player.hand.splice(playerCardIndex, 1)[0]
     let states = [state]
     if (state.player.cycleEffect && state.player.hand.length) {

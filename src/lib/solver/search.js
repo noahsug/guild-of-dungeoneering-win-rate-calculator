@@ -1,6 +1,7 @@
 import _ from '../../utils'
 import { gs, CardResolver, CardMover } from '../game-engine'
 import { MAX_DEPTH } from './constants'
+import Hasher from './hasher'
 
 export default class Search {
   constructor() {
@@ -8,36 +9,27 @@ export default class Search {
     this.resolver_ = new CardResolver()
     this.bestMoves_ = {}
     this.worstMoves_ = {}
-  }
 
-  set hasher(hasher) {
-    this.hasher_ = hasher
-  }
-
-  set order(order) {
-    this.order_ = order
-    this.mover_.order = order
+    this.hasher_ = new Hasher()
   }
 
   set initState(initState) {
-    this.resolver_.setInitialState(initState)
+    this.resolver_.initState = initState
     const complexity = _.minZero(gs.cards(initState.player).length *
                                  gs.cards(initState.enemy).length - 50)
     this.bestMoveAccuracy = 15 - Math.min(11, Math.sqrt(complexity) * 2) | 0
     this.worstMoveAccuracy = this.bestMoveAccuracy
   }
 
-  solve(state, depth = 0) {
+  solve(state, order) {
     this.visited_ = {}
-    this.lastCardPlayed_ = null
-    return this.getResult_(state, depth)
+    this.order_ = order
+    this.hasher_.order = order
+    this.mover_.order = order
+    return this.getWinningMove_(state, state.depth)
   }
 
-  get lastCardPlayed() {
-    return this.lastCardPlayed_
-  }
-
-  getResult_(state, depth) {
+  getWinningMove_(state, depth) {
     const hash = this.hasher_.hash(state, depth)
     if (this.visited_[hash]) return 0
     this.visited_[hash] = true
@@ -47,8 +39,7 @@ export default class Search {
       const moveHash = this.hasher_.hashMove(hash, bestMove)
       const result = this.getResultForMove_(
           state, bestMove, enemyCard, hash, moveHash, depth)
-      this.lastCardPlayed_ = bestMove
-      return result
+      return result && bestMove
     }
 
     const hand = _.uniq(state.player.hand)
@@ -62,8 +53,7 @@ export default class Search {
           state, playerCard, enemyCard, hash, moveHash, depth)
       if (result) {
         this.updateBestMoves_(state, playerCard, enemyCard, hash, moveHash)
-        this.lastCardPlayed_ = playerCard
-        return 1
+        return playerCard
       }
       this.updateWorstMoves_(state, playerCard, enemyCard, hash, moveHash)
     }
@@ -87,7 +77,7 @@ export default class Search {
       const i = state.player.hand.indexOf(playerCard)
       this.mover_.moveCards(nextState, i, depth)
       // TODO: Check visited to see if nextState has a result?
-      result = this.getResult_(nextState, depth + 1)
+      result = this.getWinningMove_(nextState, depth + 1)
     }
     return result
   }

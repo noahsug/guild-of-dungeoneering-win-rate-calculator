@@ -10,7 +10,7 @@ export default class CardResolver {
   }
 
   // Used to keep track of starting HP and persistant traits.
-  setInitialState(initialState) {
+  set initState(initialState) {
     this.player_.initial = initialState.player
     this.enemy_.initial = initialState.enemy
   }

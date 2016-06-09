@@ -19,15 +19,15 @@ describe('solver', () => {
 
   it('creates starting states', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
-    expect(solver.states.length).toBe(20)
+    expect(solver.state.children.length).toBe(20)
 
     const cards = gameData.sets.Chump
     const hand = getCards([cards[2], cards[3], cards[4]])
     const deck = getCards([cards[0], cards[1], cards[5]])
     let match = false
-    solver.states.forEach((state) => {
-      if (_.isEqual(state.player.deck.sort(), deck) &&
-          _.isEqual(state.player.hand.sort(), hand) &&
+    solver.state.children.forEach((state) => {
+      if (_.isSortedEqual(state.player.deck, deck) &&
+          _.isSortedEqual(state.player.hand, hand) &&
           _.isEqual(state.player.discard, [])) {
         match = true
       }

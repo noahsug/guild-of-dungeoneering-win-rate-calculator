@@ -119,7 +119,7 @@ describe('card mover', () => {
       discard: [],
     })
 
-    const states = mover.getNextStates(state, 0)
+    const states = mover.getNextStates(state, 3)
     expect(states.length).toBe(2)
     expectState(states, [1], [2], [3])
     expectState(states, [2], [1], [3])
@@ -148,7 +148,7 @@ describe('card mover', () => {
       discardEffect: 2,
     })
 
-    const states = mover.getNextStates(state, 0)
+    const states = mover.getNextStates(state, 2)
     expect(states.length).toBe(9)
     expectState(states, [2, 3], [4, 5], [])
     expectState(states, [2, 4], [3, 5], [])
@@ -165,7 +165,7 @@ describe('card mover', () => {
       cycleEffect: 2,
     })
 
-    const states = mover.getNextStates(state, 0)
+    const states = mover.getNextStates(state, 2)
     expect(states.length).toBe(6)
     expectEveryState(states, [], [1, 3, 4, 5], [2])
   })
