@@ -38,7 +38,11 @@ const customMatchers = {
   )),
 
   toBeBetween: basicMatcher((actual, a, b) => (
-    a <= actual && b >= actual
+    a <= actual && actual <= b
+  )),
+
+  toBeAround: basicMatcher((actual, expected, fudge) => (
+    expected - fudge <= actual && actual <= expected + fudge
   )),
 
   toHaveKey: basicMatcher((actual, expected) => (

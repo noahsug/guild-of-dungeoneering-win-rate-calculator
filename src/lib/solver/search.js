@@ -17,8 +17,13 @@ export default class Search {
     this.resolver_.initState = initState
     const complexity = _.minZero(gs.cards(initState.player).length *
                                  gs.cards(initState.enemy).length - 50)
-    this.bestMoveAccuracy = 15 - Math.min(11, Math.sqrt(complexity) * 2) | 0
-    this.worstMoveAccuracy = this.bestMoveAccuracy
+
+    // If a player move wins this many times, it's selected as the best and
+    // other possible player moves are pruned.
+    this.bestMovePruning = 15 - Math.min(10, Math.sqrt(complexity) * 2) | 0
+
+    // If a player move loses this many times without ever winning, it's pruned.
+    this.worstMovePruning = this.bestMovePruning
   }
 
   solve(state, order) {
@@ -48,7 +53,7 @@ export default class Search {
     for (let i = 0; i < len; i++) {
       const playerCard = hand[i]
       const moveHash = this.hasher_.hashMove(hash, playerCard)
-      if (this.worstMoves_[moveHash] > this.worstMoveAccuracy) continue
+      if (this.worstMoves_[moveHash] >= this.worstMovePruning) continue
       const result = this.getResultForMove_(
           state, playerCard, enemyCard, hash, moveHash, depth)
       if (result) {
@@ -97,7 +102,7 @@ export default class Search {
     const bestMove = this.bestMoves_[moveHash]
     if (bestMove === undefined) {
       this.bestMoves_[moveHash] = 1
-    } else if (bestMove > this.bestMoveAccuracy) {
+    } else if (bestMove >= this.bestMovePruning) {
       this.bestMoves_[hash] = playerCard
     } else {
       this.bestMoves_[moveHash]++

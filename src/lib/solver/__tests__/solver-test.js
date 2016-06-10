@@ -45,19 +45,20 @@ describe('solver', () => {
   it('solves chump vs gray ooze', () => {
     solver.init({ name: 'Chump', traits: ['Crones Discipline'] },
                 { name: 'Gray Ooze' })
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 4000; i++) {
       solver.next()
     }
-    expect(solver.result).toBeCloseTo(0.41, 0.05)
+    expect(solver.result).toBeAround(0.41, 0.05)
   })
 
-  it('solves Apprentice vs Ghost', () => {
+  fit('solves Apprentice vs Ghost', () => {
     solver.init({ name: 'Apprentice', items: ['Shimmering Cloak'] },
                 { name: 'Ghost' })
     for (let i = 0; i < 20000; i++) {
       solver.next()
+      if (i % 100 == 0) console.log(solver.result)
     }
-    expect(solver.result).toBeCloseTo(0.74, 0.05)
+    expect(solver.result).toBeAround(0.74, 0.05)
   })
 
   it('solves complex problems', () => {

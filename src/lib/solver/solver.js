@@ -21,11 +21,12 @@ export default class Solver {
     this.search_ = new Search()
     this.search_.initState = this.state
 
-    this.results_ = new Results()
-    this.results_.bestMoveAccuracy = this.search_.bestMoveAccuracy
-
     this.state.children = this.mover_.getStartingStates(this.state)
     this.state.children.forEach(c => { c.depth = 1 })
+
+    this.results_ = new Results()
+    this.results_.bestMovePruning = this.search_.bestMovePruning
+    this.results_.states = this.state.children
   }
 
   next() {
@@ -55,6 +56,7 @@ export default class Solver {
     this.order_.enemyPlayed(enemyCard)
     state.children = this.mover_.getNextStates(resolvedState, playerCard)
     state.children.forEach(c => { c.depth = state.depth })
-    this.state = state;
+    this.results_.states = state.children
+    this.state = state
   }
 }
