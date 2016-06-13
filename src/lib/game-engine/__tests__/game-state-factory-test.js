@@ -18,7 +18,7 @@ describe('solver factory', () => {
   it('creates a state with the given player and enemy', () => {
     const state = gsf.create({
       name: 'Apprentice',
-      traits: ['Warriors Might', 'Level 4', 'Punch Drunk Final'],
+      traits: ['Warriors Might', 'Level 4', 'Punch Drunk Final Stage'],
       items: ['Sparkly Headband', 'Wooden Shield', 'Owl Familiar'],
     }, {
       name: 'Crab King',

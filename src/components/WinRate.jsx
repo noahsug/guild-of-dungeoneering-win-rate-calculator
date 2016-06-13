@@ -6,7 +6,7 @@ const mapStateToProps = (state) => ({
 });
 
 const formatResult = (result) => (
-  `${(result * 10000 | 0) / 100} %`
+  `${result * 100 | 0} %`
 );
 
 const WinRate = ({ result }) => {

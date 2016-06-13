@@ -4,12 +4,12 @@ export default (state, action) => {
   if (state === undefined) {
     return {
       player: {
-        name: '',
-        items: [],
-        traits: [],
+        name: 'Chump',
+        items: ['Scroll Of Souls', 'Fez', 'Ocean Staff', 'Bark Vest'],
+        traits: ['Crones Discipline'],
       },
       enemy: {
-        name: '',
+        name: 'Angry Bunny',
         traits: [],
       },
     }

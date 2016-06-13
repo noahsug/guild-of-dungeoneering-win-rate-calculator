@@ -37,28 +37,29 @@ describe('solver', () => {
 
   it('can solve a starting hand', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
-    expect(solver.result).toBeFalsy()
+    expect(solver.getResult()).toBeFalsy()
     solver.next()
-    expect(solver.result).toBe(1)
+    expect(solver.getResult()).toBe(1)
   })
 
-  it('solves chump vs gray ooze', () => {
+  // Slow
+  xit('solves chump vs gray ooze', () => {
     solver.init({ name: 'Chump', traits: ['Crones Discipline'] },
                 { name: 'Gray Ooze' })
     for (let i = 0; i < 4000; i++) {
       solver.next()
     }
-    expect(solver.result).toBeAround(0.41, 0.05)
+    expect(solver.getResult()).toBeAround(0.41, 0.05)
   })
 
-  fit('solves Apprentice vs Ghost', () => {
+  // Slow
+  xit('solves Apprentice vs Ghost', () => {
     solver.init({ name: 'Apprentice', items: ['Shimmering Cloak'] },
                 { name: 'Ghost' })
     for (let i = 0; i < 20000; i++) {
       solver.next()
-      if (i % 100 == 0) console.log(solver.result)
     }
-    expect(solver.result).toBeAround(0.74, 0.05)
+    expect(solver.getResult()).toBeAround(0.74, 0.05)
   })
 
   it('solves complex problems', () => {
@@ -68,6 +69,6 @@ describe('solver', () => {
       traits: [],
     }, { name: 'Angry Bunny' })
     solver.next()
-    expect(solver.result).toBeBetween(0, 1)
+    expect(solver.getResult()).toBeBetween(0, 1)
   })
 })

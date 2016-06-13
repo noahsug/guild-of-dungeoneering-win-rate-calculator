@@ -1447,73 +1447,73 @@ export default {
     },
 
     // Battle scars
-    'Hard-headed Early': {
+    'Hard-headed': {
       health: 1,
       handSize: -1,
       for: 'player',
       type: 'battle scar',
     },
-    'Hard-headed Final': {
+    'Hard-headed Final Stage': {
       health: 2,
       handSize: -1,
       for: 'player',
       type: 'battle scar',
     },
-    'Punch Drunk Early': {
+    'Punch Drunk': {
       stupidity: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Punch Drunk Final': {
+    'Punch Drunk Final Stage': {
       stupidity: 1,
       punchDrunk: true,
       for: 'player',
       type: 'battle scar',
     },
-    'Hulking Early': {
+    'Hulking': {
       health: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Hulking Final': {
+    'Hulking Final Stage': {
       health: 1,
       stupidity: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Flesh Wound Early': {
+    'Flesh Wound': {
       health: -1,
       for: 'player',
       type: 'battle scar',
     },
-    'Flesh Wound Final': {
+    'Flesh Wound Final Stage': {
       health: -1,
       tenacious: true,
       for: 'player',
       type: 'battle scar',
     },
-    'Hubris Final': {
+    'Hubris Final Stage': {
       health: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Pyromaniac Early': {
+    'Pyromaniac': {
       fire: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Pyromaniac Final': {
+    'Pyromaniac Final Stage': {
       fire: 1,
       burn: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Paranoid Early': {
+    'Paranoid': {
       armour: 1,
       for: 'player',
       type: 'battle scar',
     },
-    'Paranoid Final': {
+    'Paranoid Final Stage': {
       armour: 1,
       stupidity: 1,
       for: 'player',

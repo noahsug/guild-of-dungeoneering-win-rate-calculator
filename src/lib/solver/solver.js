@@ -45,8 +45,9 @@ export default class Solver {
     return children[index]
   }
 
-  get result() {
-    return this.results_.getResult()
+  // Optionally specify selected state, enemy card played or player card played.
+  getResult(state, enemyCard, playerCard) {
+    return this.results_.getResult(state, enemyCard, playerCard)
   }
 
   play(state, playerCard, enemyCard) {

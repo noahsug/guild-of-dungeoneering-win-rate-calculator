@@ -1,20 +1,51 @@
 import { delay } from 'redux-saga'
-import { call, fork, take, cancel } from 'redux-saga/effects'
+import { call, fork, take, cancel, cancelled, select } from 'redux-saga/effects'
 import { putp } from '../actions/utils'
+import { getSolverInput } from '../selectors'
+import { solver } from '../lib'
 
-function getResult() {
-  return Math.random()
+//function getBreakdown(playerHand, enemyCard, playerCard) {
+//  const states = solver.getStates(playerHand, enemyCard, playerCard)
+//  return {
+//    playerHealth: solver,
+//    enemyHealth: solver.enemyHealth,
+//    states,
+//  }
+//}
+//
+//function* selectionHandler() {
+//  try {
+//    const selection = yield take('SELECTION')
+//  } finally {
+//    // pass
+//  }
+//}
+
+function* updateBreakdown() {
+  yield putp('BREAKDOWN', {
+    result: solver.result,
+    playerHealth: solver.playerHealth,
+    enemyHealth: solver.enemyHealth,
+    selectionType: solver.selectionType,
+    prevSelection: undefined,
+    nextSelections: solver.nextSelections,
+  })
+
 }
 
 function* solve() {
   try {
-    for (let i = 0; i < 1000; i++) {
-      const result = getResult()
-      yield putp('RESULT', result)
-      yield call(delay, 10)
+    const input = yield select(getSolverInput)
+    solver.init(input)
+    const resultGen = solver.start()
+    for (let i = 0; i < 100; i++) {
+      resultGen.next()
+      yield call(updateBreakdown)
+      yield call(delay, 5)
     }
-  } catch (e) {
-    yield putp('STOP')
+  } finally {
+    if (yield cancelled()) solver.stop()
+    else yield putp('STOP')
   }
 }
 
@@ -22,7 +53,9 @@ export default function* solverSaga() {
   while (true) {
     yield take('START')
     const solveTask = yield fork(solve)
+    //const selectionHandler = yield fork(selectionHandler)
     yield take('STOP')
+    //yield cancel(selectionHandler)
     yield cancel(solveTask)
   }
 }

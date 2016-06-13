@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "babel-node server.js",
-    "lint": "eslint src",
-    "lintfix": "eslint --fix src",
+    "lint": "eslint --ext .js --ext .jsx src",
+    "lintfix": "eslint --ext .js --ext .jsx --fix src",
     "test": "jest",
     "test-watch": "jest --watch"
   },
