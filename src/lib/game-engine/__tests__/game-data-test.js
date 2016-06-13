@@ -10,22 +10,22 @@ const checkEntitySets = (entity) => {
   })
 }
 
-const expectValidCharacters = (chars) => {
-  _.each(chars, (char) => {
-    expect(char.health).toBeDefined()
-    expect(char.sets).toBeDefined()
-    expect(char.sets).not.toBeEmpty()
-    checkEntitySets(char)
+const expectValidPlayers = (players) => {
+  _.each(players, (player) => {
+    expect(player.health).toBeDefined()
+    expect(player.sets).toBeDefined()
+    expect(player.sets).not.toBeEmpty()
+    checkEntitySets(player)
   })
 }
 
 describe('Game data', () => {
   it('has valid enemies', () => {
-    expectValidCharacters(gameData.enemies)
+    expectValidPlayers(gameData.enemies)
   })
 
-  it('has valid players', () => {
-    expectValidCharacters(gameData.players)
+  it('has valid heroes', () => {
+    expectValidPlayers(gameData.heroes)
   })
 
   it('has valid items', () => {

@@ -1,36 +1,36 @@
-import React from 'react';
-import SolveButton from './SolveButton';
-import SolverInput from '../containers/SolverInput';
+import React from 'react'
+import SolveButton from './SolveButton'
+import SolverInput from '../containers/SolverInput'
 
 const InputCard = () => (
   <div>
     <SolverInput
       label="Dungeoneer"
-      user="player"
+      player="hero"
       prop="name"
     />
     <SolverInput
       label="Items"
-      user="player"
+      player="hero"
       prop="items"
     />
     <SolverInput
       label="Trinket, Level, Battle Scars"
-      user="player"
+      player="hero"
       prop="traits"
     />
     <SolverInput
       label="Enemy"
-      user="enemy"
+      player="enemy"
       prop="name"
     />
     <SolverInput
       label="Enemy Traits"
-      user="enemy"
+      player="enemy"
       prop="traits"
     />
     <SolveButton />
   </div>
-);
+)
 
-export default InputCard;
+export default InputCard

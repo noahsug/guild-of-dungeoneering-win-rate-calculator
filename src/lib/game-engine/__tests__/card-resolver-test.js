@@ -9,18 +9,18 @@ import CardResolver from '../card-resolver'
 import Card from '../card'
 import gs from '../game-state'
 
-let player
+let hero
 let enemy
 let state
 const resolver = new CardResolver()
 
-function useState(health, playerValues = {}, enemyValues = {}) {
-  playerValues.health = health
+function useState(health, heroValues = {}, enemyValues = {}) {
+  heroValues.health = health
   enemyValues.health = health
-  state = gs.create(playerValues, enemyValues)
+  state = gs.create(heroValues, enemyValues)
   resolver.initState = state
   state = _.deepClone(state)
-  player = state.player
+  hero = state.hero
   enemy = state.enemy
 }
 
@@ -28,20 +28,20 @@ describe('card resolver resolves', () => {
   it('dmg', () => {
     useState(5)
     resolver.resolve(state, Card.create('P/P/P'), Card.create('P'))
-    expect(player.health).toBe(4)
+    expect(hero.health).toBe(4)
     expect(enemy.health).toBe(2)
     resolver.resolve(state, Card.create('M/M/P'), Card.create('P'))
-    expect(player.health).toBe(3)
+    expect(hero.health).toBe(3)
     expect(enemy.health <= 0).toBe(true)
   })
 
   it('blocking', () => {
     useState(5)
     resolver.resolve(state, Card.create('BP/BP/M/M'), Card.create('BM/P/P'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
     expect(enemy.health).toBe(4)
     resolver.resolve(state, Card.create('M/P/P/P'), Card.create('B/BM/BM/BP'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
     expect(enemy.health).toBe(3)
   })
 
@@ -49,14 +49,14 @@ describe('card resolver resolves', () => {
     useState(2)
     resolver.resolve(state, Card.create('Q/P/P/U'),
                      Card.create('-H/P/P/BP/BP'))
-    expect(player.health <= 0).toBe(false)
+    expect(hero.health <= 0).toBe(false)
     expect(enemy.health <= 0).toBe(true)
   })
 
   it('quick attacks against self dmg', () => {
     useState(2)
     resolver.resolve(state, Card.create('Q/P'), Card.create('-H/P/P'))
-    expect(player.health <= 0).toBe(true)
+    expect(hero.health <= 0).toBe(true)
     expect(enemy.health <= 0).toBe(true)
     expect(gs.result(state)).toBe(-1)
   })
@@ -64,47 +64,47 @@ describe('card resolver resolves', () => {
   it('unblockable attacks', () => {
     useState(5)
     resolver.resolve(state, Card.create('U/P'), Card.create('B'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
     expect(enemy.health).toBe(4)
   })
 
   it('heals', () => {
     useState(5)
     resolver.resolve(state, Card.create('P/HID'), Card.create('B'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
     expect(enemy.health).toBe(5)
     resolver.resolve(state, Card.create('P/HID'), Card.create('BM'))
-    expect(player.health).toBe(6)
+    expect(hero.health).toBe(6)
     expect(enemy.health).toBe(4)
     resolver.resolve(state, Card.create('H/H/H'), Card.create('BM/B/BP'))
-    expect(player.health).toBe(9)
+    expect(hero.health).toBe(9)
     expect(enemy.health).toBe(4)
     resolver.resolve(state, Card.create('HPD/P/M'), Card.create('BM'))
-    expect(player.health).toBe(10)
+    expect(hero.health).toBe(10)
     expect(enemy.health).toBe(3)
   })
 
   it('self damage', () => {
     useState(5)
     resolver.resolve(state, Card.create('-H'), Card.create('?'))
-    expect(player.health).toBe(4)
+    expect(hero.health).toBe(4)
     expect(enemy.health).toBe(5)
   })
 
   it('effects', () => {
     useState(10)
     resolver.resolve(state, Card.create('D/C/MN/PN'), Card.create('BP'))
-    const playerEffects = ['draw', 'physicalNext', 'magicNext', 'cycle']
-    playerEffects.forEach((e) => {
-      if (!player[`${e}Effect`]) console.error('Missing ', `${e}Effect`)
-      expect(player[`${e}Effect`]).toBe(1)
+    const heroEffects = ['draw', 'physicalNext', 'magicNext', 'cycle']
+    heroEffects.forEach((e) => {
+      if (!hero[`${e}Effect`]) console.error('Missing ', `${e}Effect`)
+      expect(hero[`${e}Effect`]).toBe(1)
     })
   })
 
   it('duplicate effects', () => {
     useState(10)
     resolver.resolve(state, Card.create('D/D/D'), Card.create('BP'))
-    expect(player.drawEffect).toBe(3)
+    expect(hero.drawEffect).toBe(3)
   })
 
   it('if damage effects', () => {
@@ -124,33 +124,33 @@ describe('card resolver resolves', () => {
     const card = Card.create('B/B/HPB')
 
     resolver.resolve(state, card, Card.create('B'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
 
     resolver.resolve(state, card, Card.create('P'))
-    expect(player.health).toBe(6)
+    expect(hero.health).toBe(6)
 
     resolver.resolve(state, card, Card.create('P/P'))
-    expect(player.health).toBe(8)
+    expect(hero.health).toBe(8)
   })
 
   it('block all cards', () => {
     useState(5)
 
     resolver.resolve(state, Card.create('BPA'), Card.create('P/P/P/P'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
 
     resolver.resolve(state, Card.create('BMA'), Card.create('M/M/M/M'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
 
     resolver.resolve(state, Card.create('BA'), Card.create('P/P/M/M'))
-    expect(player.health).toBe(5)
+    expect(hero.health).toBe(5)
   })
 
   it('health = 6', () => {
     useState(1)
 
     resolver.resolve(state, Card.create('H6/Q'), Card.create('P/P/P/P'))
-    expect(player.health).toBe(2)
+    expect(hero.health).toBe(2)
   })
 
   it('bonus physical dmg vs unblockable', () => {
@@ -229,7 +229,7 @@ describe('card resolver resolves', () => {
     useState(4, {}, { fury: 1 })
     // Quick doesn't trigger fury on the same turn.
     resolver.resolve(state, Card.create('P/P/P/Q'), Card.create('P'))
-    expect(player.health).toBe(3)
+    expect(hero.health).toBe(3)
   })
 
   it('brittle', () => {
@@ -277,11 +277,11 @@ describe('card resolver resolves', () => {
   it('retribution', () => {
     useState(10, {}, { retribution: 1 })
     resolver.resolve(state, Card.create('M/M/M'), Card.create('H/H/H'))
-    expect(player.health).toBe(9)
+    expect(hero.health).toBe(9)
     resolver.resolve(state, Card.create('M/M/M/BM'), Card.create('H/H/H'))
-    expect(player.health).toBe(9)
+    expect(hero.health).toBe(9)
     resolver.resolve(state, Card.create('?'), Card.create('-H/-H/-H'))
-    expect(player.health).toBe(8)
+    expect(hero.health).toBe(8)
   })
 
   it('decay', () => {
@@ -305,14 +305,14 @@ describe('card resolver resolves', () => {
   it('spikey', () => {
     useState(10, {}, { spikey: 1 })
     resolver.resolve(state, Card.create('P/P'), Card.create('BP/B'))
-    expect(player.health).toBe(9)
+    expect(hero.health).toBe(9)
     resolver.resolve(state, Card.create('P/P'), Card.create('BM/B'))
-    expect(player.health).toBe(9)
+    expect(hero.health).toBe(9)
     resolver.resolve(state, Card.create('P/PRID'), Card.create('?'))
-    expect(player.health).toBe(9)
+    expect(hero.health).toBe(9)
     // Spikey doesn't check burn dmg.
     resolver.resolve(state, Card.create('M/M'), Card.create('BM/BM'))
-    expect(player.health).toBe(8)
+    expect(hero.health).toBe(8)
   })
 
   it('rum', () => {
@@ -339,7 +339,7 @@ describe('card resolver resolves', () => {
     useState(5, {}, { burn: 1 })
     resolver.resolve(state, Card.create('B'), Card.create('BA'))
     expect(enemy.health).toBe(4)
-    expect(player.health).toBe(4)
+    expect(hero.health).toBe(4)
   })
 
   it('respite', () => {
@@ -353,32 +353,32 @@ describe('card resolver resolves', () => {
   it('blessing', () => {
     useState(5, { blessing: 1 })
     resolver.resolve(state, Card.create('H'), Card.create('BP'))
-    expect(player.health).toBe(7)
+    expect(hero.health).toBe(7)
   })
 
   it('withstand', () => {
     useState(2)
     resolver.resolve(state, Card.create('W'), Card.create('P/P/P'))
-    expect(player.health).toBe(1)
+    expect(hero.health).toBe(1)
     resolver.resolve(state, Card.create('?'), Card.create('P/P/P'))
-    expect(player.health).toBe(1)
+    expect(hero.health).toBe(1)
     resolver.resolve(state, Card.create('?'), Card.create('P/P/P'))
-    expect(player.health).toBe(-2)
+    expect(hero.health).toBe(-2)
   })
 
   it('rules lawyer', () => {
     useState(5, { rulesLawyer: 1 })
     resolver.resolve(state, Card.create('P'), Card.create('P'))
-    expect(player.drawEffect).toBe(0)
+    expect(hero.drawEffect).toBe(0)
     resolver.resolve(state, Card.create('P'), Card.create('P/P'))
-    expect(player.drawEffect).toBe(1)
+    expect(hero.drawEffect).toBe(1)
   })
 
   it('card storm', () => {
     useState(5, { hand: [1, 2, 3, 4, 5] })
     resolver.resolve(state, Card.create('Cs'), Card.create('P'))
     expect(enemy.health).toBe(1)
-    expect(player.discardEffect).toBe(4)
+    expect(hero.discardEffect).toBe(4)
   })
 
   it('spellsword', () => {

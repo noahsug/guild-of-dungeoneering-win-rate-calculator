@@ -4,9 +4,9 @@ export default class Hasher {
   constructor() {
     this.hashes_ = {}
     const numCards = gameData.cards.length
-    this.hashes_.playerDeck = this.getHashes_(numCards)
-    this.hashes_.playerHand = this.getHashes_(numCards)
-    this.hashes_.playerDiscard = this.getHashes_(numCards)
+    this.hashes_.heroDeck = this.getHashes_(numCards)
+    this.hashes_.heroHand = this.getHashes_(numCards)
+    this.hashes_.heroDiscard = this.getHashes_(numCards)
     this.hashes_.playedCard = this.getHashes_(1)[0]
     this.hashes_.enemyCard = this.getHashes_(1)[0]
     this.hashes_.enemyDraws = this.getHashes_(numCards)
@@ -22,9 +22,9 @@ export default class Hasher {
   }
 
   hash(state, depth) {
-    return this.hashCards_(state.player.deck, this.hashes_.playerDeck) +
-        this.hashCards_(state.player.hand, this.hashes_.playerHand) +
-        this.hashCards_(state.player.discard, this.hashes_.playerDiscard) +
+    return this.hashCards_(state.hero.deck, this.hashes_.heroDeck) +
+        this.hashCards_(state.hero.hand, this.hashes_.heroHand) +
+        this.hashCards_(state.hero.discard, this.hashes_.heroDiscard) +
         this.hashStats_(state) +
         this.hashEnemyCards_(depth)
   }
@@ -48,13 +48,13 @@ export default class Hasher {
 
   hashStats_(state) {
     // TODO: Implement conceal and predictable.
-    return state.player.health * this.hashes_.stats[0] +
+    return state.hero.health * this.hashes_.stats[0] +
         state.enemy.health * this.hashes_.stats[1] +
-        state.player.magicNextEffect * this.hashes_.stats[2] +
-        state.player.physicalNextEffect * this.hashes_.stats[3] +
-        state.player.magicRoundEffect * this.hashes_.stats[4] +
-        state.player.physicalRoundEffect * this.hashes_.stats[5] +
-        state.player.withstandEffect * this.hashes_.stats[11] +
+        state.hero.magicNextEffect * this.hashes_.stats[2] +
+        state.hero.physicalNextEffect * this.hashes_.stats[3] +
+        state.hero.magicRoundEffect * this.hashes_.stats[4] +
+        state.hero.physicalRoundEffect * this.hashes_.stats[5] +
+        state.hero.withstandEffect * this.hashes_.stats[11] +
         state.enemy.magicNextEffect * this.hashes_.stats[6] +
         state.enemy.physicalNextEffect * this.hashes_.stats[7] +
         state.enemy.magicRoundEffect * this.hashes_.stats[8] +

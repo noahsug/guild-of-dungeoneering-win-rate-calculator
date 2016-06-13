@@ -5,9 +5,9 @@ import Results from './results'
 import CardOrder from './card-order'
 
 export default class Solver {
-  init(player, enemy) {
-    this.state = gsFactory.create(player, enemy)
-    this.state.depth = 0
+  init(hero, enemy) {
+    this.state = gsFactory.create(hero, enemy)
+    this.state.depth = -1
     this.state.iterations = 0
 
     this.order_ = new CardOrder()
@@ -22,7 +22,7 @@ export default class Solver {
     this.search_.initState = this.state
 
     this.state.children = this.mover_.getStartingStates(this.state)
-    this.state.children.forEach(c => { c.depth = 1 })
+    this.state.children.forEach(c => { c.depth = 0 })
 
     this.results_ = new Results()
     this.results_.bestMovePruning = this.search_.bestMovePruning
@@ -45,17 +45,17 @@ export default class Solver {
     return children[index]
   }
 
-  // Optionally specify selected state, enemy card played or player card played.
-  getResult(state, enemyCard, playerCard) {
-    return this.results_.getResult(state, enemyCard, playerCard)
+  // Optionally specify selected state, enemy card played or hero card played.
+  getResult(state, enemyCard, heroCard) {
+    return this.results_.getResult(state, enemyCard, heroCard)
   }
 
-  play(state, playerCard, enemyCard) {
+  play(state, heroCard, enemyCard) {
     const resolvedState = gs.clone(state)
-    const result = this.resolver_.resolve(resolvedState, playerCard, enemyCard)
+    const result = this.resolver_.resolve(resolvedState, heroCard, enemyCard)
     if (result) return
     this.order_.enemyPlayed(enemyCard)
-    state.children = this.mover_.getNextStates(resolvedState, playerCard)
+    state.children = this.mover_.getNextStates(resolvedState, heroCard)
     state.children.forEach(c => { c.depth = state.depth })
     this.results_.states = state.children
     this.state = state

@@ -1,4 +1,3 @@
-import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { updateInput } from '../actions'
 import Input from '../components/Input'
@@ -33,33 +32,41 @@ const filterItems = (items, selected) => {
   })
 }
 
-const getSource = (state, user, prop) => {
-  const key = user === 'player' ? 'players' : 'enemies'
+const getNameSource = (state, player) => {
+  const key = player === 'hero' ? 'heroes' : 'enemies'
+  return Object.keys(gameData[key])
+}
 
-  switch (prop) {
-    case 'name':
-      return Object.keys(gameData[key])
+const getItemSource = (state, player) => {
+  const items = Object.keys(gameData.items)
+  return filterItems(items, state.input[player].items)
+}
 
-    case 'items':
-      const items = Object.keys(gameData.items)
-      return filterItems(items, state.input[user].items);
-
-    case 'traits':
-      const traits = [];
-      _.each(gameData.traits, (trait, name) => {
-        if (trait.for == user) traits.push(name);
-      });
-      const name = state.input[user].name;
-      if (gameData[key][name]) {
-        traits.push(...gameData[key][name].situationalTraits || [])
-      }
-      return filterTraits(traits, state.input[user].traits);
+const getTraitSource = (state, player) => {
+  const key = player === 'hero' ? 'heroes' : 'enemies'
+  const traits = []
+  _.each(gameData.traits, (trait, name) => {
+    if (trait.for === player) traits.push(name)
+  })
+  const name = state.input[player].name
+  if (gameData[key][name]) {
+    traits.push(...gameData[key][name].situationalTraits || [])
   }
+  return filterTraits(traits, state.input[player].traits)
+}
+
+const getSource = (state, player, prop) => {
+  switch (prop) {
+    case 'name': return getNameSource(state, player)
+    case 'items': return getItemSource(state, player)
+    case 'traits': return getTraitSource(state, player)
+  }
+  return _.fail('invalid input name:', prop)
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const value = state.input[ownProps.user][ownProps.prop]
-  const source = getSource(state, ownProps.user, ownProps.prop)
+  const value = state.input[ownProps.player][ownProps.prop]
+  const source = getSource(state, ownProps.player, ownProps.prop)
   const multiple = ['traits', 'items'].includes(ownProps.prop)
   return {
     value,
@@ -71,15 +78,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onChange: (value) => (
-    dispatch(updateInput(ownProps.user, ownProps.prop, value))
-  )
+    dispatch(updateInput(ownProps.player, ownProps.prop, value))
+  ),
 })
 
 const SolverInput = connect(mapStateToProps, mapDispatchToProps)(Input)
 
 SolverInput.propTypes = {
   label: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
+  player: PropTypes.string.isRequired,
   prop: PropTypes.string.isRequired,
 }
 

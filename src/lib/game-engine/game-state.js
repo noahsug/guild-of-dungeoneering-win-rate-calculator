@@ -3,15 +3,15 @@ import _ from '../../utils'
 class GameState {
   STARTING_HAND_SIZE = 3
 
-  create(player = {}, enemy = {}) {
+  create(hero = {}, enemy = {}) {
     return {
-      player: this.createCharacterState(player),
-      enemy: this.createCharacterState(enemy),
+      hero: this.createPlayerState(hero),
+      enemy: this.createPlayerState(enemy),
     }
   }
 
-  createCharacterState(char = {}) {
-    return _.defaults(char, {
+  createPlayerState(player = {}) {
+    return _.defaults(player, {
       health: 5,
       deck: [],
       hand: [],
@@ -57,17 +57,17 @@ class GameState {
 
   clone(state) {
     return {
-      player: {
-        health: state.player.health,
-        deck: state.player.deck.slice(),
-        hand: state.player.hand.slice(),
-        discard: state.player.discard.slice(),
+      hero: {
+        health: state.hero.health,
+        deck: state.hero.deck.slice(),
+        hand: state.hero.hand.slice(),
+        discard: state.hero.discard.slice(),
 
-        magicNextEffect: state.player.magicNextEffect,
-        physicalNextEffect: state.player.physicalNextEffect,
-        magicRoundEffect: state.player.magicRoundEffect,
-        physicalRoundEffect: state.player.physicalRoundEffect,
-        withstandEffect: state.player.withstandEffect,
+        magicNextEffect: state.hero.magicNextEffect,
+        physicalNextEffect: state.hero.physicalNextEffect,
+        magicRoundEffect: state.hero.magicRoundEffect,
+        physicalRoundEffect: state.hero.physicalRoundEffect,
+        withstandEffect: state.hero.withstandEffect,
 
         stealEffect: 0,
         discardEffect: 0,
@@ -81,7 +81,7 @@ class GameState {
         physicalNextEffect: state.enemy.physicalNextEffect,
         magicRoundEffect: state.enemy.magicRoundEffect,
         physicalRoundEffect: state.enemy.physicalRoundEffect,
-        withstandEffect: state.player.withstandEffect,
+        withstandEffect: state.hero.withstandEffect,
         rum: state.enemy.rum,
 
         stealEffect: 0,
@@ -94,22 +94,22 @@ class GameState {
   // Same as clone, but copies draw / discard / etc effects.
   incrementalClone(state) {
     return {
-      player: {
-        health: state.player.health,
-        deck: state.player.deck.slice(),
-        hand: state.player.hand.slice(),
-        discard: state.player.discard.slice(),
+      hero: {
+        health: state.hero.health,
+        deck: state.hero.deck.slice(),
+        hand: state.hero.hand.slice(),
+        discard: state.hero.discard.slice(),
 
-        magicNextEffect: state.player.magicNextEffect,
-        physicalNextEffect: state.player.physicalNextEffect,
-        magicRoundEffect: state.player.magicRoundEffect,
-        physicalRoundEffect: state.player.physicalRoundEffect,
-        withstandEffect: state.player.withstandEffect,
+        magicNextEffect: state.hero.magicNextEffect,
+        physicalNextEffect: state.hero.physicalNextEffect,
+        magicRoundEffect: state.hero.magicRoundEffect,
+        physicalRoundEffect: state.hero.physicalRoundEffect,
+        withstandEffect: state.hero.withstandEffect,
 
-        stealEffect: state.player.stealEffect,
-        discardEffect: state.player.discardEffect,
-        drawEffect: state.player.drawEffect,
-        cycleEffect: state.player.cycleEffect,
+        stealEffect: state.hero.stealEffect,
+        discardEffect: state.hero.discardEffect,
+        drawEffect: state.hero.drawEffect,
+        cycleEffect: state.hero.cycleEffect,
       },
       enemy: {
         health: state.enemy.health,
@@ -118,7 +118,7 @@ class GameState {
         physicalNextEffect: state.enemy.physicalNextEffect,
         magicRoundEffect: state.enemy.magicRoundEffect,
         physicalRoundEffect: state.enemy.physicalRoundEffect,
-        withstandEffect: state.player.withstandEffect,
+        withstandEffect: state.hero.withstandEffect,
         rum: state.enemy.rum,
 
         stealEffect: 0,
@@ -131,14 +131,14 @@ class GameState {
   // Same as clone but w/o copying deck, hand, discard info.
   cloneStats(state) {
     return {
-      player: {
-        health: state.player.health,
+      hero: {
+        health: state.hero.health,
 
-        magicNextEffect: state.player.magicNextEffect,
-        physicalNextEffect: state.player.physicalNextEffect,
-        magicRoundEffect: state.player.magicRoundEffect,
-        physicalRoundEffect: state.player.physicalRoundEffect,
-        withstandEffect: state.player.withstandEffect,
+        magicNextEffect: state.hero.magicNextEffect,
+        physicalNextEffect: state.hero.physicalNextEffect,
+        magicRoundEffect: state.hero.magicRoundEffect,
+        physicalRoundEffect: state.hero.physicalRoundEffect,
+        withstandEffect: state.hero.withstandEffect,
       },
       enemy: {
         health: state.enemy.health,
@@ -147,60 +147,60 @@ class GameState {
         physicalNextEffect: state.enemy.physicalNextEffect,
         magicRoundEffect: state.enemy.magicRoundEffect,
         physicalRoundEffect: state.enemy.physicalRoundEffect,
-        withstandEffect: state.player.withstandEffect,
+        withstandEffect: state.hero.withstandEffect,
         rum: state.enemy.rum,
       },
     }
   }
 
   result(state) {
-    return (state.player.health <= 0) * -1 || (state.enemy.health <= 0) * 1
+    return (state.hero.health <= 0) * -1 || (state.enemy.health <= 0) * 1
   }
 
-  cards(player) {
-    return player.hand.concat(player.deck).concat(player.discard)
+  cards(hero) {
+    return hero.hand.concat(hero.deck).concat(hero.discard)
   }
 
-  drawIndex(player, index) {
-    player.hand.push(player.deck[index])
-    return player.deck.splice(index, 1)[0]
+  drawIndex(hero, index) {
+    hero.hand.push(hero.deck[index])
+    return hero.deck.splice(index, 1)[0]
   }
 
-  discardIndex(player, index) {
-    player.discard.push(player.hand.splice(index, 1)[0])
+  discardIndex(hero, index) {
+    hero.discard.push(hero.hand.splice(index, 1)[0])
   }
 
-  prepDraw(player) {
-    if (player.deck.length === 0) {
-      const temp = player.deck
-      player.deck = player.discard
-      player.discard = temp
+  prepDraw(hero) {
+    if (hero.deck.length === 0) {
+      const temp = hero.deck
+      hero.deck = hero.discard
+      hero.discard = temp
     }
   }
 
-  drawOne(player, indexValue) {
-    if (!player.deck.length) {
-      player.deck = player.discard
-      player.discard = []
+  drawOne(hero, indexValue) {
+    if (!hero.deck.length) {
+      hero.deck = hero.discard
+      hero.discard = []
     }
-    const index = player.deck.length * indexValue | 0
-    player.hand.push(player.deck.splice(index, 1)[0])
+    const index = hero.deck.length * indexValue | 0
+    hero.hand.push(hero.deck.splice(index, 1)[0])
   }
 
-  draw(player, indexValue, count) {
-    if (!player.deck.length) {
-      if (!player.discard.length) return
-      player.deck = player.discard
-      player.discard = []
+  draw(hero, indexValue, count) {
+    if (!hero.deck.length) {
+      if (!hero.discard.length) return
+      hero.deck = hero.discard
+      hero.discard = []
     }
-    if (this.moveCards_(player.deck, player.hand, indexValue, count)) {
-      player.deck = []
+    if (this.moveCards_(hero.deck, hero.hand, indexValue, count)) {
+      hero.deck = []
     }
   }
 
-  discard(player, indexValue, count) {
-    if (this.moveCards_(player.hand, player.discard, indexValue, count)) {
-      player.hand = []
+  discard(hero, indexValue, count) {
+    if (this.moveCards_(hero.hand, hero.discard, indexValue, count)) {
+      hero.hand = []
     }
   }
 

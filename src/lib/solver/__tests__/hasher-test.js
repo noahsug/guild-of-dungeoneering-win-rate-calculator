@@ -8,8 +8,8 @@ import Hasher from '../hasher'
 
 let hasher
 
-function createState(player = {}, enemy = {}) {
-  player = _.defaults(player, {
+function createState(hero = {}, enemy = {}) {
+  hero = _.defaults(hero, {
     deck: [1, 2, 3],
     hand: [2, 3],
     discard: [3, 4, 4],
@@ -21,7 +21,7 @@ function createState(player = {}, enemy = {}) {
     discard: [52, 9, 2],
     health: 3,
   })
-  return gs.create(player, enemy)
+  return gs.create(hero, enemy)
 }
 
 describe('hasher', () => {

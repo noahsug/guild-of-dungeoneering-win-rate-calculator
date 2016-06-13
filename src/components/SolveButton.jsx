@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { startSolving, stopSolving } from '../actions';
-import Button from 'react-toolbox/lib/button';
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { startSolving, stopSolving } from '../actions'
+import Button from 'react-toolbox/lib/button'
 
 const mapStateToProps = (state) => ({
   solving: state.solver.solving,
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
   start: () => dispatch(startSolving()),
   stop: () => dispatch(stopSolving()),
-});
+})
 
 const SolveButton = ({ solving, start, stop }) => (
   <Button
@@ -19,12 +19,12 @@ const SolveButton = ({ solving, start, stop }) => (
     raised
     onClick={solving ? stop : start}
   />
-);
+)
 
 SolveButton.propTypes = {
   solving: PropTypes.bool.isRequired,
   start: PropTypes.func.isRequired,
   stop: PropTypes.func.isRequired,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SolveButton);
+export default connect(mapStateToProps, mapDispatchToProps)(SolveButton)

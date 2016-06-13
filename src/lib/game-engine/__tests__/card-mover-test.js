@@ -12,15 +12,15 @@ function cardsAreEqual(actual, expected) {
 }
 
 function hasHand(state, cards) {
-  return cardsAreEqual(state.player.hand, cards)
+  return cardsAreEqual(state.hero.hand, cards)
 }
 
 function hasDeck(state, cards) {
-  return cardsAreEqual(state.player.deck, cards)
+  return cardsAreEqual(state.hero.deck, cards)
 }
 
 function hasDiscard(state, cards) {
-  return cardsAreEqual(state.player.discard, cards)
+  return cardsAreEqual(state.hero.discard, cards)
 }
 
 function hasCards(state, deck, hand, discard) {
@@ -57,7 +57,7 @@ describe('card mover', () => {
   })
 
   it('moves the card played into the discard', () => {
-    const state = { player: {
+    const state = { hero: {
       deck: [1],
       hand: [2],
       discard: [],
@@ -67,7 +67,7 @@ describe('card mover', () => {
   })
 
   it('does nothing when hand is full and no discard effect', () => {
-    const state = { player: {
+    const state = { hero: {
       deck: [],
       hand: [1, 2, 3, 4],
       discard: [],
@@ -77,7 +77,7 @@ describe('card mover', () => {
   })
 
   it('cycles cards', () => {
-    const state = { player: {
+    const state = { hero: {
       deck: [1, 2],
       hand: [3, 4],
       discard: [],
@@ -89,7 +89,7 @@ describe('card mover', () => {
   })
 
   it('draws cards', () => {
-    const state = { player: {
+    const state = { hero: {
       deck: [1, 2],
       hand: [3, 4],
       discard: [],
@@ -101,7 +101,7 @@ describe('card mover', () => {
   })
 
   it('discards cards', () => {
-    const state = { player: {
+    const state = { hero: {
       deck: [1, 2],
       hand: [3, 4],
       discard: [],

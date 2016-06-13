@@ -3,9 +3,9 @@ export default (state, action) => {
     return {
       solving: false,
       result: undefined,
-      playerHealth: 0,
+      heroHealth: 0,
       enemyHealth: 0,
-      selectionType: 'PLAYER_HAND',
+      selectionType: 'HERO_HAND',
       prevSelection: undefined,
       nextSelections: [],
     }
@@ -29,7 +29,7 @@ export default (state, action) => {
       return {
         ...state,
         result: action.result,
-        playerHealth: action.playerHealth,
+        heroHealth: action.heroHealth,
         enemyHealth: action.enemyHealth,
         selectionType: action.selectionType,
         prevSelection: action.prevSelection,

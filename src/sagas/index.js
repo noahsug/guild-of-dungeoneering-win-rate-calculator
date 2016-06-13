@@ -4,33 +4,32 @@ import { putp } from '../actions/utils'
 import { getSolverInput } from '../selectors'
 import { solver } from '../lib'
 
-//function getBreakdown(playerHand, enemyCard, playerCard) {
-//  const states = solver.getStates(playerHand, enemyCard, playerCard)
+// function getBreakdown(heroHand, enemyCard, heroCard) {
+//  const states = solver.getStates(heroHand, enemyCard, heroCard)
 //  return {
-//    playerHealth: solver,
+//    heroHealth: solver,
 //    enemyHealth: solver.enemyHealth,
 //    states,
 //  }
-//}
+// }
 //
-//function* selectionHandler() {
+// function* selectionHandler() {
 //  try {
 //    const selection = yield take('SELECTION')
 //  } finally {
 //    // pass
 //  }
-//}
+// }
 
 function* updateBreakdown() {
   yield putp('BREAKDOWN', {
     result: solver.result,
-    playerHealth: solver.playerHealth,
+    heroHealth: solver.heroHealth,
     enemyHealth: solver.enemyHealth,
     selectionType: solver.selectionType,
     prevSelection: undefined,
     nextSelections: solver.nextSelections,
   })
-
 }
 
 function* solve() {
@@ -53,9 +52,9 @@ export default function* solverSaga() {
   while (true) {
     yield take('START')
     const solveTask = yield fork(solve)
-    //const selectionHandler = yield fork(selectionHandler)
+    // const selectionHandler = yield fork(selectionHandler)
     yield take('STOP')
-    //yield cancel(selectionHandler)
+    // yield cancel(selectionHandler)
     yield cancel(solveTask)
   }
 }

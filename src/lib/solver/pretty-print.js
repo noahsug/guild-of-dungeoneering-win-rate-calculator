@@ -3,7 +3,7 @@ import _ from '../../utils'
 
 class PrettyPrint {
   card(card) {
-    return gameData.cards[card].desc
+    return (gameData.cards[card] || {}).desc
   }
 
   cards(cards) {
@@ -11,7 +11,7 @@ class PrettyPrint {
   }
 
   depth(depth) {
-    return new Array(depth).fill(' ').join('')
+    return `${new Array(depth).fill('  ').join('')}${depth})`
   }
 
   percent(x) {

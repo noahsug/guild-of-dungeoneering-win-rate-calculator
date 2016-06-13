@@ -3,7 +3,7 @@ import _ from '../utils'
 export default (state, action) => {
   if (state === undefined) {
     return {
-      player: {
+      hero: {
         name: 'Chump',
         items: ['Scroll Of Souls', 'Fez', 'Ocean Staff', 'Bark Vest'],
         traits: ['Crones Discipline'],
@@ -18,7 +18,7 @@ export default (state, action) => {
   switch (action.type) {
     case 'INPUT_CHANGED':
       state = _.deepClone(state)
-      state[action.user][action.prop] = action.value
+      state[action.player][action.prop] = action.value
       return state
 
     default:

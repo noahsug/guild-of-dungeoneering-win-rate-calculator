@@ -38,7 +38,7 @@ describe('results', () => {
     expect(results.getResult(states[0], 2)).toBeNaN()
   })
 
-  it('gets player card results', () => {
+  it('gets hero card results', () => {
     results.recordResult(states[0], 0, 1)
     results.recordResult(states[0], 0, 0)
     results.recordResult(states[0], 0, 2)

@@ -38,7 +38,7 @@ export default {
   },
 
   sets: {
-    // Player sets
+    // Hero sets
     'Chump': ['P', 'P', 'P', 'P/P', 'B', 'B'],
     'Cat Burglar': ['PN', 'PN', 'P/U', 'P/Q', 'P/P', 'P/P'],
     'Bruiser': ['P', 'P', 'BP/BP', 'P/BP', 'P/U', 'BM/BM'],
@@ -192,7 +192,7 @@ export default {
     'Holy 4': ['B/HPB', 'M/M/BM', 'B/B/HPB', 'M/M/M/BMA'],
   },
 
-  players: {
+  heroes: {
     // Tier 1
     'Chump': {
       sets: ['Chump'],
@@ -1360,37 +1360,37 @@ export default {
   traits: {
     'Warriors Might': {
       physicalNextEffect: 1,
-      for: 'player',
+      for: 'hero',
       type: 'trinket',
     },
     'Phlogis Tonic': {
       health: 1,
-      for: 'player',
+      for: 'hero',
       type: 'trinket',
     },
     'Crones Discipline': {
       handSize: 1,
-      for: 'player',
+      for: 'hero',
       type: 'trinket',
     },
     'Level 2': {
       health: 1,
-      for: 'player',
+      for: 'hero',
       type: 'level',
     },
     'Level 3': {
       health: 2,
-      for: 'player',
+      for: 'hero',
       type: 'level',
     },
     'Level 4': {
       health: 3,
-      for: 'player',
+      for: 'hero',
       type: 'level',
     },
     'Level 5': {
       health: 4,
-      for: 'player',
+      for: 'hero',
       type: 'level',
     },
     'Deathwish': {
@@ -1450,103 +1450,103 @@ export default {
     'Hard-headed': {
       health: 1,
       handSize: -1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Hard-headed Final Stage': {
       health: 2,
       handSize: -1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Punch Drunk': {
       stupidity: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Punch Drunk Final Stage': {
       stupidity: 1,
       punchDrunk: true,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Hulking': {
       health: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Hulking Final Stage': {
       health: 1,
       stupidity: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Flesh Wound': {
       health: -1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Flesh Wound Final Stage': {
       health: -1,
       tenacious: true,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Hubris Final Stage': {
       health: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Pyromaniac': {
       fire: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Pyromaniac Final Stage': {
       fire: 1,
       burn: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Paranoid': {
       armour: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Paranoid Final Stage': {
       armour: 1,
       stupidity: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Veteran': {
       blade: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Scarred': {
       crush: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Zealot': {
       holy: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Mystical': {
       arcane: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Naturist': {
       growth: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
     'Agile': {
       swift: 1,
-      for: 'player',
+      for: 'hero',
       type: 'battle scar',
     },
   },

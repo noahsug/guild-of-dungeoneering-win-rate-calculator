@@ -1,4 +1,3 @@
-import _ from '../utils'
 import { Solver } from './solver'
 
 class SolverApi {
@@ -11,10 +10,10 @@ class SolverApi {
   }
 
   init(input) {
-    this.solver_.init(input.player, input.enemy)
+    this.solver_.init(input.hero, input.enemy)
   }
 
-  * start () {
+  * start() {
     this.running_ = true
     this.iterateResult_(10)
     yield this.result
@@ -39,30 +38,30 @@ class SolverApi {
   }
 
   get selectionType() {
-    return 'PLAYER_HAND'
+    return 'HERO_HAND'
   }
 
   get result() {
     return this.solver_.getResult()
   }
 
-  get playerHealth() {
-    return this.solver_.state.children[0].player.health
+  get heroHealth() {
+    return this.solver_.state.children[0].hero.health
   }
 
   get enemyHealth() {
-    return this.solver_.state.children[0].player.health
+    return this.solver_.state.children[0].hero.health
   }
 
   get enemyCardPlayed() {
     return undefined
   }
 
-  get playerCardPlayed() {
+  get heroCardPlayed() {
     return undefined
   }
 
-  get playerHand() {
+  get heroHand() {
     return undefined
   }
 
@@ -77,5 +76,5 @@ class SolverApi {
 }
 
 export default {
-  solver: new SolverApi()
+  solver: new SolverApi(),
 }

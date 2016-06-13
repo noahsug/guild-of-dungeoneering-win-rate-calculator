@@ -4,8 +4,8 @@ export default class Results {
   constructor() {
     this.results_ = new Map()
 
-    // If a player move wins this many times, it's selected as the best and
-    // other possible player moves are pruned.
+    // If a hero move wins this many times, it's selected as the best and
+    // other possible hero moves are pruned.
     this.bestMovePruning_ = Infinity
   }
 
@@ -23,7 +23,7 @@ export default class Results {
     const stateResults = this.updateStateResult(state, result)
     const enemyCardResults = this.updateEnemyCardResult(
         stateResults.enemyCards, enemyCard)
-    this.updatePlayerCardResult(
+    this.updateHeroCardResult(
         enemyCardResults.winningMoves, winningMove, result)
   }
 
@@ -54,24 +54,24 @@ export default class Results {
     return enemyCardStats
   }
 
-  updatePlayerCardResult(winningMoves, playerCard, result) {
-    if (!winningMoves[playerCard]) {
-      winningMoves[playerCard] = 0
+  updateHeroCardResult(winningMoves, heroCard, result) {
+    if (!winningMoves[heroCard]) {
+      winningMoves[heroCard] = 0
     }
-    winningMoves[playerCard] += result
+    winningMoves[heroCard] += result
   }
 
-  getResult(state, enemyCard, playerCard) {
+  getResult(state, enemyCard, heroCard) {
     if (state === undefined) {
       return this.getOverallResult_()
     }
     if (enemyCard === undefined) {
       return this.getStateResult_(state)
     }
-    if (playerCard === undefined) {
+    if (heroCard === undefined) {
       return this.getEnemyCardResult_(state, enemyCard)
     }
-    return this.getPlayerCardResult_(state, enemyCard, playerCard)
+    return this.getHeroCardResult_(state, enemyCard, heroCard)
   }
 
   getOverallResult_() {
@@ -103,13 +103,13 @@ export default class Results {
     return wins / enemyCardResults.count
   }
 
-  getPlayerCardResult_(state, enemyCard, playerCard) {
+  getHeroCardResult_(state, enemyCard, heroCard) {
     let wins = 0
     const stateResults = this.results_.get(state)
     if (!stateResults) return NaN
     const enemyCardResults = stateResults.enemyCards[enemyCard]
     if (!enemyCardResults) return NaN
-    const selectedCardWins = enemyCardResults.winningMoves[playerCard]
+    const selectedCardWins = enemyCardResults.winningMoves[heroCard]
     if (!selectedCardWins) return 0
 
     let bestWins = 0

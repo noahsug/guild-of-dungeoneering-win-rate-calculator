@@ -26,19 +26,18 @@ describe('solver', () => {
     const deck = getCards([cards[0], cards[1], cards[5]])
     let match = false
     solver.state.children.forEach((state) => {
-      if (_.isSortedEqual(state.player.deck, deck) &&
-          _.isSortedEqual(state.player.hand, hand) &&
-          _.isEqual(state.player.discard, [])) {
+      if (_.isSortedEqual(state.hero.deck, deck) &&
+          _.isSortedEqual(state.hero.hand, hand) &&
+          _.isEqual(state.hero.discard, [])) {
         match = true
       }
     })
     expect(match).toBe(true)
   })
 
-  it('can solve a starting hand', () => {
+  fit('can solve a starting hand', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
     expect(solver.getResult()).toBeFalsy()
-    solver.next()
     expect(solver.getResult()).toBe(1)
   })
 

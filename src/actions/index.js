@@ -11,9 +11,9 @@ export const updateBreakdown = (data = {}) => {
   return data
 }
 
-export const updateInput = (user, prop, value) => ({
+export const updateInput = (player, prop, value) => ({
   type: 'INPUT_CHANGED',
-  user,
+  player,
   prop,
   value,
 })

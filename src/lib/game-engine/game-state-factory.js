@@ -4,18 +4,18 @@ import gameData from './game-data'
 import _ from '../../utils'
 
 class GameStateFactory {
-  create(playerDesc, enemyDesc) {
-    const player = this.createInitialState_(playerDesc, gameData.players)
+  create(heroDesc, enemyDesc) {
+    const hero = this.createInitialState_(heroDesc, gameData.heroes)
     const enemy = this.createInitialState_(enemyDesc, gameData.enemies)
-    return gs.create(player, enemy)
+    return gs.create(hero, enemy)
   }
 
-  createInitialState_(desc, playerList) {
+  createInitialState_(desc, heroList) {
     desc = _.defaults(desc, { items: [], traits: [], sets: [] })
-    const player = playerList[desc.name]
-    _.assert(player, `invalid name: ${desc.name}`)
-    let sets = player.sets.concat(desc.sets)
-    const traits = (player.traits || []).concat(desc.traits)
+    const hero = heroList[desc.name]
+    _.assert(hero, `invalid name: ${desc.name}`)
+    let sets = hero.sets.concat(desc.sets)
+    const traits = (hero.traits || []).concat(desc.traits)
 
     desc.items.forEach((i) => {
       const item = gameData.items[i]
@@ -23,7 +23,7 @@ class GameStateFactory {
       traits.push(...(item.traits || []))
     })
 
-    const state = { health: player.health }
+    const state = { health: hero.health }
     const traitSets = this.resolveSituationalTraits_(state, traits)
     sets = sets.concat(traitSets)
     Object.assign(state, this.getTraits_(traits))

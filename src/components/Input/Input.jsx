@@ -7,7 +7,7 @@ import _ from '../../utils'
 const cx = classNames.bind(style)
 
 const Input = ({ label, source, multiple, value, onChange }) => {
-  if (source.length == 0) {
+  if (source.length === 0) {
     return <div />
   }
 
@@ -18,7 +18,7 @@ const Input = ({ label, source, multiple, value, onChange }) => {
 
   return (
     <Autocomplete
-      className={cx("input", inputStyle)}
+      className={cx('input', inputStyle)}
       label={label}
       source={source}
       multiple={multiple}

@@ -1,8 +1,8 @@
 import Card from './card'
 
 export default class PlayerCardResolver {
-  constructor(isPlayer) {
-    this.isPlayer_ = isPlayer
+  constructor(isHero) {
+    this.isHero_ = isHero
     this.STUPIDITY_ = Card.get('?')
     this.BLOCK_ = Card.get('B')
   }
@@ -339,8 +339,8 @@ export default class PlayerCardResolver {
     // this.state_.concealEffect += this.card_.conceal;
     this.state_.physicalNextEffect += this.card_.physicalNext
     this.state_.magicNextEffect += this.card_.magicNext
-    const player = this.isPlayer_ ? this.state_ : this.enemy_.state_
-    player.cycleEffect += this.card_.cycle
+    const hero = this.isHero_ ? this.state_ : this.enemy_.state_
+    hero.cycleEffect += this.card_.cycle
     // Spellsword
     if (this.initial_.spellsword && this.enemy_.magicDmgTakenFromEnemy_) {
       this.state_.physicalNextEffect += 1
