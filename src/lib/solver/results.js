@@ -2,7 +2,7 @@ import _ from '../../utils'
 
 export default class Results {
   constructor() {
-    this.results_ = new Map()
+    this.results_ = {}
 
     // If a hero move wins this many times, it's selected as the best and
     // other possible hero moves are pruned.
@@ -18,47 +18,29 @@ export default class Results {
     this.smaPeriod_ = Math.max(4, Math.ceil(200 / states.length))
   }
 
+  // winningMove will be 0 if no winning move was found.
   recordResult(state, enemyCard, winningMove) {
-    const result = winningMove && 1
-    const stateResults = this.updateStateResult(state, result)
-    const enemyCardResults = this.updateEnemyCardResult(
-        stateResults.enemyCards, enemyCard)
-    this.updateHeroCardResult(
-        enemyCardResults.winningMoves, winningMove, result)
+    const byHeroCard = this.getResultsByHeroCard_(state, enemyCard)
+    if (winningMove) {
+      byHeroCard[winningMove] = byHeroCard[winningMove] + 1 || 1
+      byHeroCard.sma.add(1)
+    } else {
+      byHeroCard.sma.add(0)
+    }
   }
 
-  updateStateResult(state, result) {
-    if (!this.results_.has(state)) {
-      this.results_.set(state, {
-        sma: _.simpleMovingAverage(this.smaPeriod_),
-        enemyCards: {},
-      })
-    }
-    const stateStats = this.results_.get(state)
-    stateStats.sma.add(result)
-    if (stateStats.sma.iterations % 5 === 0) {
-      stateStats.sma.period++
-    }
-    return stateStats
-  }
+  getResultsByHeroCard_(state, enemyCard) {
+    let byEnemyCard = this.results_[state.id]
+    if (!byEnemyCard) byEnemyCard = this.results_[state.id] = {}
 
-  updateEnemyCardResult(enemyCards, enemyCard) {
-    if (!enemyCards[enemyCard]) {
-      enemyCards[enemyCard] = {
-        winningMoves: {},
-        count: 0,
+    let byHeroCard = byEnemyCard[enemyCard]
+    if (!byHeroCard) {
+      const period = Math.round(this.smaPeriod_ * Math.sqrt(state.weight))
+      byHeroCard = byEnemyCard[enemyCard] = {
+        sma: _.simpleMovingAverage(period)
       }
     }
-    const enemyCardStats = enemyCards[enemyCard]
-    enemyCardStats.count++
-    return enemyCardStats
-  }
-
-  updateHeroCardResult(winningMoves, heroCard, result) {
-    if (!winningMoves[heroCard]) {
-      winningMoves[heroCard] = 0
-    }
-    winningMoves[heroCard] += result
+    return byHeroCard
   }
 
   getResult(state, enemyCard, heroCard) {
@@ -66,63 +48,51 @@ export default class Results {
       return this.getOverallResult_()
     }
     if (enemyCard === undefined) {
-      return this.getStateResult_(state)
+      return this.getStateResult_(this.results_[state.id] || [])
     }
+    const byHeroCard = this.getResultsByHeroCard_(state, enemyCard)
     if (heroCard === undefined) {
-      return this.getEnemyCardResult_(state, enemyCard)
+      return this.getEnemyCardResult_(byHeroCard)
     }
-    return this.getHeroCardResult_(state, enemyCard, heroCard)
+    return this.getHeroCardResult_(byHeroCard, heroCard)
   }
 
   getOverallResult_() {
+    let sum = 0
     let count = 0
-    let wins = 0
     this.states_.forEach(state => {
-      if (!this.results_.has(state)) return
-      const { sma } = this.results_.get(state)
-      count += sma.count
-      wins += sma.sum
+      const byEnemyCard = this.results_[state.id]
+      if (!byEnemyCard) return
+      sum += this.getStateResult_(byEnemyCard) * state.weight
+      count += state.weight
     })
-    return wins / count
+    return sum / count
   }
 
-  getStateResult_(state) {
-    const stateResults = this.results_.get(state)
-    if (!stateResults) return NaN
-    return stateResults.sma.value
-  }
-
-  getEnemyCardResult_(state, enemyCard) {
-    let wins = 0
-    const stateResults = this.results_.get(state)
-    if (!stateResults) return NaN
-    const enemyCardResults = stateResults.enemyCards[enemyCard] || {}
-    _.each(enemyCardResults.winningMoves, (cardWins) => {
-      wins += cardWins
+  getStateResult_(byEnemyCard) {
+    let sum = 0
+    let count = 0
+    _.each(byEnemyCard, byHeroCard => {
+      if (!byHeroCard) return
+      sum += this.getEnemyCardResult_(byHeroCard)
+      count++
     })
-    return wins / enemyCardResults.count
+    return sum / count
   }
 
-  getHeroCardResult_(state, enemyCard, heroCard) {
-    let wins = 0
-    const stateResults = this.results_.get(state)
-    if (!stateResults) return NaN
-    const enemyCardResults = stateResults.enemyCards[enemyCard]
-    if (!enemyCardResults) return NaN
-    const selectedCardWins = enemyCardResults.winningMoves[heroCard]
-    if (!selectedCardWins) return 0
+  getEnemyCardResult_(byHeroCard) {
+    return byHeroCard.sma.value
+  }
 
+  getHeroCardResult_(byHeroCard, heroCard) {
+    if (!byHeroCard[heroCard]) return 0
     let bestWins = 0
-    _.each(enemyCardResults.winningMoves, (cardWins) => {
-      wins += cardWins
-      if (cardWins > bestWins) bestWins = cardWins
+    _.each(byHeroCard, wins => {
+      if (wins > bestWins) bestWins = wins
     })
-
-    const winRate = wins / enemyCardResults.count
-    if (selectedCardWins > this.bestMovePruning_) {
-      return winRate
-    }
-    const maxWins = Math.min(bestWins, this.bestMovePruning_)
-    return winRate * selectedCardWins / maxWins
+    const ratio =
+        Math.min(byHeroCard[heroCard], this.bestMovePruning_) /
+        Math.min(bestWins, this.bestMovePruning_)
+    return byHeroCard.sma.value * ratio
   }
 }

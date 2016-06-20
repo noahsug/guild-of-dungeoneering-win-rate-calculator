@@ -26,9 +26,9 @@ function* updateBreakdown() {
     result: solver.result,
     heroHealth: solver.heroHealth,
     enemyHealth: solver.enemyHealth,
+    selections: solver.selections,
     selectionType: solver.selectionType,
     prevSelection: undefined,
-    nextSelections: solver.nextSelections,
   })
 }
 
@@ -37,7 +37,7 @@ function* solve() {
     const input = yield select(getSolverInput)
     solver.init(input)
     const resultGen = solver.start()
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1000; i++) {
       resultGen.next()
       yield call(updateBreakdown)
       yield call(delay, 5)

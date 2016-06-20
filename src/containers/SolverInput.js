@@ -1,7 +1,8 @@
+import { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { updateInput } from '../actions'
 import Input from '../components/Input'
-import { gameData } from '../lib/game-engine'
+import { gameData } from '../lib'
 import _ from '../utils'
 
 const filterTraits = (traits, selected) => {

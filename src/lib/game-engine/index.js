@@ -6,6 +6,7 @@ import CardMover from './card-mover'
 import Card from './card'
 
 gameData.cards = Card.list
+gameData.cardDescs = Card.descToIndex
 
 export default {
   gs,

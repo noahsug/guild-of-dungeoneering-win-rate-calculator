@@ -57,12 +57,10 @@ export default class Search {
       const result = this.getResultForMove_(
           state, heroCard, enemyCard, hash, moveHash, depth)
       if (result) {
-        // FIXME
-        // this.updateBestMoves_(state, heroCard, enemyCard, hash, moveHash)
+        this.updateBestMoves_(state, heroCard, enemyCard, hash, moveHash)
         return heroCard
       }
-      // FIXME
-      // this.updateWorstMoves_(state, heroCard, enemyCard, hash, moveHash)
+      this.updateWorstMoves_(state, heroCard, enemyCard, hash, moveHash)
     }
     return 0
   }

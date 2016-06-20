@@ -322,6 +322,11 @@ _.mixin({
   deepClone: (obj) => (
     JSON.parse(JSON.stringify(obj))
   ),
+
+  setInPlace: (list, values) => {
+    list.length = 0
+    list.push(...values)
+  },
 })
 
 export default _

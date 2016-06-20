@@ -2,7 +2,6 @@ import gameData from './game-data.js'
 import _ from '../../utils'
 
 const DELIMITER = '/'
-const descToIndex = {}
 let cardIndexesInSets = {}
 
 const sortDesc = (desc) => (
@@ -30,6 +29,8 @@ export default class Card {
 
   static list = [0];
 
+  static descToIndex = {};
+
   static getSet(set) {
     const indexes = cardIndexesInSets[set]
     _.assert(indexes, `Missing set ${set}`)
@@ -37,15 +38,15 @@ export default class Card {
   }
 
   static get(desc) {
-    return descToIndex[desc]
+    return Card.descToIndex[desc]
   }
 
   static create(desc) {
     desc = sortDesc(desc)
-    if (descToIndex[desc] !== undefined) return descToIndex[desc]
+    if (Card.descToIndex[desc] !== undefined) return Card.descToIndex[desc]
     const index = Card.list.length
     Card.list.push(new Card(desc))
-    descToIndex[desc] = index
+    Card.descToIndex[desc] = index
     return index
   }
 }

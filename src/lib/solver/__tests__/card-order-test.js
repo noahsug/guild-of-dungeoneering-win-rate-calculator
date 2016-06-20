@@ -48,13 +48,21 @@ describe('card order', () => {
   })
 
   it('can mark enemy cards as played', () => {
-    order.enemyPlayed(5)
+    order.playEnemyCard(5)
     order.randomize()
     expect(order.enemyDraws[0]).toBe(5)
 
-    order.enemyPlayed(2)
+    order.playEnemyCard(2)
     order.randomize()
     expect(order.enemyDraws[0]).toBe(5)
     expect(order.enemyDraws[1]).toBe(2)
+  })
+
+  it('can return the enemy deck', () => {
+    expect(order.enemyDeck).toSortedEqual(enemyCards)
+    order.playEnemyCard(2)
+    order.playEnemyCard(5)
+    const expected = _.without(enemyCards, 2, 5)
+    expect(order.enemyDeck).toSortedEqual(expected)
   })
 })

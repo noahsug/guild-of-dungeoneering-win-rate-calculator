@@ -24,11 +24,19 @@ export default class CardOrder {
     return enemyDraws
   }
 
-  enemyPlayed(enemyCard) {
+  playEnemyCard(enemyCard) {
     const toSwap = this.enemyDraws.indexOf(enemyCard)
     this.enemyDraws[toSwap] = this.enemyDraws[this.depth_]
     this.enemyDraws[this.depth_] = enemyCard
     this.depth_++
+  }
+
+  unplayEnemyCard() {
+    this.depth_--
+  }
+
+  get enemyDeck() {
+    return this.enemyDraws.slice(this.depth_, this.enemyCards_.length)
   }
 
   randomize() {

@@ -12,13 +12,17 @@ export default class Hasher {
     this.hashes_.enemyDraws = this.getHashes_(numCards)
     this.hashes_.stats = this.getHashes_(30)
 
-    this.order = null
+    this.order_ = { enemyDraws: [] }
   }
 
   getHashes_(len) {
     const hashes = new Uint32Array(len)
     window.crypto.getRandomValues(hashes)
     return hashes
+  }
+
+  set order(cardOrder) {
+    this.order_ = cardOrder
   }
 
   hash(state, depth) {
@@ -39,11 +43,11 @@ export default class Hasher {
   }
 
   hashEnemyCards_(depth) {
-    let result = this.hashes_.enemyCard * this.order.enemyDraws[depth]
+    let result = this.hashes_.enemyCard * this.order_.enemyDraws[depth]
     for (let i = 0; i < depth; i++) {
-      result += this.hashes_.enemyDraws[this.order.enemyDraws[i]]
+      result += this.hashes_.enemyDraws[this.order_.enemyDraws[i]]
     }
-    return result
+    return result || 0
   }
 
   hashStats_(state) {

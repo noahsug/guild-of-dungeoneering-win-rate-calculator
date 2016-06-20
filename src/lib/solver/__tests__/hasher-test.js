@@ -7,6 +7,7 @@ import gs from '../../game-engine/game-state'
 import Hasher from '../hasher'
 
 let hasher
+let enemyDraws
 
 function createState(hero = {}, enemy = {}) {
   hero = _.defaults(hero, {
@@ -30,14 +31,18 @@ describe('hasher', () => {
   })
 
   beforeEach(() => {
+    enemyDraws = _.range(100)
     hasher = new Hasher()
-    hasher.order = {
-      enemyDraws: _.range(100),
-    }
+    hasher.order = { enemyDraws }
   })
 
   afterAll(() => {
     _.unmock(gameData, 'cards')
+  })
+
+  it('caches game state', () => {
+    const hash = hasher.hash(createState())
+    expect(hash).toBeDefined()
   })
 
   it('caches game state at depth', () => {
@@ -52,30 +57,30 @@ describe('hasher', () => {
   })
 
   it('detects changes in health', () => {
-    const hash = hasher.hash(createState({ health: 5 }), 0)
-    const hash2 = hasher.hash(createState({ health: 6 }), 0)
+    const hash = hasher.hash(createState({ health: 5 }))
+    const hash2 = hasher.hash(createState({ health: 6 }))
     expect(hash).not.toBe(hash2)
   })
 
   it('detects changes in cards', () => {
-    const hash = hasher.hash(createState({ hand: [1, 1, 2] }), 0)
-    const hash2 = hasher.hash(createState({ hand: [1, 2] }), 0)
+    const hash = hasher.hash(createState({ hand: [1, 1, 2] }))
+    const hash2 = hasher.hash(createState({ hand: [1, 2] }))
     expect(hash).not.toBe(hash2)
   })
 
   it('looks at enemy card order', () => {
-    hasher.order.enemyDraws = [1, 1, 2, 2, 1]
+    _.setInPlace(enemyDraws, [1, 1, 2, 2, 1])
     const hash = hasher.hash(createState(), 4)
-    hasher.order.enemyDraws = [2, 2, 1, 1, 1]
+    _.setInPlace(enemyDraws, [2, 2, 1, 1, 1])
     const hash2 = hasher.hash(createState(), 4)
-    hasher.order.enemyDraws = [1, 1, 2, 1, 2]
+    _.setInPlace(enemyDraws, [1, 1, 2, 1, 2])
     const hash3 = hasher.hash(createState(), 4)
     expect(hash).toBe(hash2)
     expect(hash).not.toBe(hash3)
   })
 
   it('hashes a move', () => {
-    const hash = hasher.hash(createState(), 4)
+    const hash = hasher.hash(createState())
     const moveHash = hasher.hashMove(hash, 1)
     const moveHash2 = hasher.hashMove(hash, 1)
     const moveHash3 = hasher.hashMove(hash, 2)

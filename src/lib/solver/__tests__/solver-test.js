@@ -19,7 +19,7 @@ describe('solver', () => {
 
   it('creates starting states', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
-    expect(solver.state.children.length).toBe(20)
+    expect(solver.state.children.length).toBe(6)
 
     const cards = gameData.sets.Chump
     const hand = getCards([cards[2], cards[3], cards[4]])
@@ -35,14 +35,14 @@ describe('solver', () => {
     expect(match).toBe(true)
   })
 
-  fit('can solve a starting hand', () => {
+  it('can solve a starting hand', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
-    expect(solver.getResult()).toBeFalsy()
+    expect(solver.getResult()).toBeNaN()
+    solver.next()
     expect(solver.getResult()).toBe(1)
   })
 
-  // Slow
-  xit('solves chump vs gray ooze', () => {
+  it('solves chump vs gray ooze', () => {
     solver.init({ name: 'Chump', traits: ['Crones Discipline'] },
                 { name: 'Gray Ooze' })
     for (let i = 0; i < 4000; i++) {
@@ -69,5 +69,20 @@ describe('solver', () => {
     }, { name: 'Angry Bunny' })
     solver.next()
     expect(solver.getResult()).toBeBetween(0, 1)
+  })
+
+  it('can play and unplay a move', () => {
+    solver.init({ name: 'Chump', traits: ['Crones Discipline'] },
+                { name: 'Gray Ooze' })
+    const rootState = solver.state
+    const nextState = solver.state.children.find(s => (
+      _.isSortedEqual(s.hero.hand, getCards(['P', 'P', 'P', 'B']))
+    ))
+    solver.play(nextState, Card.get('M'), Card.get('P'))
+    expect(solver.state).toBe(nextState)
+    expect(solver.state.children.length).toBe(2)
+
+    solver.unplay()
+    expect(solver.state).toBe(rootState)
   })
 })

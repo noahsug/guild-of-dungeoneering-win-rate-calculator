@@ -3,15 +3,19 @@ import { gs, gsFactory, CardResolver, CardMover } from '../game-engine'
 import Search from './search'
 import Results from './results'
 import CardOrder from './card-order'
+import stateIterator from './state-iterator'
+import Hasher from './hasher'
 
 export default class Solver {
   init(hero, enemy) {
     this.state = gsFactory.create(hero, enemy)
     this.state.depth = -1
-    this.state.iterations = 0
 
     this.order_ = new CardOrder()
     this.order_.initState = this.state
+
+    this.hasher_ = new Hasher()
+    this.hasher_.order = this.order_
 
     this.mover_ = new CardMover()
 
@@ -21,28 +25,22 @@ export default class Solver {
     this.search_ = new Search()
     this.search_.initState = this.state
 
-    this.state.children = this.mover_.getStartingStates(this.state)
-    this.state.children.forEach(c => { c.depth = 0 })
-
     this.results_ = new Results()
     this.results_.bestMovePruning = this.search_.bestMovePruning
-    this.results_.states = this.state.children
+
+    const ungroupedChildren = this.mover_.getStartingStates(this.state)
+    this.setState_(this.state, ungroupedChildren)
   }
 
   next() {
-    const state = this.getNextChild_()
+    const state = stateIterator.getNextState(this.state)
     this.order_.randomize()
     const bestMove = this.search_.solve(state, this.order_)
-    const enemyCard = this.order_.enemyDraws[state.depth]
-    this.results_.recordResult(state, enemyCard, bestMove)
+    this.results_.recordResult(state, this.enemyCardPlayed, bestMove)
   }
 
-  getNextChild_() {
-    const children = this.state.children
-    const index = this.state.iterations % children.length
-    this.state.iterations++
-    if (index === 0) _.shuffleInPlace(children)
-    return children[index]
+  get enemyCardPlayed() {
+    return this.order_.enemyDraws[this.state.depth + 1]
   }
 
   // Optionally specify selected state, enemy card played or hero card played.
@@ -50,14 +48,37 @@ export default class Solver {
     return this.results_.getResult(state, enemyCard, heroCard)
   }
 
-  play(state, heroCard, enemyCard) {
+  get enemyDeck() {
+    return this.order_.enemyDeck
+  }
+
+  play(state, enemyCard, heroCard) {
     const resolvedState = gs.clone(state)
     const result = this.resolver_.resolve(resolvedState, heroCard, enemyCard)
     if (result) return
-    this.order_.enemyPlayed(enemyCard)
-    state.children = this.mover_.getNextStates(resolvedState, heroCard)
-    state.children.forEach(c => { c.depth = state.depth })
-    this.results_.states = state.children
+    const children = state.children ||
+        this.mover_.getNextStates(resolvedState, heroCard)
+    this.setState_(state, children)
+    this.order_.playEnemyCard(enemyCard)
+  }
+
+  unplay() {
+    this.setState_(_.assert(this.state.parent))
+    this.order_.unplayEnemyCard()
+  }
+
+  setState_(state, ungroupedChildren) {
     this.state = state
+    if (!state.children) {
+      this.setChildrenIds_(ungroupedChildren)
+      stateIterator.initState(state, ungroupedChildren)
+    }
+    this.results_.states = this.state.children
+  }
+
+  setChildrenIds_(children) {
+    children.forEach(c => {
+      c.id = this.hasher_.hash(c, this.state.depth + 1)
+    })
   }
 }

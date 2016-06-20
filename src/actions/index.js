@@ -11,6 +11,11 @@ export const updateBreakdown = (data = {}) => {
   return data
 }
 
+export const useSelection = (selection) => ({
+  type: 'SELECTION',
+  selection,
+})
+
 export const updateInput = (player, prop, value) => ({
   type: 'INPUT_CHANGED',
   player,

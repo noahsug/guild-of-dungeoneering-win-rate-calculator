@@ -4,7 +4,7 @@ import _ from '../../../utils'
 import Results from '../results'
 
 let results
-const states = _.range(3).map(s => ({ id: s }))
+const states = _.range(3).map(s => ({ id: s, weight: 1 }))
 
 describe('results', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('results', () => {
     results.recordResult(states[0], 0, 1)
     results.recordResult(states[1], 0, 0)
     results.recordResult(states[0], 0, 2)
-    expect(results.getResult()).toBe(2 / 3)
+    expect(results.getResult()).toBe(0.5)
   })
 
   it('gets state results', () => {
