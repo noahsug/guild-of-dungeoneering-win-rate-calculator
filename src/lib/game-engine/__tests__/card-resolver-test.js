@@ -96,7 +96,7 @@ describe('card resolver resolves', () => {
     resolver.resolve(state, Card.create('D/C/MN/PN'), Card.create('BP'))
     const heroEffects = ['draw', 'physicalNext', 'magicNext', 'cycle']
     heroEffects.forEach((e) => {
-      if (!hero[`${e}Effect`]) console.error('Missing ', `${e}Effect`)
+      // if (!hero[`${e}Effect`]) console.error('Missing ', `${e}Effect`)
       expect(hero[`${e}Effect`]).toBe(1)
     })
   })

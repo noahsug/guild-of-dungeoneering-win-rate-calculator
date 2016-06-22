@@ -29,7 +29,7 @@ class HeroHandSelectionList {
   getSelections() {
     const selections = this.solver_.state.children.map((s) => ({
       result: this.solver_.getResult(s),
-      cards: convertCards(s.hero.hand)
+      cards: convertCards(s.hero.hand),
     }))
     return _.sortBy(selections, (s) => s.cards.join(' '))
   }

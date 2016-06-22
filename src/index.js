@@ -4,8 +4,9 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import solverApp from './reducers'
-import solverSega from './sagas'
+import { solverSega, selectionSega } from './sagas'
 import App from './components/App'
+import { SolverApi } from './lib'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -14,7 +15,9 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 )
 
-sagaMiddleware.run(solverSega)
+const solver = new SolverApi()
+sagaMiddleware.run(solverSega, solver)
+sagaMiddleware.run(selectionSega, solver)
 
 render(
   <Provider store={store}>

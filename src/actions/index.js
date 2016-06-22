@@ -16,6 +16,10 @@ export const useSelection = (selection) => ({
   selection,
 })
 
+export const goBack = () => ({
+  type: 'BACK',
+})
+
 export const updateInput = (player, prop, value) => ({
   type: 'INPUT_CHANGED',
   player,

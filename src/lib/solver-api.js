@@ -53,7 +53,14 @@ export default class SolverApi {
     return this.solver_.state.children[0].enemy.health
   }
 
-  get lastSelected() { return _.last(this.solver.selected) }
+  // Returns last selected card or 'hero hand'. If there is no previous
+  // seleciton, returns ''.
+  get lastSelected() {
+    const selected = this.selectionList_.selected
+    if (!selected.length) return ''
+    const card = gameData.cards[_.last(selected)]
+    return card ? card.desc : 'hero hand'
+  }
 
   get selectionType() { return this.selectionList_.type }
 

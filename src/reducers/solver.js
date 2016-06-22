@@ -6,8 +6,8 @@ export default (state, action) => {
       heroHealth: 0,
       enemyHealth: 0,
       selectionType: 'HERO_HAND',
-      enemyCardPlayed: undefined,
       selections: [],
+      lastSelected: undefined,
     }
   }
 
@@ -32,8 +32,8 @@ export default (state, action) => {
         heroHealth: action.heroHealth,
         enemyHealth: action.enemyHealth,
         selectionType: action.selectionType,
-        enemyCardPlayed: action.enemyCardPlayed,
         selections: action.selections,
+        lastSelected: action.lastSelected,
       }
 
     default:

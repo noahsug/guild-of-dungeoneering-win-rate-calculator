@@ -37,7 +37,7 @@ export default class Results {
     if (!byHeroCard) {
       const period = Math.round(this.smaPeriod_ * Math.sqrt(state.weight))
       byHeroCard = byEnemyCard[enemyCard] = {
-        sma: _.simpleMovingAverage(period)
+        sma: _.simpleMovingAverage(period),
       }
     }
     return byHeroCard

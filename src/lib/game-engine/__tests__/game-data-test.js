@@ -5,7 +5,7 @@ import gameData from '../game-data'
 
 const checkEntitySets = (entity) => {
   _.each(entity.sets || [], (set) => {
-    if (!gameData.sets[set]) console.error('missing', set)
+    // if (!gameData.sets[set]) console.error('missing', set)
     expect(gameData.sets[set]).toBeDefined()
   })
 }

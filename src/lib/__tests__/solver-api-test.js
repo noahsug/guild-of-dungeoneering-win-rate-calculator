@@ -42,6 +42,15 @@ describe('solver api', () => {
     })
   })
 
+  it('provides player health', () => {
+    expect(solver.heroHealth).toBe(5)
+    expect(solver.enemyHealth).toBe(7)
+  })
+
+  it('provides selection type', () => {
+    expect(solver.selectionType).toBe('HERO_HAND')
+  })
+
   it('provides state selections', () => {
     expect(solver.selections.length).toBe(5)
     expect(findSelection(['B', 'B', 'P', 'P'])).toBeDefined()
@@ -105,10 +114,20 @@ describe('solver api', () => {
     solver.play(hand)
     expect(solver.result).toBe((2 / 3 + 1 + 0) / 3)
     solver.play('M')
-    expect(solver.result).toBe(2/ 3)
+    expect(solver.result).toBe(2 / 3)
     solver.play('P')
     expect(solver.result).toBeNaN()
     solver.back()
-    expect(solver.result).toBe(2/ 3)
+    expect(solver.result).toBe(2 / 3)
+  })
+
+  it('provides last selected', () => {
+    expect(solver.lastSelected).toBeFalsy()
+    solver.play(['B', 'B', 'P', 'P'])
+    expect(solver.lastSelected).toBeTruthy()
+    solver.play('M')
+    expect(solver.lastSelected).toBe('M')
+    solver.play('P')
+    expect(solver.lastSelected).toBe('P')
   })
 })
