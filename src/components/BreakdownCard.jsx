@@ -1,14 +1,17 @@
 import React from 'react'
-import WinRate from './WinRate'
+import { Card, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import BreakdownHeader from './BreakdownHeader'
 import BackButton from './BackButton'
 import SelectionListContainer from '../containers/SelectionListContainer'
 
 const BreakdownCard = () => (
-  <div>
-    <WinRate />
+  <Card>
+    <BreakdownHeader />
     <SelectionListContainer />
-    <BackButton />
-  </div>
+    <CardActions>
+      <BackButton />
+    </CardActions>
+  </Card>
 )
 
 export default BreakdownCard

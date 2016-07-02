@@ -24,6 +24,8 @@ const Input = ({ label, source, multiple, value, onChange }) => {
       multiple={multiple}
       value={value}
       onChange={onChange}
+      showSuggestionsWhenValueIsSet={true}
+      suggestionMatch="anywhere"
     />
   )
 }

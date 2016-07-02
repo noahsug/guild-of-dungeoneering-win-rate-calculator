@@ -16,7 +16,6 @@ export default (state, action) => {
       return {
         ...state,
         solving: true,
-        result: undefined,
       }
 
     case 'STOP':

@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const BackButton = ({ visible, back }) => {
   if (!visible) return <div></div>
-  return <Button onClick={back}>Back</Button>
+  return <Button onClick={back} label="back" />
 }
 
 BackButton.propTypes = {

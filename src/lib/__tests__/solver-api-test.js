@@ -45,6 +45,11 @@ describe('solver api', () => {
   it('provides player health', () => {
     expect(solver.heroHealth).toBe(5)
     expect(solver.enemyHealth).toBe(7)
+    solver.play(['B', 'B', 'P', 'P'])
+    solver.play('M')
+    solver.play('P')
+    expect(solver.heroHealth).toBe(4)
+    expect(solver.enemyHealth).toBe(6)
   })
 
   it('provides selection type', () => {
