@@ -16,7 +16,6 @@ const SolveButton = ({ solving, start, stop }) => (
   <Button
     label={solving ? 'Stop' : 'Calculate Win Rate'}
     accent={!solving}
-    raised
     onClick={solving ? stop : start}
   />
 )

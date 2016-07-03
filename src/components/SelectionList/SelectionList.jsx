@@ -9,20 +9,22 @@ const formatSelectionType = (selectionType) => {
   return ''
 }
 
-const SelectionList = ({
-    selections, onClick, selectionType }) => (
-  <List selectable ripple>
-    <ListSubHeader caption={formatSelectionType(selectionType)} />
-    {selections.map(({ result, cards }, i) => (
-      <Selection
-        result={result}
-        cards={cards}
-        onClick={onClick}
-        key={i}
-      />
-    ))}
-  </List>
-)
+const SelectionList = ({ selections, onClick, selectionType }) => {
+  if (selections.length === 0) return <div />
+  return (
+    <List selectable ripple>
+      <ListSubHeader caption={formatSelectionType(selectionType)} />
+      {selections.map(({ result, cards }, i) => (
+        <Selection
+          result={result}
+          cards={cards}
+          onClick={onClick}
+          key={i}
+        />
+      ))}
+    </List>
+  )
+}
 
 SelectionList.propTypes = {
   selections: PropTypes.arrayOf(PropTypes.shape({

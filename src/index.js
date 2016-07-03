@@ -8,6 +8,7 @@ import { solverSega, selectionSega } from './sagas'
 import App from './components/App'
 import { SolverApi } from './lib'
 
+
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
