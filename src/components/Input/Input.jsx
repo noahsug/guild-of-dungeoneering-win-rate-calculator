@@ -1,25 +1,18 @@
 import React, { PropTypes } from 'react'
 import Autocomplete from 'react-toolbox/lib/autocomplete'
-import _ from '../../utils'
 
-const Input = ({ label, source, multiple, value, onChange }) => {
-  if (source.length === 0) {
-    return <div />
-  }
-
-  const inputStyle = {
-    'has-value': _.isArray(value) ? value.length > 0 : value,
-    multiple,
-  }
+const Input = ({ label, source, multiple, value, onChange, disabled }) => {
+  if (source.length === 0) return null
 
   return (
     <Autocomplete
       label={label}
+      disabled={disabled}
       source={source}
       multiple={multiple}
       value={value}
       onChange={onChange}
-      showSuggestionsWhenValueIsSet={true}
+      showSuggestionsWhenValueIsSet
       suggestionMatch="anywhere"
     />
   )
@@ -28,7 +21,8 @@ const Input = ({ label, source, multiple, value, onChange }) => {
 Input.propTypes = {
   label: PropTypes.string.isRequired,
   source: PropTypes.arrayOf(PropTypes.string).isRequired,
-  multiple: PropTypes.bool.isRequired,
+  multiple: PropTypes.bool,
+  disabled: PropTypes.bool,
   value: React.PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),

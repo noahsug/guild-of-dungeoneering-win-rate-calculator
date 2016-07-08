@@ -1,17 +1,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { CardTitle } from 'react-toolbox/lib/card';
-import AttrDescriptionsButton from './AttrDescriptionsButton'
+import { CardTitle } from 'react-toolbox/lib/card'
 
 const mapStateToProps = (state) => ({
-  result: state.solver.result,
+  result: state.breakdown.result,
   hero: {
     name: state.input.hero.name,
-    health: state.solver.heroHealth,
+    health: state.breakdown.heroHealth,
   },
   enemy: {
     name: state.input.enemy.name,
-    health: state.solver.enemyHealth,
+    health: state.breakdown.enemyHealth,
   },
 })
 
@@ -26,17 +25,14 @@ const formatStats = (result, hero, enemy) => {
   return `${hero.name} ${hero.health}hp vs ${enemy.name} ${enemy.health}hp`
 }
 
-const WinRate = ({ result, hero, enemy }) => {
-  return (
-    <div>
-      <CardTitle
-        title={formatResult(result)}
-        subtitle={formatStats(result, hero, enemy)}
-      />
-      <AttrDescriptionsButton />
-    </div>
-  )
-}
+const WinRate = ({ result, hero, enemy }) => (
+  <div>
+    <CardTitle
+      title={formatResult(result)}
+      subtitle={formatStats(result, hero, enemy)}
+    />
+  </div>
+)
 
 WinRate.propTypes = {
   result: PropTypes.number,
@@ -47,7 +43,7 @@ WinRate.propTypes = {
   enemy: PropTypes.shape({
     name: PropTypes.string,
     health: PropTypes.number,
-  }).isRequired
+  }).isRequired,
 }
 
 export default connect(mapStateToProps)(WinRate)

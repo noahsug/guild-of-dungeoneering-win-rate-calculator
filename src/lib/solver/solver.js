@@ -48,6 +48,10 @@ export default class Solver {
     return this.results_.getResult(state, enemyCard, heroCard)
   }
 
+  get solved() {
+    return !!this.state.solved
+  }
+
   get enemyDeck() {
     return this.order_.enemyDeck
   }
@@ -55,7 +59,7 @@ export default class Solver {
   play(state, enemyCard, heroCard) {
     const resolvedState = gs.clone(state)
     const result = this.resolver_.resolve(resolvedState, heroCard, enemyCard)
-    if (result) return
+    if (result !== undefined) state.solved = true
     const children = state.children ||
         this.mover_.getNextStates(resolvedState, heroCard)
     this.setState_(state, children)
@@ -65,6 +69,7 @@ export default class Solver {
   unplay() {
     this.setState_(_.assert(this.state.parent))
     this.order_.unplayEnemyCard()
+    this.solved = false
   }
 
   setState_(state, ungroupedChildren) {

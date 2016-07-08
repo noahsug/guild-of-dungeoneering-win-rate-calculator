@@ -5,7 +5,7 @@ import { goBack } from '../actions'
 import Button from 'react-toolbox/lib/button'
 
 const mapStateToProps = (state) => ({
-  visible: !!state.solver.lastSelected,
+  visible: !!state.breakdown.lastSelected,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const BackButton = ({ visible, back }) => {
-  if (!visible) return <div></div>
+  if (!visible) return null
   return (
     <CardActions>
       <Button onClick={back} label="back" />

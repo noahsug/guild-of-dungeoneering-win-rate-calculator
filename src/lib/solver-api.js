@@ -6,11 +6,12 @@ import SelectionList from './selection-list'
 export default class SolverApi {
   constructor() {
     this.solver_ = new Solver()
-    this.selectionList_ = new SelectionList(this.solver_)
+    this.selectionList_ = null
   }
 
   init(input) {
     this.solver_.init(input.hero, input.enemy)
+    this.selectionList_ = new SelectionList(this.solver_)
   }
 
   * start() {
@@ -66,5 +67,8 @@ export default class SolverApi {
 
   get result() { return this.selectionList_.result }
 
-  get selections() { return this.selectionList_.selections }
+  get selections() {
+    if (this.solver_.solved) return []
+    return this.selectionList_.selections
+  }
 }

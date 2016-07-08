@@ -74,6 +74,7 @@ const mapStateToProps = (state, ownProps) => {
     source,
     multiple,
     label: ownProps.label,
+    disabled: state.breakdown.solving,
   }
 }
 

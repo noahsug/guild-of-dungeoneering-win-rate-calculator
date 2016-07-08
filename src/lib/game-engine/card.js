@@ -49,6 +49,8 @@ export default class Card {
     Card.descToIndex[desc] = index
     return index
   }
+
+  static DELIMITER = DELIMITER
 }
 
 cardIndexesInSets = _.mapObject(gameData.sets, (set) => (

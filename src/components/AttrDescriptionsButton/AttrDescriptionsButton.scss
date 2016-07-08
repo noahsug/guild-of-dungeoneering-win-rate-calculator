@@ -2,16 +2,10 @@
 
 .content {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  top: 0;
   right: 0;
-  background-color: $color-primary-dark;
-  padding: $unit $padding-content-horizontal;
-  margin-bottom: $unit;
-  [data-react-toolbox="link"] {
-    color: $color-primary-contrast;
-    &:not(:first-of-type) {
-      margin-left: $unit;
-    }
+  [data-react-toolbox="tooltip"] {
+    white-space: pre;
+    max-width: none;
   }
 }

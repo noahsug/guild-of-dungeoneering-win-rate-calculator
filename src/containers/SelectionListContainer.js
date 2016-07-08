@@ -3,15 +3,16 @@ import { useSelection } from '../actions'
 import SelectionList from '../components/SelectionList'
 
 const mapStateToProps = (state) => ({
-  selections: state.solver.selections,
-  selectionType: state.solver.selectionType,
+  selections: state.breakdown.selections,
+  selectionType: state.breakdown.selectionType,
+  isFirstSelection: !state.breakdown.lastSelected,
   hero: {
     name: state.input.hero.name,
-    health: state.solver.heroHealth,
+    health: state.breakdown.heroHealth,
   },
   enemy: {
     name: state.input.enemy.name,
-    health: state.solver.enemyHealth,
+    health: state.breakdown.enemyHealth,
   },
 })
 

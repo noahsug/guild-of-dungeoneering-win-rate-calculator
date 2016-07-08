@@ -1,6 +1,6 @@
 import React from 'react'
-import Navigation from 'react-toolbox/lib/navigation';
-import Link from 'react-toolbox/lib/link';
+import Navigation from 'react-toolbox/lib/navigation'
+import Link from 'react-toolbox/lib/link'
 import classNames from 'classnames/bind'
 import style from './AppFooter.scss'
 

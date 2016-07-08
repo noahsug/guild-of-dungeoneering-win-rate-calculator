@@ -65,4 +65,16 @@ describe('card order', () => {
     const expected = _.without(enemyCards, 2, 5)
     expect(order.enemyDeck).toSortedEqual(expected)
   })
+
+  it('can return the enemy deck after many plays', () => {
+    expect(order.enemyDeck).toSortedEqual(enemyCards)
+    enemyCards.forEach(c => order.playEnemyCard(c))
+    order.playEnemyCard(2)
+    order.playEnemyCard(5)
+    const expected = _.without(enemyCards, 2, 5)
+    for (let i = 0; i < 100; i++) {
+      order.randomize()
+      expect(order.enemyDeck).toSortedEqual(expected)
+    }
+  })
 })

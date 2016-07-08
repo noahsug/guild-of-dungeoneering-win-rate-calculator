@@ -7,11 +7,12 @@ export default (state, action) => {
       enemyHealth: 0,
       selectionType: 'HERO_HAND',
       selections: [],
-      lastSelected: undefined,
+      lastSelected: '',
     }
   }
 
   switch (action.type) {
+    case 'RESUME':
     case 'START':
       return {
         ...state,

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { ListItem } from 'react-toolbox/lib/list';
+import { ListItem } from 'react-toolbox/lib/list'
 
 const formatResult = (result) => (
   `${result * 100 | 0}%`

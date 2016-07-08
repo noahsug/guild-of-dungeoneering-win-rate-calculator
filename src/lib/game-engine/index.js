@@ -7,6 +7,7 @@ import Card from './card'
 
 gameData.cards = Card.list
 gameData.cardDescs = Card.descToIndex
+gameData.CARD_DELIMITER = Card.DELIMITER
 
 export default {
   gs,

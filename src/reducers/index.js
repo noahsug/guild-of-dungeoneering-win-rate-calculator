@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import input from './input'
-import solver from './solver'
+import breakdown from './breakdown'
 
 export default combineReducers({
   input,
-  solver,
+  breakdown,
 })
