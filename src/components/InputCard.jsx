@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardText, CardActions } from 'react-toolbox/lib/card'
-import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar'
 import SolveButton from './SolveButton'
 import SolverInput from '../containers/SolverInput'
 

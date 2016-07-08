@@ -2,7 +2,6 @@
 
 .content {
   height: 4.7 * $unit;
-
   [data-react-toolbox="navigation"] {
     position: fixed;
     bottom: 0;
@@ -11,10 +10,8 @@
     z-index: $z-index-higher;
     padding: $unit $padding-content-horizontal;
     background-color: $color-primary-dark;
-
     [data-react-toolbox="link"] {
       color: $color-primary-contrast;
-
       &:not(:first-of-type) {
         margin-left: $unit;
       }

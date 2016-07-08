@@ -33,6 +33,6 @@ module.exports = {
     }],
   },
   toolbox: {
-    theme: 'src/theme.scss'
+    theme: 'src/components/theme.scss'
   },
 };

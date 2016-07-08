@@ -8,18 +8,15 @@ body {
   padding: $unit $padding-content-horizontal;
   display: flex;
   align-items: flex-start;
-
   div[data-react-toolbox="card"] {
     overflow: visible;
   }
-}
-
-.card-column {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &:first-child {
-    margin-right: 1.85 * $unit;
+  .card-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    &:first-child {
+      margin-right: 1.85 * $unit;
+    }
   }
 }

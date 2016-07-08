@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react'
-import classNames from 'classnames/bind'
 import Autocomplete from 'react-toolbox/lib/autocomplete'
-import style from './Input.scss'
 import _ from '../../utils'
-
-const cx = classNames.bind(style)
 
 const Input = ({ label, source, multiple, value, onChange }) => {
   if (source.length === 0) {
@@ -18,7 +14,6 @@ const Input = ({ label, source, multiple, value, onChange }) => {
 
   return (
     <Autocomplete
-      className={cx('input', inputStyle)}
       label={label}
       source={source}
       multiple={multiple}

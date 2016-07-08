@@ -4,12 +4,10 @@
   $header-font-size: 3rem;
   font-weight: lighter;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
-
   background-color: $color-primary;
   color: $color-primary-contrast;
   font-size: $header-font-size;
   padding: $unit $padding-content-horizontal 0.8 * $unit;
-
   > div:first-child {
     font-size: $header-font-size * 0.84;
     opacity: $secondary-text-opacity;
