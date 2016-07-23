@@ -35,13 +35,12 @@ describe('solver', () => {
     expect(match).toBe(true)
   })
 
-  it('ensures chump always wins against fire imp', () => {
+  it('solves chump vs fire imp', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
-    expect(solver.getResult()).toBeNaN()
     for (let i = 0; i < 1000; i++) {
       solver.next()
-      expect(solver.getResult()).toBe(1)
     }
+    expect(solver.getResult()).toBeAround(1, 0.05)
   })
 
   it('solves chump vs gray ooze', () => {
@@ -54,7 +53,7 @@ describe('solver', () => {
   })
 
   // Slow
-  xit('solves Apprentice vs Ghost', () => {
+  it('solves Apprentice vs Ghost', () => {
     solver.init({ name: 'Apprentice', items: ['Shimmering Cloak'] },
                 { name: 'Ghost' })
     for (let i = 0; i < 20000; i++) {
