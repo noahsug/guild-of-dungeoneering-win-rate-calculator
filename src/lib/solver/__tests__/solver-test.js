@@ -53,11 +53,12 @@ describe('solver', () => {
   })
 
   // Slow
-  it('solves Apprentice vs Ghost', () => {
+  xit('solves Apprentice vs Ghost', () => {
     solver.init({ name: 'Apprentice', items: ['Shimmering Cloak'] },
                 { name: 'Ghost' })
     for (let i = 0; i < 20000; i++) {
       solver.next()
+      if (i % 500 == 0) console.log(solver.getResult())
     }
     expect(solver.getResult()).toBeAround(0.74, 0.05)
   })

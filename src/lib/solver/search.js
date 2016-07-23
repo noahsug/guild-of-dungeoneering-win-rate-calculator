@@ -8,7 +8,7 @@ export default class Search {
     this.mover_ = new CardMover()
     this.resolver_ = new CardResolver()
     this.bestMoves_ = new Map()
-    this.worstMoves_ = new Map()
+    this.worstMoves_ = {}
 
     this.hasher_ = new Hasher()
   }
@@ -20,14 +20,15 @@ export default class Search {
 
     // If a hero move wins this many times, it's selected as the best and
     // other possible hero moves are pruned.
-    this.bestMovePruning = 15 - Math.min(10, Math.round(Math.sqrt(complexity) * 2))
+    this.bestMovePruning =
+        12 - Math.min(8, Math.round(Math.sqrt(complexity) * 2))
 
     // If a hero move loses this many times without ever winning, it's pruned.
     this.worstMovePruning = Math.round(Math.sqrt(this.bestMovePruning) * 2)
   }
 
   solve(state, order) {
-    this.visited_ = new Map()
+    this.visited_ = new Set()
     this.order_ = order
     this.hasher_.order = order
     this.mover_.order = order
@@ -37,7 +38,7 @@ export default class Search {
   getWinningMove_(state, depth, skipBestMoves) {
     const hash = this.hasher_.hash(state, depth)
     if (this.visited_.has(hash)) return 0
-    this.visited_.set(hash, true)
+    this.visited_.add(hash)
     const enemyCard = this.order_.enemyDraws[depth]
     const bestMove = this.bestMoves_.get(hash)
     if (bestMove !== undefined && !skipBestMoves) {
@@ -53,7 +54,7 @@ export default class Search {
     for (let i = 0; i < len; i++) {
       const heroCard = hand[i]
       const moveHash = this.hasher_.hashMove(hash, heroCard)
-      if (this.worstMoves_.get(moveHash) >= this.worstMovePruning) continue
+      if (this.worstMoves_[moveHash] >= this.worstMovePruning) continue
       const result = this.getResultForMove_(
           state, heroCard, enemyCard, hash, moveHash, depth)
       if (result) {
@@ -67,7 +68,7 @@ export default class Search {
 
   getResultForMove_(state, heroCard, enemyCard, hash, moveHash, depth) {
     if (this.visited_.has(moveHash)) return 0
-    this.visited_.set(moveHash, true)
+    this.visited_.add(moveHash)
     const result = this.searchForResult_(
         state, heroCard, enemyCard, hash, depth)
     return result
@@ -88,11 +89,11 @@ export default class Search {
   }
 
   updateWorstMoves_(state, heroCard, enemyCard, hash, moveHash) {
-    const worstMove = this.worstMoves_.get(moveHash)
+    const worstMove = this.worstMoves_[moveHash]
     if (worstMove === undefined) {
-      this.worstMoves_.set(moveHash, 1)
+      this.worstMoves_[moveHash] = 1
     } else if (worstMove !== -1) {
-      this.worstMoves_.set(moveHash, worstMove + 1)
+      this.worstMoves_[moveHash]++
     }
   }
 
