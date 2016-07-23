@@ -20,10 +20,10 @@ export default class Search {
 
     // If a hero move wins this many times, it's selected as the best and
     // other possible hero moves are pruned.
-    this.bestMovePruning = 15 - Math.min(10, Math.sqrt(complexity) * 2) | 0
+    this.bestMovePruning = 15 - Math.min(10, Math.round(Math.sqrt(complexity) * 2))
 
     // If a hero move loses this many times without ever winning, it's pruned.
-    this.worstMovePruning = this.bestMovePruning
+    this.worstMovePruning = Math.round(this.bestMovePruning / 2)
   }
 
   solve(state, order) {
@@ -31,16 +31,16 @@ export default class Search {
     this.order_ = order
     this.hasher_.order = order
     this.mover_.order = order
-    return this.getWinningMove_(state, state.depth)
+    return this.getWinningMove_(state, state.depth, true)
   }
 
-  getWinningMove_(state, depth) {
+  getWinningMove_(state, depth, skipBestMoves) {
     const hash = this.hasher_.hash(state, depth)
     if (this.visited_[hash]) return 0
     this.visited_[hash] = true
     const enemyCard = this.order_.enemyDraws[depth]
     const bestMove = this.bestMoves_[hash]
-    if (bestMove !== undefined) {
+    if (bestMove !== undefined && !skipBestMoves) {
       const moveHash = this.hasher_.hashMove(hash, bestMove)
       const result = this.getResultForMove_(
           state, bestMove, enemyCard, hash, moveHash, depth)

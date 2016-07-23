@@ -69,7 +69,6 @@ export default class Solver {
   unplay() {
     this.setState_(_.assert(this.state.parent))
     this.order_.unplayEnemyCard()
-    this.solved = false
   }
 
   setState_(state, ungroupedChildren) {

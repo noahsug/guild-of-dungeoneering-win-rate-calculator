@@ -1,9 +1,10 @@
 @import "../common";
 
 .content {
+  cursor: default;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2 * $unit;
+  right: 1.6 * $unit;
   [data-react-toolbox="tooltip"] {
     white-space: pre;
     max-width: none;

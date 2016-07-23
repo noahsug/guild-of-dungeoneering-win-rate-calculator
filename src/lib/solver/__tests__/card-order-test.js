@@ -77,4 +77,20 @@ describe('card order', () => {
       expect(order.enemyDeck).toSortedEqual(expected)
     }
   })
+
+  it('can unplay enemy cards', () => {
+    enemyCards.forEach(card => order.playEnemyCard(card))
+    order.playEnemyCard(6)
+    order.playEnemyCard(19)
+
+    order.unplayEnemyCard()
+    const expected = _.without(enemyCards, 6)
+    expect(order.enemyDeck).toSortedEqual(expected)
+
+    order.unplayEnemyCard()
+    expect(order.enemyDeck).toSortedEqual(enemyCards)
+
+    order.unplayEnemyCard()
+    expect(order.enemyDeck).toEqual([19])
+  })
 })

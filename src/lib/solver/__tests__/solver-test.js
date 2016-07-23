@@ -35,11 +35,13 @@ describe('solver', () => {
     expect(match).toBe(true)
   })
 
-  it('can solve a starting hand', () => {
+  it('ensures chump always wins against fire imp', () => {
     solver.init({ name: 'Chump' }, { name: 'Fire Imp' })
     expect(solver.getResult()).toBeNaN()
-    solver.next()
-    expect(solver.getResult()).toBe(1)
+    for (let i = 0; i < 1000; i++) {
+      solver.next()
+      expect(solver.getResult()).toBe(1)
+    }
   })
 
   it('solves chump vs gray ooze', () => {

@@ -42,7 +42,7 @@ export default class CardOrder {
     if (this.depth_ % this.enemyCards_.length === 0 && amount === 1) {
       this.nextCycle_++
     }
-    if (this.depth_ + 1 % this.enemyCards_.length === 0 && amount === -1) {
+    if ((this.depth_ + 1) % this.enemyCards_.length === 0 && amount === -1) {
       this.nextCycle_--
     }
   }
