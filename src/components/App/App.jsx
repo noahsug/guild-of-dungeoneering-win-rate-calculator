@@ -8,6 +8,10 @@ import BreakdownCard from '../BreakdownCard'
 
 const cx = classNames.bind(style)
 
+function onKeyDown(e) {
+  console.log('KEYDOWN!', e.code)
+}
+
 const App = () => (
   <div>
     <AppHeader />

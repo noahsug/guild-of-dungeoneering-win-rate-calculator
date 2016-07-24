@@ -43,7 +43,7 @@ describe('solver', () => {
     expect(solver.getResult()).toBeAround(1, 0.05)
   })
 
-  it('solves chump vs gray ooze', () => {
+  fit('solves chump vs gray ooze', () => {
     solver.init({ name: 'Chump', traits: ['Crones Discipline'] },
                 { name: 'Gray Ooze' })
     for (let i = 0; i < 4000; i++) {

@@ -6,6 +6,7 @@ const Input = ({ label, source, multiple, value, onChange, disabled }) => {
 
   return (
     <Autocomplete
+      direction="down"
       label={label}
       disabled={disabled}
       source={source}

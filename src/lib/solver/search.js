@@ -8,7 +8,7 @@ export default class Search {
     this.mover_ = new CardMover()
     this.resolver_ = new CardResolver()
     this.bestMoves_ = new Map()
-    this.worstMoves_ = {}
+    this.worstMoves_ = new Map()
 
     this.hasher_ = new Hasher()
   }
@@ -54,7 +54,7 @@ export default class Search {
     for (let i = 0; i < len; i++) {
       const heroCard = hand[i]
       const moveHash = this.hasher_.hashMove(hash, heroCard)
-      if (this.worstMoves_[moveHash] >= this.worstMovePruning) continue
+      if (this.worstMoves_.get(moveHash) >= this.worstMovePruning) continue
       const result = this.getResultForMove_(
           state, heroCard, enemyCard, hash, moveHash, depth)
       if (result) {
@@ -89,16 +89,16 @@ export default class Search {
   }
 
   updateWorstMoves_(state, heroCard, enemyCard, hash, moveHash) {
-    const worstMove = this.worstMoves_[moveHash]
+    const worstMove = this.worstMoves_.get(moveHash)
     if (worstMove === undefined) {
-      this.worstMoves_[moveHash] = 1
+      this.worstMoves_.set(moveHash, 1)
     } else if (worstMove !== -1) {
-      this.worstMoves_[moveHash]++
+      this.worstMoves_.set(moveHash, worstMove + 1)
     }
   }
 
   updateBestMoves_(state, heroCard, enemyCard, hash, moveHash) {
-    this.worstMoves_[moveHash] = -1
+    this.worstMoves_.set(moveHash, -1)
     if (this.bestMoves_.has(hash)) return
     const bestMove = this.bestMoves_.get(moveHash)
     if (bestMove === undefined) {

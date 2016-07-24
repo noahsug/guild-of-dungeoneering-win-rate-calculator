@@ -1,7 +1,9 @@
 import solverSega from './solver-sega'
 import selectionSega from './selection-sega'
+import keyboardHandler from './keyboard-handler'
 
-export {
+export default {
   solverSega,
   selectionSega,
+  keyboardHandler,
 }

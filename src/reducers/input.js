@@ -29,7 +29,7 @@ export default (state, action) => {
         traits: [],
       },
       enemy: {
-        name: 'Fire Imp',
+        name: 'Nasty Rat',
         traits: [],
       },
       hasChanges: true,
