@@ -8,6 +8,7 @@ export default (state, action) => {
       selectionType: 'HERO_HAND',
       selections: [],
       lastSelected: '',
+      selectionFilter: '',
     }
   }
 
@@ -17,6 +18,18 @@ export default (state, action) => {
       return {
         ...state,
         solving: true,
+      }
+
+    case 'SELECTION':
+      return {
+        ...state,
+        selectionFilter: '',
+      }
+
+    case 'FILTER':
+      return {
+        ...state,
+        selectionFilter: action.filter,
       }
 
     case 'STOP':

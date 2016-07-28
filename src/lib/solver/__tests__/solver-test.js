@@ -43,13 +43,20 @@ describe('solver', () => {
     expect(solver.getResult()).toBeAround(1, 0.05)
   })
 
-  fit('solves chump vs gray ooze', () => {
+  it('solves chump vs gray ooze', () => {
     solver.init({ name: 'Chump', traits: ['Crones Discipline'] },
                 { name: 'Gray Ooze' })
     for (let i = 0; i < 4000; i++) {
       solver.next()
     }
     expect(solver.getResult()).toBeAround(0.41, 0.05)
+  })
+
+  it('handles items', () => {
+    solver.init({ name: 'Bruiser', items: ['Straightjacket'] },
+                { name: 'Gnoll' })
+    solver.next()
+    expect(solver.state.hero.health).toBe(6)
   })
 
   // Slow

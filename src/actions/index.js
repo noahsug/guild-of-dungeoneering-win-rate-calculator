@@ -30,3 +30,8 @@ export const updateInput = (player, prop, value) => ({
   prop,
   value,
 })
+
+export const filterSelections = (filter) => ({
+  type: 'FILTER',
+  filter,
+})

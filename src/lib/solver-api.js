@@ -35,7 +35,14 @@ export default class SolverApi {
   play(selection) {
     this.selectionList_.play(selection)
     if (this.selectionType === 'HERO_HAND') {
+      console.log('PLAY', selection)
+      console.log('hero card:',
+                  gameData.cards[_.last(this.selectionList_.selected)].desc)
       this.solver_.play(...this.selectionList_.selected.slice(-3))
+      const state = this.solver_.state.children[0]
+      console.log('deck:', state.hero.deck.map(c => gameData.cards[c].desc))
+      console.log('hand:', state.hero.hand.map(c => gameData.cards[c].desc))
+      console.log('discard:', state.hero.discard.map(c => gameData.cards[c].desc))
     }
   }
 

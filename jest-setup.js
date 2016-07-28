@@ -37,6 +37,10 @@ const customMatchers = {
     _.valuesEqual(actual, expected)
   )),
 
+  toEqualValues: basicMatcher((actual, expected) => (
+    _.valuesEqual(actual, expected)
+  )),
+
   toBeBetween: basicMatcher((actual, a, b) => (
     a <= actual && actual <= b
   )),

@@ -3,6 +3,7 @@
 .content {
   height: 4.7 * $unit;
   [data-react-toolbox="navigation"] {
+    text-align: center;
     position: fixed;
     bottom: 0;
     left: 0;

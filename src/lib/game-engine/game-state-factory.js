@@ -25,6 +25,7 @@ class GameStateFactory {
 
     const state = { health: hero.health }
     const traitSets = this.resolveSituationalTraits_(state, traits)
+    this.resolveHealthTraits_(state, traits)
     sets = sets.concat(traitSets)
     Object.assign(state, this.getTraits_(traits))
     state.deck = this.getDeck_(sets)
@@ -49,6 +50,15 @@ class GameStateFactory {
       })
     })
     return sets
+  }
+
+  // Handle +1HP, -2HP, etc traits
+  resolveHealthTraits_(state, traits) {
+    traits.forEach((trait) => {
+      const match = trait.match(/([+-]\d)+HP/)
+      if (!match) return
+      state.health += parseInt(match[1])
+    })
   }
 
   getTraits_(traitList) {

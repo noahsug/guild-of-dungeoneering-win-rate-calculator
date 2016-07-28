@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { useSelection } from '../actions'
+import { useSelection, filterSelections } from '../actions'
 import SelectionList from '../components/SelectionList'
 
 const mapStateToProps = (state) => ({
@@ -14,11 +14,15 @@ const mapStateToProps = (state) => ({
     name: state.input.enemy.name,
     health: state.breakdown.enemyHealth,
   },
+  filter: state.breakdown.selectionFilter,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onClick: (value) => (
     dispatch(useSelection(value))
+  ),
+  setFilter: (filter) => (
+    dispatch(filterSelections(filter))
   ),
 })
 
