@@ -50,6 +50,7 @@ export default {
     'Cartomancer': ['M/M', 'Cs', 'P/U/Q', 'Ps', 'M/BM/BM', 'H/D'],
     'Most Holy Grail Knight': ['P/HID', 'P/HID', 'M/HID/HID', 'P/P/U', 'P/P/-H', 'H/H/H/-H'],
     'Troubador': ['M/U', 'P/P/Q', 'P/P/BP/BP', 'P/P/BM/BM', 'P/M', 'P/M'],
+    'Drunken Sailor': ['P', 'PN/PN', 'PN/PN', 'BP/BP', 'BP/BP', 'P/P/P/-H', 'P/P/P/-H'],
     // 'Artificer': ['ClID'],
 
     // Enemy sets
@@ -252,6 +253,11 @@ export default {
       sets: ['Troubador'],
       health: 6,
       traits: ['Spellsword'],
+    },
+    'Drunken Sailor': {
+      sets: ['Drunken Sailor'],
+      health: 6,
+      traits: ['Rum'],
     },
   },
 
@@ -1358,8 +1364,24 @@ export default {
   },
 
   traits: {
+    'Warriors Spirit': {
+      physicalNextEffect: 1,
+      for: 'hero',
+      type: 'trinket',
+    },
     'Warriors Might': {
       physicalNextEffect: 1,
+      for: 'hero',
+      type: 'trinket',
+    },
+    'Warriors Strength': {
+      physicalNextEffect: 1,
+      crush: 1,
+      for: 'hero',
+      type: 'trinket',
+    },
+    'Hug in a Bottle': {
+      health: 1,
       for: 'hero',
       type: 'trinket',
     },
@@ -1368,8 +1390,25 @@ export default {
       for: 'hero',
       type: 'trinket',
     },
+    'Heart Serum': {
+      health: 1,
+      holy: 1,
+      for: 'hero',
+      type: 'trinket',
+    },
+    'Crones Knowledge': {
+      handSize: 1,
+      for: 'hero',
+      type: 'trinket',
+    },
     'Crones Discipline': {
       handSize: 1,
+      for: 'hero',
+      type: 'trinket',
+    },
+    'Crones Mind': {
+      handSize: 1,
+      arcane: 1,
       for: 'hero',
       type: 'trinket',
     },
@@ -1388,10 +1427,17 @@ export default {
       for: 'hero',
       type: 'level',
     },
-    'Level 5': {
-      health: 4,
+    '+1HP': {
       for: 'hero',
-      type: 'level',
+      type: '+HP',
+    },
+    '+2HP': {
+      for: 'hero',
+      type: '+HP',
+    },
+    '+3HP': {
+      for: 'hero',
+      type: '+HP',
     },
     'Deathwish': {
       health: 2,
