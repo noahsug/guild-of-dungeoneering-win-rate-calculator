@@ -1,5 +1,6 @@
 import _ from 'underscore'
 import s from 'underscore.string'
+import store from './local-storage'
 import './factorial'
 import './simple-moving-average'
 
@@ -8,6 +9,8 @@ let seed = 0
 const time = {}
 
 _.s = s
+
+_.store = store
 
 _.mixin({
   sum: (array, iteratee = _.identity) => (

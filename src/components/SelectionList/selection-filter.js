@@ -8,8 +8,6 @@ function filterSelections(selections, filter) {
     replace(/\s+/g, ' ').  // Remove extra whitespace
     trim()
 
-  console.log(filter)
-
   const filterCards = filter.split(' ')
   return selections.filter(s => satisfiesFilter(s, filter))
 

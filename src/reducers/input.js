@@ -1,28 +1,12 @@
 import _ from '../utils'
 
+function saveState(state) {
+  _.store.setObj('input', { ...state, hasChanges: true })
+}
+
 export default (state, action) => {
   if (state === undefined) {
-    return {
-      // hero: {
-      //  name: 'Chump',
-      //  items: ['Scroll Of Souls', 'Fez', 'Ocean Staff', 'Bark Vest'],
-      //  traits: ['Crones Discipline'],
-      // },
-      // enemy: {
-      //  name: 'Angry Bunny',
-      //  traits: [],
-      // },
-
-      //hero: {
-      //  name: 'Chump',
-      //  items: [],
-      //  traits: ['Crones Discipline'],
-      //},
-      //enemy: {
-      //  name: 'Gray Ooze',
-      //  traits: [],
-      //},
-
+    return _.store.getObj('input') || {
       hero: {
         name: 'Chump',
         items: [],
@@ -44,6 +28,7 @@ export default (state, action) => {
       return state
 
     case 'START':
+      saveState(state)
       return {
         ...state,
         hasChanges: false,

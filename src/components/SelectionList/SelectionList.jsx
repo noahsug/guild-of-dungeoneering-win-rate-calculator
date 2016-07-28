@@ -32,7 +32,7 @@ const SelectionList = ({
   selections = filterSelections(selections, filter)
   if (!filter && selections.length === 0) return null
   return (
-    <List selectable ripple>
+    <List selectable ripple className={cx('content')}>
       {maybeGetFilter({ selections, filter, setFilter })}
       <ListSubHeader
         caption={getSelectionDesc(selectionType, isFirstSelection)}
