@@ -27,6 +27,11 @@ export default class Search {
     this.worstMovePruning = Math.round(Math.sqrt(this.bestMovePruning) * 2)
   }
 
+  clearCache() {
+    this.bestMoves_ = new Map()
+    this.worstMoves_ = new Map()
+  }
+
   solve(state, order) {
     this.visited_ = new Set()
     this.order_ = order

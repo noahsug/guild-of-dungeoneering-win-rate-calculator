@@ -7,20 +7,22 @@ export default class SolverApi {
   constructor() {
     this.solver_ = new Solver()
     this.selectionList_ = null
+    this.smoothedResults_ = {}
   }
 
   init(input) {
     this.solver_.init(input.hero, input.enemy)
     this.selectionList_ = new SelectionList(this.solver_)
+    this.resetResultSmoothing_();
   }
 
   * start() {
     this.running_ = true
     this.iterateResult_(10)
-    yield this.result
+    yield
     while (this.running_) {
       this.iterateResult_(100)
-      yield this.result
+      yield
     }
   }
 
@@ -38,6 +40,7 @@ export default class SolverApi {
       this.solver_.play(...this.selectionList_.selected.slice(-3))
       const state = this.solver_.state.children[0]
     }
+    this.resetResultSmoothing_()
   }
 
   back() {
@@ -66,10 +69,31 @@ export default class SolverApi {
 
   get selectionType() { return this.selectionList_.type }
 
-  get result() { return this.selectionList_.result }
+  get result() {
+    const result = this.selectionList_.result
+    return this.smoothedResults_.result.update(result);
+  }
 
   get selections() {
     if (this.solver_.solved) return []
-    return this.selectionList_.selections
+    const selections = this.selectionList_.selections
+    this.smoothSelectionResults_(selections)
+    return selections;
+  }
+
+  smoothSelectionResults_(sections) {
+    sections.forEach((s, i) => {
+      if (!this.smoothedResults_.selections[i]) {
+        this.smoothedResults_.selections[i] = _.smoothNumber()
+      }
+      s.result = this.smoothedResults_.selections[i].update(s.result)
+    })
+  }
+
+  resetResultSmoothing_() {
+    this.smoothedResults_ = {
+      result: _.smoothNumber(),
+      selections: [],
+    }
   }
 }

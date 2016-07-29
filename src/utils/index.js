@@ -2,6 +2,7 @@ import _ from 'underscore'
 import s from 'underscore.string'
 import store from './local-storage'
 import './factorial'
+import './smooth-number'
 import './simple-moving-average'
 
 let uid = 0
@@ -329,6 +330,15 @@ _.mixin({
   setInPlace: (list, values) => {
     list.length = 0
     list.push(...values)
+  },
+
+  // Moves value towards target, but not past it.
+  approach: (value, target, absAmount) => {
+    const d = target - value;
+    if (Math.abs(d) < absAmount) {
+      return target;
+    }
+    return value + absAmount * Math.sign(d);
   },
 })
 

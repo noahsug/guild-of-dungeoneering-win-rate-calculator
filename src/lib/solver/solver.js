@@ -57,6 +57,7 @@ export default class Solver {
   }
 
   play(state, enemyCard, heroCard) {
+    this.search_.clearCache()
     const resolvedState = gs.clone(state)
     const result = this.resolver_.resolve(resolvedState, heroCard, enemyCard)
     if (result !== undefined) state.solved = true
