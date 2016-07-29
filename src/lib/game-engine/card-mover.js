@@ -6,6 +6,10 @@ export default class CardMover {
     const played = state.hero.hand.splice(heroCardIndex, 1)[0]
     // TODO: Implement steal, enemy discard (card not discarded is played next),
     // and clone.
+    // As a temporary fix, steal is being treated the same as discard.
+    state.hero.discardEffect += state.hero.stealEffect
+    state.hero.stealEffect = 0
+
     if (state.hero.cycleEffect && state.hero.hand.length) {
       const discardValue = this.order.cycleDiscardValues[depth]
       const drawValue = this.order.cycleDrawValues[depth]
