@@ -10,24 +10,20 @@
 }
 
 body {
-  background-color: $color-background;
-  background-image: url(/images/grid-bg.jpg);
-  background-blend-mode: multiply;
+  background-color: $color-primary;
   line-height: normal;
 }
 
-.card-content {
+.cards {
+  background-color: $color-background;
+  background-image: url(/images/grid-bg.jpg);
+  background-blend-mode: multiply;
   padding: 2 * $unit $padding-content-horizontal;
   display: flex;
   align-items: flex-start;
   [data-react-toolbox="card"] {
-    overflow: visible;
-  }
-  .card-column {
     position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+    overflow: visible;
     &:first-child {
       margin-right: 1.85 * $unit;
     }

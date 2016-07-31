@@ -13,7 +13,7 @@ function* reset(solver) {
 function* solve(solver) {
   try {
     const resultGen = solver.start()
-    for (let i = 0; i < 1000; i++) {
+    while (true) {
       resultGen.next()
       yield call(updateBreakdown, solver)
       yield call(delay, 5)

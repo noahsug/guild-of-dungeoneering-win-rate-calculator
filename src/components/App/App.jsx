@@ -9,15 +9,11 @@ import BreakdownCard from '../BreakdownCard'
 const cx = classNames.bind(style)
 
 const App = () => (
-  <div className={cx('app')}>
+  <div>
     <AppHeader />
-    <div className={cx('card-content')}>
-      <div className={cx('card-column')}>
-        <InputCard />
-      </div>
-      <div className={cx('card-column')}>
-        <BreakdownCard />
-      </div>
+    <div className={cx('cards')}>
+      <InputCard />
+      <BreakdownCard />
     </div>
     <AppFooter />
   </div>

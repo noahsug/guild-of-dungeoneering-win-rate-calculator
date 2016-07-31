@@ -3,6 +3,7 @@ import { CardActions } from 'react-toolbox/lib/card'
 import { connect } from 'react-redux'
 import { goBack } from '../actions'
 import Button from 'react-toolbox/lib/button'
+import buttonTheme from './themes/button-theme'
 
 const mapStateToProps = (state) => ({
   visible: !!state.breakdown.lastSelected,
@@ -16,7 +17,7 @@ const BackButton = ({ visible, back }) => {
   if (!visible) return null
   return (
     <CardActions>
-      <Button onClick={back} label="back" />
+      <Button theme={buttonTheme} onClick={back} label="back" />
     </CardActions>
   )
 }

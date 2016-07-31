@@ -4,7 +4,7 @@ import { Input } from 'react-toolbox/lib/input'
 const Filter = ({ filter, setFilter }) => (
   <Input
     type="text"
-    label="Filter"
+    label="Filter cards"
     value={filter}
     onChange={setFilter}
   />

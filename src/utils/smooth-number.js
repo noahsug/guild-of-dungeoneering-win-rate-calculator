@@ -27,9 +27,9 @@ class SmoothNumber {
   }
 
   moveSmoothedValue_(value) {
-    const ratio = Math.abs(value - this.value_) / this.sigdig
-    if (ratio < 2) return;
-    const smoothness = this.sigdig * Math.pow(ratio, 1.5) / 3
+    const ratio = Math.abs(value - this.value_) / (this.sigdig * 2)
+    if (ratio < 1) return;
+    const smoothness = this.sigdig * Math.pow(ratio, 2) / 4
     const dt = (Date.now() - this.lastUpdated_) / 1000;
     this.value_ = _.approach(this.value_, value, dt * smoothness)
   }

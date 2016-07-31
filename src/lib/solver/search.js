@@ -37,16 +37,16 @@ export default class Search {
     this.order_ = order
     this.hasher_.order = order
     this.mover_.order = order
-    return this.getWinningMove_(state, state.depth, true)
+    return this.getWinningMove_(state, state.depth)
   }
 
-  getWinningMove_(state, depth, skipBestMoves) {
+  getWinningMove_(state, depth) {
     const hash = this.hasher_.hash(state, depth)
     if (this.visited_.has(hash)) return 0
     this.visited_.add(hash)
     const enemyCard = this.order_.enemyDraws[depth]
     const bestMove = this.bestMoves_.get(hash)
-    if (bestMove !== undefined && !skipBestMoves) {
+    if (bestMove !== undefined) {
       const moveHash = this.hasher_.hashMove(hash, bestMove)
       const result = this.getResultForMove_(
           state, bestMove, enemyCard, hash, moveHash, depth)
