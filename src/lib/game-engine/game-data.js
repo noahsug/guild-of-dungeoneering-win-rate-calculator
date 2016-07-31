@@ -282,8 +282,8 @@ export default {
       traits: ['Fury'],
     },
     'One-Headed Monkey': {
-     health: 6,
-     sets: ['Feral 3', 'Irritable 3', 'Pickpocket 3'],
+      health: 6,
+      sets: ['Feral 3', 'Irritable 3', 'Pickpocket 3'],
     },
     // Cove - 2
     'Cabin Boy': {
@@ -297,9 +297,9 @@ export default {
       traits: ['Tough'],
     },
     'Gunner': {
-     health: 7,
-     sets: ['Armed 3', 'Burly 2', 'Rage 2', 'Gunnery 4'],
-     traits: ['Spikey', 'Rum'],
+      health: 7,
+      sets: ['Armed 3', 'Burly 2', 'Rage 2', 'Gunnery 4'],
+      traits: ['Spikey', 'Rum'],
     },
     'Hermit Crab': {
       health: 9,
@@ -312,14 +312,14 @@ export default {
       traits: ['Mundane'],
     },
     'Sea Monkey': {
-     health: 8,
-     sets: ['Feral 3', 'Irritable 2', 'Pickpocket 3', 'Aquatic 3',
+      health: 8,
+      sets: ['Feral 3', 'Irritable 2', 'Pickpocket 3', 'Aquatic 3',
             'Electrical 1'],
     },
     'Werecrab Mage': {
-     health: 9,
-     sets: ['Spooky 3', 'Sorcery 3', 'Aquatic 2', 'Electrical 4'],
-     traits: ['Frail'],
+      health: 9,
+      sets: ['Spooky 3', 'Sorcery 3', 'Aquatic 2', 'Electrical 4'],
+      traits: ['Frail'],
     },
     // Cove - 3
     'Ancient Mariner': {
@@ -334,44 +334,44 @@ export default {
       situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     'Cranky Parrot': {
-     health: 9,
-     sets: ['Feral 5', 'Pickpocket 2', 'Nature 1', 'Stupidity 2'],
-     traits: ['Ferocious'],
+      health: 9,
+      sets: ['Feral 5', 'Pickpocket 2', 'Nature 1', 'Stupidity 2'],
+      traits: ['Ferocious'],
     },
     'First Mate': {
-     health: 9,
-     sets: ['Armed 2', 'Burly 3', 'Gunnery 2', 'Irritable 3', 'Pickpocket 2'],
-     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
+      health: 9,
+      sets: ['Armed 2', 'Burly 3', 'Gunnery 2', 'Irritable 3', 'Pickpocket 2'],
+      situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     'Flaming Gallah': {
-     health: 9,
-     sets: ['Flame 4', 'Feral 5', 'Rage 1', 'Nature 1', 'Pickpocket 3'],
-     traits: ['Burn', 'Ferocious'],
+      health: 9,
+      sets: ['Flame 4', 'Feral 5', 'Rage 1', 'Nature 1', 'Pickpocket 3'],
+      traits: ['Burn', 'Ferocious'],
     },
     'Ghost Pirate': {
-     health: 10,
-     sets: ['Sorcery 3', 'Death 2', 'Pickpocket 2'],
-     traits: ['Bulwark', 'Aggressive'],
+      health: 10,
+      sets: ['Sorcery 3', 'Death 2', 'Pickpocket 2'],
+      traits: ['Bulwark', 'Aggressive'],
     },
     'Master Gunner': {
-     health: 14,
-     sets: ['Gunnery 5', 'Burly 2', 'Armed 2', 'Rage 2'],
-     traits: ['Tough', 'Spikey', 'Aggressive'],
+      health: 14,
+      sets: ['Gunnery 5', 'Burly 2', 'Armed 2', 'Rage 2'],
+      traits: ['Tough', 'Spikey', 'Aggressive'],
     },
     'Pearl Guard': {
       health: 10,
       sets: ['Feral 3', 'Irritable 2', 'Aquatic 4'],
     },
     'Pirate': {
-     health: 8,
-     sets: ['Armed 3', 'Rage 2', 'Pickpocket 1'],
-     traits: ['Aggressive', 'Rum'],
-     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
+      health: 8,
+      sets: ['Armed 3', 'Rage 2', 'Pickpocket 1'],
+      traits: ['Aggressive', 'Rum'],
+      situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     'Ships Cook': {
-     health: 9,
-     sets: ['Pickpocket 3', 'Rage 2', 'Irritable 2', 'Burly 2'],
-     traits: ['Fury', 'Rum', 'Respite'],
+      health: 9,
+      sets: ['Pickpocket 3', 'Rage 2', 'Irritable 2', 'Burly 2'],
+      traits: ['Fury', 'Rum', 'Respite'],
     },
     'Three-Headed Monkey': {
       health: 10,
@@ -385,21 +385,21 @@ export default {
     },
     // Cove - 4
     'Bullseye Bill': {
-     health: 12,
-     sets: ['Irritable 5', 'Burly 3', 'Gunnery 2', 'Armed 2', 'Pickpocket 2'],
-     traits: ['Bulwark'],
-     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
+      health: 12,
+      sets: ['Irritable 5', 'Burly 3', 'Gunnery 2', 'Armed 2', 'Pickpocket 2'],
+      traits: ['Bulwark'],
+      situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     'Captain Rosalita': {
-     health: 14,
-     sets: ['Rage 2', 'Irritable 4', 'Pickpocket 4', 'Armed 4'],
-     traits: ['Skilled'],
-     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
+      health: 14,
+      sets: ['Rage 2', 'Irritable 4', 'Pickpocket 4', 'Armed 4'],
+      traits: ['Skilled'],
+      situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     'Cleaver Joe': {
-     health: 13,
-     sets: ['Flame 2', 'Rage 2', 'Irritable 3', 'Burly 2', 'Pickpocket 3'],
-     traits: ['Fury', 'Rum', 'Respite'],
+      health: 13,
+      sets: ['Flame 2', 'Rage 2', 'Irritable 3', 'Burly 2', 'Pickpocket 3'],
+      traits: ['Fury', 'Rum', 'Respite'],
     },
     'Crab King': {
       health: 12,
@@ -427,10 +427,10 @@ export default {
       traits: ['Aggressive', 'Decay'],
     },
     'Skeleton Pirate': {
-     health: 15,
-     sets: ['Death 2', 'Spooky 2', 'Ghoulish 3', 'Pickpocket 1'],
-     traits: ['Brittle', 'Aggressive'],
-     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
+      health: 15,
+      sets: ['Death 2', 'Spooky 2', 'Ghoulish 3', 'Pickpocket 1'],
+      traits: ['Brittle', 'Aggressive'],
+      situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     // Final
     'Angry Bunny': {
@@ -695,9 +695,9 @@ export default {
       situationalTraits: ['Night Owl'],
     },
     'Ogre': {
-     health: 13,
-     sets: ['Burly 3', 'Rage 2', 'Stupidity 2'],
-     traits: ['Predictable'],
+      health: 13,
+      sets: ['Burly 3', 'Rage 2', 'Stupidity 2'],
+      traits: ['Predictable'],
     },
     // Mines - 1
     'Albino Goblin': {
@@ -756,9 +756,9 @@ export default {
       traits: ['Decay', 'Wandering'],
     },
     'Spider Drill': {
-     health: 9,
-     sets: ['Sorcery 3', 'Burly 2'],
-     traits: ['Bulwark', 'Aggressive'],
+      health: 9,
+      sets: ['Sorcery 3', 'Burly 2'],
+      traits: ['Bulwark', 'Aggressive'],
     },
     'Wailing Ghost': {
       health: 7,
@@ -783,13 +783,13 @@ export default {
       traits: ['Brittle'],
     },
     'Genii': {
-     health: 9,
-     sets: ['Demonic 2', 'Sorcery 3'],
+      health: 9,
+      sets: ['Demonic 2', 'Sorcery 3'],
     },
     'Nymph': {
-     health: 9,
-     sets: ['Venom 3', 'Sorcery 3'],
-     traits: ['Tenacious'],
+      health: 9,
+      sets: ['Venom 3', 'Sorcery 3'],
+      traits: ['Tenacious'],
     },
     'Vampire': {
       health: 9,
@@ -1404,6 +1404,7 @@ export default {
       for: 'hero',
       type: 'trinket',
     },
+
     // Levels
     'Level 2': {
       health: 1,
@@ -1420,6 +1421,7 @@ export default {
       for: 'hero',
       type: 'level',
     },
+
     // HP from fountains in base
     '+1HP': {
       for: 'hero',

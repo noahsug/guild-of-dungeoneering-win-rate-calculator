@@ -1,5 +1,3 @@
-import _ from 'underscore'
-
 function hasLocalStorageSupport() {
   return window.localStorage &&
       window.localStorage.setItem &&

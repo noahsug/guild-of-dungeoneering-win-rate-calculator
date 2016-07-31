@@ -1,7 +1,6 @@
-import { take, call, fork, select } from 'redux-saga/effects'
+import { take, call, fork } from 'redux-saga/effects'
 import { putp } from '../actions/utils'
 import { updateBreakdown } from './utils'
-import { getResult } from '../selectors'
 
 function* handleBack(solver) {
   while (true) {

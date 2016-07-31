@@ -334,11 +334,11 @@ _.mixin({
 
   // Moves value towards target, but not past it.
   approach: (value, target, absAmount) => {
-    const d = target - value;
+    const d = target - value
     if (Math.abs(d) < absAmount) {
-      return target;
+      return target
     }
-    return value + absAmount * Math.sign(d);
+    return value + absAmount * Math.sign(d)
   },
 })
 

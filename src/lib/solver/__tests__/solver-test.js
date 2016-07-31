@@ -65,7 +65,6 @@ describe('solver', () => {
                 { name: 'Ghost' })
     for (let i = 0; i < 20000; i++) {
       solver.next()
-      if (i % 500 == 0) console.log(solver.getResult())
     }
     expect(solver.getResult()).toBeAround(0.74, 0.05)
   })

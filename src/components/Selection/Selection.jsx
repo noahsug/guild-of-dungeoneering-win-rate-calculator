@@ -15,7 +15,7 @@ const Selection = ({ result, cards, highlight, onClick }) => {
     <ListItem
       ripple
       selectable
-      className={cx({highlight})}
+      className={cx({ highlight })}
       onClick={onClick}
       caption={cards.join(' ')}
       legend={`${formatResult(result)} chance to win`}

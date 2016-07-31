@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { startSolving, stopSolving, resumeSolving } from '../actions'
 import Button from 'react-toolbox/lib/button'
-import buttonTheme from './themes/button-theme'
+import buttonTheme from './themes/button-theme.scss'
 
 const mapStateToProps = (state) => {
   let accent = false
-  let label, action
+  let label
+  let action
   if (state.breakdown.solving) {
     label = 'Stop'
     action = 'stop'

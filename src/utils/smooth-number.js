@@ -14,7 +14,7 @@ class SmoothNumber {
 
   update(value) {
     if (this.value_ === null) {
-      this.value_ = value;
+      this.value_ = value
     } else {
       this.moveSmoothedValue_(value)
     }
@@ -23,14 +23,14 @@ class SmoothNumber {
   }
 
   get() {
-    return this.value_;
+    return this.value_
   }
 
   moveSmoothedValue_(value) {
     const ratio = Math.abs(value - this.value_) / (this.sigdig * 2)
-    if (ratio < 1) return;
+    if (ratio < 1) return
     const smoothness = this.sigdig * Math.pow(ratio, 2) / 4
-    const dt = (Date.now() - this.lastUpdated_) / 1000;
+    const dt = (Date.now() - this.lastUpdated_) / 1000
     this.value_ = _.approach(this.value_, value, dt * smoothness)
   }
 }

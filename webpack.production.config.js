@@ -1,27 +1,23 @@
-import path from 'path';
-import webpack from 'webpack';
+const path = require('path');
+const webpack = require('webpack');
 
-const buildPath = path.resolve(__dirname, 'build');
+const entry = path.resolve(__dirname, 'src', 'index');
+const output = path.resolve(__dirname, 'build');
 
-module.exports = {
+const config = {
   devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],
   },
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './src/index'
-  ],
+  entry,
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: output,
     filename: 'bundle.js',
-    publicPath: '/static/'
   },
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel'],
+      loaders: ['babel'],
       include: path.join(__dirname, 'src'),
     }, {
       test: /\.scss$/,
@@ -32,6 +28,8 @@ module.exports = {
     }],
   },
   toolbox: {
-    theme: 'src/components/theme.scss'
+    theme: 'src/components/themes/theme.scss'
   },
 };
+
+module.exports = config;

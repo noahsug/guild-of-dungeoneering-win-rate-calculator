@@ -2,7 +2,7 @@ import React from 'react'
 import Navigation from 'react-toolbox/lib/navigation'
 import Link from 'react-toolbox/lib/link'
 import classNames from 'classnames/bind'
-import linkTheme from '../themes/link-theme'
+import linkTheme from '../themes/link-theme.scss'
 import style from './AppFooter.scss'
 
 const cx = classNames.bind(style)

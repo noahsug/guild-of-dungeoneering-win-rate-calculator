@@ -6,7 +6,7 @@ import _ from '../../utils'
 import Selection from '../Selection'
 import Filter from '../Filter'
 import style from './SelectionList.scss'
-import { filterSelections }  from './selection-filter.js'
+import { filterSelections } from './selection-filter.js'
 
 const cx = classNames.bind(style)
 
@@ -18,15 +18,6 @@ const getSelectionDesc = (selectionType, isFirstSelection) => {
   return ''
 }
 
-const maybeGetFilter = ({ selections, filter, setFilter }) => {
-  if (!filter && selections.length <= 5) return <div />
-  return (
-    <CardText className={cx('filter')}>
-      <Filter filter={filter} setFilter={setFilter} />
-    </CardText>
-  )
-}
-
 const getBestResult = (selections, selectionType) => (
   selectionType === 'HERO_CARD' && _.max(selections, s => s.result).result
 )
@@ -36,13 +27,21 @@ const SelectionList = ({
     filter, setFilter }) => {
   selections = filterSelections(selections, filter)
   if (!filter && selections.length === 0) return null
-  const bestResult = getBestResult(selections, selectionType);
+  const bestResult = getBestResult(selections, selectionType)
   return (
     <List selectable ripple className={cx('content')}>
-      {maybeGetFilter({ selections, filter, setFilter })}
+      {filter || selections.length > 5 ? (
+        <CardText className={cx('filter')}>
+          <Filter filter={filter} setFilter={setFilter} />
+        </CardText>
+      ) : (
+        <div />
+      )}
+
       <ListSubHeader
         caption={getSelectionDesc(selectionType, isFirstSelection)}
       />
+
       {selections.map(({ result, cards }, i) => (
         <Selection
           result={result}

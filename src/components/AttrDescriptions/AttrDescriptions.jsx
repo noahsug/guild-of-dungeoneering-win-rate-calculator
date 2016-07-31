@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Link from 'react-toolbox/lib/link';
+import Link from 'react-toolbox/lib/link'
 import tooltipify from 'react-toolbox/lib/tooltip'
 import classNames from 'classnames/bind'
 import _ from '../../utils'
 import style from './AttrDescriptions.scss'
-import linkTheme from '../themes/link-theme'
+import linkTheme from '../themes/link-theme.scss'
 import { gameData } from '../../lib'
 
 const cx = classNames.bind(style)

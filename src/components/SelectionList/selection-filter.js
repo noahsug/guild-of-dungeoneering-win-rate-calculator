@@ -9,12 +9,12 @@ function filterSelections(selections, filter) {
     trim()
 
   const filterCards = filter.split(' ')
-  return selections.filter(s => satisfiesFilter(s, filter))
+  return selections.filter(s => satisfiesFilter(s))
 
-  function satisfiesFilter(selection, filter) {
+  function satisfiesFilter(selection) {
     const matchLists = filterCards.map(filterCard => {
-      let filterAttrs = filterCard.split(gameData.CARD_DELIMITER)
-      return getCardMatches(selection.cards, filterAttrs);
+      const filterAttrs = filterCard.split(gameData.CARD_DELIMITER)
+      return getCardMatches(selection.cards, filterAttrs)
     })
     return eachFilterCardHasUniqueMatch(matchLists)
   }
@@ -42,5 +42,5 @@ function filterSelections(selections, filter) {
 }
 
 export {
-  filterSelections
+  filterSelections,
 }

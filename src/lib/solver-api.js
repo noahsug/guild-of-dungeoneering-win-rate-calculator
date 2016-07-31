@@ -13,7 +13,7 @@ export default class SolverApi {
   init(input) {
     this.solver_.init(input.hero, input.enemy)
     this.selectionList_ = new SelectionList(this.solver_)
-    this.resetResultSmoothing_();
+    this.resetResultSmoothing_()
   }
 
   * start() {
@@ -38,7 +38,6 @@ export default class SolverApi {
     this.selectionList_.play(selection)
     if (this.selectionType === 'HERO_HAND') {
       this.solver_.play(...this.selectionList_.selected.slice(-3))
-      const state = this.solver_.state.children[0]
     }
     this.resetResultSmoothing_()
   }
@@ -71,14 +70,14 @@ export default class SolverApi {
 
   get result() {
     const result = this.selectionList_.result
-    return this.smoothedResults_.result.update(result);
+    return this.smoothedResults_.result.update(result)
   }
 
   get selections() {
     if (this.solver_.solved) return []
     const selections = this.selectionList_.selections
     this.smoothSelectionResults_(selections)
-    return selections;
+    return selections
   }
 
   smoothSelectionResults_(sections) {

@@ -57,7 +57,7 @@ class GameStateFactory {
     traits.forEach((trait) => {
       const match = trait.match(/([+-]\d)+HP/)
       if (!match) return
-      state.health += parseInt(match[1])
+      state.health += parseInt(match[1], 10)
     })
   }
 
