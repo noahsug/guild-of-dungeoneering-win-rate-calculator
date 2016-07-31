@@ -8,12 +8,8 @@ import BreakdownCard from '../BreakdownCard'
 
 const cx = classNames.bind(style)
 
-function onKeyDown(e) {
-  console.log('KEYDOWN!', e.code)
-}
-
 const App = () => (
-  <div>
+  <div className={cx('app')}>
     <AppHeader />
     <div className={cx('card-content')}>
       <div className={cx('card-column')}>

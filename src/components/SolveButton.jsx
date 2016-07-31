@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { startSolving, stopSolving, resumeSolving } from '../actions'
 import Button from 'react-toolbox/lib/button'
+import buttonTheme from './themes/button-theme'
 
 const mapStateToProps = (state) => {
   let accent = false
@@ -28,7 +29,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 const SolveButton = (props) => {
   const { label, action, accent } = props
-  return <Button label={label} onClick={props[action]} accent={accent} />
+  return (
+    <Button
+      theme={buttonTheme}
+      label={label}
+      onClick={props[action]}
+      accent={accent}
+    />
+  )
 }
 
 SolveButton.propTypes = {

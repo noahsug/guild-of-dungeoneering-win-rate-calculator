@@ -9,4 +9,13 @@
     white-space: pre;
     max-width: none;
   }
+  abbr {
+    text-align: center;
+    font-size: 1.5 * $unit;
+    height: 2 * $unit;
+    width: 2 * $unit;
+    color: white;
+    background-color: $color-primary;
+    border-radius: 50%;
+  }
 }

@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import FontIcon from 'react-toolbox/lib/font_icon';
+import Link from 'react-toolbox/lib/link';
 import tooltipify from 'react-toolbox/lib/tooltip'
 import classNames from 'classnames/bind'
 import _ from '../../utils'
-import style from './AttrDescriptionsButton.scss'
+import style from './AttrDescriptions.scss'
+import linkTheme from '../themes/link-theme'
 import { gameData } from '../../lib'
 
 const cx = classNames.bind(style)
-const TooltipIcon = tooltipify(FontIcon)
+const TooltipIcon = tooltipify(Link)
 
 function getAttrDescription(attr) {
   return _.s.humanize(gameData.CARD_ATTRS[attr])
@@ -31,16 +32,21 @@ const mapStateToProps = (state) => ({
   tooltip: getTooltip(state.breakdown.selections),
 })
 
-const AttrDescriptionsButton = ({ visible, tooltip }) => {
+const AttrDescriptions = ({ visible, tooltip }) => {
   if (!visible) return null
   return (
-    <TooltipIcon className={cx('content')} value="help" tooltip={tooltip} />
+    <TooltipIcon
+      label="?"
+      className={cx('content')}
+      tooltip={tooltip}
+      theme={linkTheme}
+    />
   )
 }
 
-AttrDescriptionsButton.propTypes = {
+AttrDescriptions.propTypes = {
   visible: PropTypes.bool.isRequired,
   tooltip: PropTypes.string.isRequired,
 }
 
-export default connect(mapStateToProps)(AttrDescriptionsButton)
+export default connect(mapStateToProps)(AttrDescriptions)

@@ -13,6 +13,9 @@
     background-color: $color-primary-dark;
     [data-react-toolbox="link"] {
       color: $color-primary-contrast;
+      font-family: 'Lemons Can Fly';
+      font-size: 3.2 * $unit;
+      line-height: 0.77;
       &:not(:first-of-type) {
         margin-left: $unit;
       }

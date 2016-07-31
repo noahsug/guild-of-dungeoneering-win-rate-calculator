@@ -1,7 +1,9 @@
 @import "../common";
 
 .content {
-  $header-font-size: 3rem;
+  font-family: 'Lemons Can Fly';
+  line-height: 0.7;
+  $header-font-size: 7rem;
   font-weight: lighter;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
   background-color: $color-primary;
@@ -9,7 +11,7 @@
   font-size: $header-font-size;
   padding: $unit $padding-content-horizontal 0.8 * $unit;
   > div:first-child {
-    font-size: $header-font-size * 0.84;
+    font-size: $header-font-size * 0.88;
     opacity: $secondary-text-opacity;
   }
 }

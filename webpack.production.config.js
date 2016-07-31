@@ -1,11 +1,10 @@
 import path from 'path';
 import webpack from 'webpack';
 
+const buildPath = path.resolve(__dirname, 'build');
+
 module.exports = {
-  devtool: 'eval',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],
   },
@@ -29,10 +28,10 @@ module.exports = {
       loaders: ['style',
                 'css?modules&localIdentName=[name]_[local]_[hash:base64:5]',
                 'sass',
-                'toolbox']
+                'toolbox'],
     }],
   },
   toolbox: {
-    theme: 'src/components/themes/theme.scss'
+    theme: 'src/components/theme.scss'
   },
 };

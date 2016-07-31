@@ -3,14 +3,14 @@ import { Card } from 'react-toolbox/lib/card'
 import BreakdownHeader from './BreakdownHeader'
 import BackButton from './BackButton'
 import SelectionListContainer from '../containers/SelectionListContainer'
-import AttrDescriptionsButton from './AttrDescriptionsButton'
+import AttrDescriptions from './AttrDescriptions'
 
 const BreakdownCard = () => (
   <Card>
     <BreakdownHeader />
     <SelectionListContainer />
     <BackButton />
-    <AttrDescriptionsButton />
+    <AttrDescriptions />
   </Card>
 )
 

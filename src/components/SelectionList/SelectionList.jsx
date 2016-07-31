@@ -34,8 +34,7 @@ const SelectionList = ({
   return (
     <List selectable ripple className={cx('content')}>
       {maybeGetFilter({ selections, filter, setFilter })}
-      <ListSubHeader
-        caption={getSelectionDesc(selectionType, isFirstSelection)}
+      <ListSubHeader caption={getSelectionDesc(selectionType, isFirstSelection)}
       />
       {selections.map(({ result, cards }, i) => (
         <Selection

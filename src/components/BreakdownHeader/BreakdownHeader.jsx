@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { CardTitle } from 'react-toolbox/lib/card'
+import cardTitleTheme from '../themes/card-title-theme'
 
 const mapStateToProps = (state) => ({
   result: state.breakdown.result,
@@ -25,14 +26,16 @@ const formatStats = (result, hero, enemy) => {
   return `${hero.name} ${hero.health}hp vs ${enemy.name} ${enemy.health}hp`
 }
 
-const WinRate = ({ result, hero, enemy }) => (
+const WinRate = ({ result, hero, enemy }) => {
+  return (
   <div>
     <CardTitle
+      theme={cardTitleTheme}
       title={formatResult(result)}
       subtitle={formatStats(result, hero, enemy)}
     />
-  </div>
-)
+  </div>)
+}
 
 WinRate.propTypes = {
   result: PropTypes.number,

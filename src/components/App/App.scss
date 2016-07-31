@@ -1,7 +1,19 @@
 @import "../common";
 
+@import "~react-toolbox/lib/commons";
+
+@font-face {
+  font-family: 'Lemons Can Fly';
+  src: url(/fonts/lemons-can-fly.woff2);
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: $color-background;
+  background-image: url(/images/grid-bg.jpg);
+  background-blend-mode: multiply;
+  line-height: normal;
 }
 
 .card-content {

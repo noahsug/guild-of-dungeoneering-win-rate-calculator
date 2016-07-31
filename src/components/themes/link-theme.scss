@@ -1,0 +1,8 @@
+.link {
+  &:not(.active) {
+    opacity: .7;
+  }
+  &:hover, &:active {
+    opacity: 1;
+  }
+}
