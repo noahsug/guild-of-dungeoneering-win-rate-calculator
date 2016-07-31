@@ -4,19 +4,19 @@
 
 @font-face {
   font-family: 'Lemons Can Fly';
-  src: url(/fonts/lemons-can-fly.woff2);
+  src: url(/static/fonts/lemons-can-fly.woff2);
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  background-image: url(/images/black_thread.png);
+  background-image: url(/static/images/black-thread.png);
   line-height: normal;
 }
 
 .cards {
   background-color: $color-background;
-  background-image: url(/images/grid-bg.jpg);
+  background-image: url(/static/images/grid-bg.jpg);
   background-blend-mode: multiply;
   padding: 2 * $unit $padding-content-horizontal;
   display: flex;

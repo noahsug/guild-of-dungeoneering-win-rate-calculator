@@ -1,23 +1,23 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const entry = path.resolve(__dirname, 'src', 'index');
-const output = path.resolve(__dirname, 'build');
-
 const config = {
-  devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss'],
   },
-  entry,
+  entry: ['babel-polyfill', './src/index.js'],
   output: {
-    path: output,
+    path: path.join(__dirname, 'static'),
     filename: 'bundle.js',
   },
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['babel'],
+      loader: 'babel',
+      query: {
+        presets: ['es2015', 'stage-0', 'react'],
+        plugins: ['add-module-exports', 'transform-async-to-generator']
+      },
       include: path.join(__dirname, 'src'),
     }, {
       test: /\.scss$/,
@@ -30,6 +30,13 @@ const config = {
   toolbox: {
     theme: 'src/components/themes/theme.scss'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    })
+  ]
 };
 
 module.exports = config;

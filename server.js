@@ -7,6 +7,9 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true
 }).listen(3000, 'localhost', function (error, result) {
-  if (error) return console.log(error);
-  console.log('Listening at http://localhost:3000');
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Listening at http://localhost:3000');
+  }
 });
