@@ -366,8 +366,7 @@ export default {
      health: 8,
      sets: ['Armed 3', 'Rage 2', 'Pickpocket 1'],
      traits: ['Aggressive', 'Rum'],
-     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3',
-                         'Crewmate x4', 'Crewmate x5'],
+     situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
     'Ships Cook': {
      health: 9,
@@ -828,14 +827,6 @@ export default {
       sets: ['Venom 3', 'Burly 3'],
       traits: ['Fury', 'Mundane'],
     },
-  },
-
-  // Trinkets are passed in via traits.
-  // Other valid traits include: +1HP, -1HP, +2HP, etc.
-  trinkets: {
-    'Warriors Might': {},
-    'Phlogis Tonic': {},
-    'Crones Discipline': {},
   },
 
   items: {
@@ -1364,6 +1355,7 @@ export default {
   },
 
   traits: {
+    // Trinkets
     'Warriors Spirit': {
       physicalNextEffect: 1,
       for: 'hero',
@@ -1412,6 +1404,7 @@ export default {
       for: 'hero',
       type: 'trinket',
     },
+    // Levels
     'Level 2': {
       health: 1,
       for: 'hero',
@@ -1427,6 +1420,7 @@ export default {
       for: 'hero',
       type: 'level',
     },
+    // HP from fountains in base
     '+1HP': {
       for: 'hero',
       type: '+HP',
