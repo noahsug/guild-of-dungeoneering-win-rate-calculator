@@ -104,3 +104,17 @@ describe('shuffleRange', () => {
     expect(shuffled.slice(6, 8)).toEqual(a.slice(6, 8))
   })
 })
+
+describe('unorderedContains', () => {
+  it('Compares two strings without regard to character order', () => {
+    const str = 'hey there guy'
+    let substr = 'three'
+    expect(_.unorderedContains(str, substr)).toBe(true)
+
+    substr = 'hehe get yuy'
+    expect(_.unorderedContains(str, substr)).toBe(true)
+
+    substr = 'hehehe'
+    expect(_.unorderedContains(str, substr)).toBe(false)
+  })
+})

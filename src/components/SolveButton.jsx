@@ -32,6 +32,7 @@ const SolveButton = (props) => {
   const { label, action, accent } = props
   return (
     <Button
+      title="Shift Enter"
       theme={buttonTheme}
       label={label}
       onClick={props[action]}

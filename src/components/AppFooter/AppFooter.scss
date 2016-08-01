@@ -10,7 +10,7 @@
       font-size: 3.2 * $unit;
       line-height: 0.77;
       &:not(:first-of-type) {
-        margin-left: $unit;
+        margin-left: 3 * $unit;
       }
     }
   }

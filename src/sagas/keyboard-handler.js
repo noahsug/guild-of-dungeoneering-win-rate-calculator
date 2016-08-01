@@ -2,10 +2,10 @@ import { call, select } from 'redux-saga/effects'
 import { putp } from '../actions/utils'
 import { getSolverInput, getIsSolving } from '../selectors'
 
-function awaitKeyDown(keyCode) {
+function awaitKeyDown(keyCode, modifier) {
   return new Promise((resolve) => {
     function handleEvent(e) {
-      if (e.code === keyCode) {
+      if (e.code === keyCode && (!modifier || e[modifier])) {
         window.removeEventListener('keydown', handleEvent)
         resolve()
       }
@@ -16,7 +16,7 @@ function awaitKeyDown(keyCode) {
 
 export default function* keyboardHandler() {
   while (true) {
-    yield call(awaitKeyDown, 'Enter')
+    yield call(awaitKeyDown, 'Enter', 'shiftKey')
     const isSolving = yield select(getIsSolving)
     if (isSolving) {
       yield putp('STOP')

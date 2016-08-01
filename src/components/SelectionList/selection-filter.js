@@ -3,13 +3,20 @@ import { gameData } from '../../lib'
 
 function filterSelections(selections, filter) {
   if (!filter) return selections
-  filter = filter.toUpperCase().
-    replace(/\/(?![A-Z])/g, ' ').  // Remove trailing slash
+  filter = filter.toLowerCase().
+    replace(/\/(?![a-z])/g, ' ').  // Remove trailing slash
     replace(/\s+/g, ' ').  // Remove extra whitespace
     trim()
 
   const filterCards = filter.split(' ')
-  return selections.filter(s => satisfiesFilter(s))
+  const result = selections.filter(satisfiesFilter)
+  if (result.length) return result;
+
+  // Fall back to basic text matching.
+  return selections.filter(s => {
+    const cardText = s.cards.join(' ').toLowerCase()
+    return _.unorderedContains(cardText, filter)
+  })
 
   function satisfiesFilter(selection) {
     const matchLists = filterCards.map(filterCard => {
@@ -22,10 +29,38 @@ function filterSelections(selections, filter) {
   // Returns an array of bools that correspond to the card at the same index.
   function getCardMatches(cards, filterAttrs) {
     return cards.map(card => {
-      const attrs = card.split(gameData.CARD_DELIMITER)
-      const leftOver = _.removeAll(attrs, filterAttrs)
-      return leftOver.length + filterAttrs.length === attrs.length
+      const attrs = card.toLowerCase().split(gameData.CARD_DELIMITER)
+      return isAttrSubset(filterAttrs, attrs)
     })
+  }
+
+  function isAttrSubset(filterAttrs, attrs) {
+    const attrMatches = new Array(attrs.length)
+    const filterAttrCounts = _.duplicateCounts(filterAttrs)
+    // Find exact attr matches.
+    attrs.forEach((a, i) => {
+      if (filterAttrCounts[a]) {
+        attrMatches[i] = true
+        filterAttrCounts[a]--
+        if (!filterAttrCounts[a]) delete filterAttrCounts[a]
+      }
+    })
+
+    // Find partial attr matches, e.g. 's' in 'cs'.
+    const uniqueFilterAttrs = Object.keys(filterAttrCounts)
+    attrs.forEach((a, i) => {
+      if (attrMatches[i]) return
+      const match = uniqueFilterAttrs.find((fa => {
+        if (!filterAttrCounts[fa]) return false
+        return a.includes(fa)
+      }))
+      if (match) {
+        filterAttrCounts[match]--
+        if (!filterAttrCounts[match]) delete filterAttrCounts[match]
+      }
+    })
+
+    return _.isEmpty(filterAttrCounts)
   }
 
   function eachFilterCardHasUniqueMatch(matchLists, index = 0, visited = []) {

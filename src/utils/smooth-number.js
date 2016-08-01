@@ -13,6 +13,7 @@ class SmoothNumber {
   }
 
   update(value) {
+    if (!isFinite(value)) return value
     if (this.value_ === null) {
       this.value_ = value
     } else {

@@ -61,8 +61,7 @@ export default class Solver {
     const resolvedState = gs.clone(state)
     const result = this.resolver_.resolve(resolvedState, heroCard, enemyCard)
     if (result !== undefined) state.solved = true
-    const children = state.children ||
-        this.mover_.getNextStates(resolvedState, heroCard)
+    const children = this.mover_.getNextStates(resolvedState, heroCard)
     this.setState_(state, children)
     this.order_.playEnemyCard(enemyCard)
   }
@@ -74,7 +73,7 @@ export default class Solver {
 
   setState_(state, ungroupedChildren) {
     this.state = state
-    if (!state.children) {
+    if (ungroupedChildren) {
       this.setChildrenIds_(ungroupedChildren)
       stateIterator.initState(state, ungroupedChildren)
     }

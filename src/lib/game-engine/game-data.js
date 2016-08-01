@@ -51,6 +51,7 @@ export default {
     'Most Holy Grail Knight': ['P/HID', 'P/HID', 'M/HID/HID', 'P/P/U', 'P/P/-H', 'H/H/H/-H'],
     'Troubador': ['M/U', 'P/P/Q', 'P/P/BP/BP', 'P/P/BM/BM', 'P/M', 'P/M'],
     'Drunken Sailor': ['P', 'PN/PN', 'PN/PN', 'BP/BP', 'BP/BP', 'P/P/P/-H', 'P/P/P/-H'],
+    'H2Omancer': ['M/U/C', 'M/M', 'M/M', 'BM/BM/C', 'BM/BM/C', 'MN/C/C'],
     // 'Artificer': ['ClID'],
 
     // Enemy sets
@@ -258,6 +259,10 @@ export default {
       sets: ['Drunken Sailor'],
       health: 6,
       traits: ['Rum'],
+    },
+    'H2Omancer': {
+      sets: ['H2Omancer'],
+      health: 5,
     },
   },
 

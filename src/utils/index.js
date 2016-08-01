@@ -60,6 +60,25 @@ _.mixin({
     })
   },
 
+  // Select values from the given indexes.
+  select: (list, ...indexes) => (
+    indexes.map(i => list[i])
+  ),
+
+  unorderedContains: (str, substr) => {
+    const counts = {}
+    for (let i = 0; i < str.length; i++) {
+      const c = str[i]
+      counts[c] = (counts[c] || 0) + 1
+    }
+    for (let i = 0; i < substr.length; i++) {
+      const c = substr[i]
+      if (!counts[c]) return false
+      counts[c]--
+    }
+    return true
+  },
+
   // Like _.without, but only removes the first instance of elements.
   // [1, 2, 1], [1] => [2, 1]
   removeAll: (array, values) => {
@@ -246,6 +265,15 @@ _.mixin({
       set[list[i]] = true
     }
     return set
+  },
+
+  // Returns a map of value to # of times that value occured.
+  duplicateCounts: (list) => {
+    const counts = {}
+    list.forEach(i => {
+      counts[i] = (counts[i] || 0) + 1
+    })
+    return counts
   },
 
   expand: (list, fn, context) => (
