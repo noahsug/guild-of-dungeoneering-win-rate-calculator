@@ -31,7 +31,7 @@ class HeroHandSelectionList {
       result: this.solver_.getResult(s),
       cards: convertCards(s.hero.hand),
     }))
-    return _.sortBy(selections, (s) => s.cards.join(' '))
+    return _.sortBy(selections, s => s.cards.join(' '))
   }
 }
 
@@ -79,7 +79,7 @@ class HeroCardSelectionList {
       result: this.solver_.getResult(state, enemyCard, heroCard),
       cards: convertCards(heroCard),
     }))
-    return _.sortBy(selections, (s) => -s.result)
+    return _.sortBy(selections, (s) => s.cards.join(' '))
   }
 }
 

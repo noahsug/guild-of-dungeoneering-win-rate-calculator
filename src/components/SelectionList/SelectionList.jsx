@@ -47,7 +47,7 @@ const SelectionList = ({
           result={result}
           cards={cards}
           onClick={onClick}
-          highlight={bestResult && bestResult === result}
+          highlight={!!bestResult && bestResult === result}
           key={i}
         />
       ))}

@@ -8,6 +8,7 @@ export default class CardOrder {
     this.enemyCards_ = gs.cards(state.enemy)
     this.enemyCardCycles_ = Math.ceil(MAX_DEPTH / this.enemyCards_.length)
     this.nextCycle_ = 1
+
     this.enemyDraws = this.createEnemyDraws_(this.enemyCards_)
     this.endTurnDrawValues = new Array(MAX_DEPTH)
     this.drawValues = new Array(MAX_DEPTH)
@@ -19,7 +20,7 @@ export default class CardOrder {
   createEnemyDraws_(cards) {
     let enemyDraws = []
     _.assert(cards.length > 0)
-    while (enemyDraws.length < MAX_DEPTH) {
+    while (enemyDraws.length <= MAX_DEPTH) {
       enemyDraws = enemyDraws.concat(cards)
     }
     return enemyDraws
@@ -48,14 +49,16 @@ export default class CardOrder {
   }
 
   get enemyDeck() {
-    return this.enemyDraws.slice(
-        this.depth_, this.nextCycle_ * this.enemyCards_.length)
+    return this.enemyDraws.slice(this.depth_, this.deckEndIndex)
+  }
+
+  get deckEndIndex() {
+    return this.nextCycle_ * this.enemyCards_.length
   }
 
   randomize() {
     const numEnemyCards = this.enemyCards_.length
-    _.shuffleRange(
-        this.enemyDraws, this.depth_, this.nextCycle_ * numEnemyCards)
+    _.shuffleRange(this.enemyDraws, this.depth_, this.deckEndIndex)
     for (let i = this.nextCycle_; i < this.enemyCardCycles_; i++) {
       _.shuffleRange(
           this.enemyDraws, i * numEnemyCards, (i + 1) * numEnemyCards)

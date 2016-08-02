@@ -30,7 +30,7 @@ export default class Hasher {
         this.hashCards_(state.hero.hand, this.hashes_.heroHand) +
         this.hashCards_(state.hero.discard, this.hashes_.heroDiscard) +
         this.hashStats_(state) +
-        this.hashEnemyCards_(depth)
+        this.hashEnemyDeck_(depth)
   }
 
   hashCards_(cards, hashes) {
@@ -42,12 +42,13 @@ export default class Hasher {
     return result
   }
 
-  hashEnemyCards_(depth) {
+  hashEnemyDeck_(depth) {
     let result = this.hashes_.enemyCard * this.order_.enemyDraws[depth]
-    for (let i = 0; i < depth; i++) {
+    const len = this.order_.deckEndIndex
+    for (let i = depth + 1; i < len; i++) {
       result += this.hashes_.enemyDraws[this.order_.enemyDraws[i]]
     }
-    return result || 0
+    return result
   }
 
   hashStats_(state) {
