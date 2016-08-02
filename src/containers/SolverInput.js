@@ -9,13 +9,15 @@ const filterTraits = (traits, selected) => {
   const selectedTypes = {}
   selected.forEach((name) => {
     const type = gameData.traits[name].type
-    selectedTypes[type] = true
+    _.increment(selectedTypes, type)
   })
 
   return traits.filter((name) => {
     if (selected.includes(name)) return true
     const type = gameData.traits[name].type
-    return !type || !selectedTypes[type]
+    const numSelected = selectedTypes[type]
+    return !type || !numSelected ||
+        (numSelected === 1 && type === 'battle scar')
   })
 }
 

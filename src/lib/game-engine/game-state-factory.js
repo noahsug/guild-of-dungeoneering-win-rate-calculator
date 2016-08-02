@@ -28,7 +28,7 @@ class GameStateFactory {
     this.resolveHealthTraits_(state, traits)
     sets = sets.concat(traitSets)
     Object.assign(state, this.getTraits_(traits))
-    state.deck = this.getDeck_(sets)
+    state.deck = this.getDeck_(sets, state.skilled)
     _.increment(state, 'handSize', gs.STARTING_HAND_SIZE)
     return state
   }
@@ -70,11 +70,14 @@ class GameStateFactory {
     return traits
   }
 
-  getDeck_(sets) {
+  getDeck_(sets, skilled) {
     sets = this.addSetNumbers_(sets)
     let deck = []
     sets.forEach(set => {
-      deck = deck.concat(Card.getSet(set))
+      const cards = Card.getSet(set)
+      // Skilled - remove level 1 and level 2 cards
+      if (skilled) cards.splice(0, 2)
+      deck = deck.concat(cards)
     })
     return deck
   }
@@ -84,17 +87,21 @@ class GameStateFactory {
     sets.forEach((set) => {
       const num = Number(_.last(set))
       if (!num) {
+        // Hero card set.
         setNumbers[set] = 0
       } else {
         _.increment(setNumbers, set.slice(0, -2), num)
       }
     })
+
     const mergedSets = []
     _.each(setNumbers, (num, set) => {
       if (!num) {
+        // Add hero card set.
         mergedSets.push(set)
       } else {
         let name = `${set} ${num}`
+        // Find existing set.
         while (!gameData.sets[name]) {
           num--
           name = `${set} ${num}`

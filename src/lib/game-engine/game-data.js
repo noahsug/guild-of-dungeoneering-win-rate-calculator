@@ -52,6 +52,7 @@ export default {
     'Troubador': ['M/U', 'P/P/Q', 'P/P/BP/BP', 'P/P/BM/BM', 'P/M', 'P/M'],
     'Drunken Sailor': ['P', 'PN/PN', 'PN/PN', 'BP/BP', 'BP/BP', 'P/P/P/-H', 'P/P/P/-H'],
     'H2Omancer': ['M/U/C', 'M/M', 'M/M', 'BM/BM/C', 'BM/BM/C', 'MN/C/C'],
+    'Swashbuckler': ['BP/BP', 'BP/BP', 'BP/BP/BP', 'P', 'P/P', 'P/P'],
     // 'Artificer': ['ClID'],
 
     // Enemy sets
@@ -264,6 +265,11 @@ export default {
       sets: ['H2Omancer'],
       health: 5,
     },
+    'Swashbuckler': {
+      sets: ['Swashbuckler'],
+      traits: ['Showoff'],
+      health: 5,
+    },
   },
 
   enemies: {
@@ -397,7 +403,7 @@ export default {
     },
     'Captain Rosalita': {
       health: 14,
-      sets: ['Rage 2', 'Irritable 4', 'Pickpocket 4', 'Armed 4'],
+      sets: ['Irritable 4', 'Pickpocket 4', 'Armed 4'],
       traits: ['Skilled'],
       situationalTraits: ['Crewmate', 'Crewmate x2', 'Crewmate x3', 'Crewmate x4', 'Crewmate x5'],
     },
