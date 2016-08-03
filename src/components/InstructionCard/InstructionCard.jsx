@@ -29,6 +29,12 @@ const InstructionCard = () => (
         </li>
       </ol>
     </CardText>
+    <CardText className={cx('footer')}>
+      <div>
+        Note: Mime, Mathemagician, Artificer, predictable, conceal, enemy
+        discard steal, and fountain effects have not been added yet.
+    </div>
+    </CardText>
   </Card>
 )
 
