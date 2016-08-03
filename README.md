@@ -4,9 +4,9 @@
 
 **Use it [here](http://noahsug.github.io/guild-of-dungeoneering-win-rate-calculator)** &nbsp;|&nbsp;
 View [issues](https://github.com/noahsug/guild-of-dungeoneering-win-rate-calculator/issues) &nbsp;|&nbsp;
-Algorithm [details](https://github.com/noahsug/guild-of-dungeoneering-win-rate-calculator/wiki/Algorithm) &nbsp;|&nbsp;
+Algorithm [details](https://github.com/noahsug/guild-of-dungeoneering-win-rate-calculator/wiki/Algorithm)
 
-### Technology
+#### Technology
 [Babel](https://babeljs.io/) &nbsp;|&nbsp;
 [Jest](https://facebook.github.io/jest/) &nbsp;|&nbsp;
 [React.js](http://facebook.github.io/react/) &nbsp;|&nbsp;
@@ -15,9 +15,10 @@ Algorithm [details](https://github.com/noahsug/guild-of-dungeoneering-win-rate-c
 [React Toolbox](http://react-toolbox.com/) &nbsp;|&nbsp;
 [Sass](http://sass-lang.com/) &nbsp;|&nbsp;
 [Underscore](http://underscorejs.org/) &nbsp;|&nbsp;
-[Webpack](http://webpack.github.io/) &nbsp;|&nbsp;
+[Webpack](http://webpack.github.io/)
 
-.
+#### Files
+```.
 ├── src
     └── components             # React UI
     └── lib
@@ -25,3 +26,4 @@ Algorithm [details](https://github.com/noahsug/guild-of-dungeoneering-win-rate-c
             └── game-data.js   # Dungeoneers, enemies, cards, traits, etc
         └── solver             # Win rate algorithm
 ├── static                     # Compiled code, images, fonts
+```
