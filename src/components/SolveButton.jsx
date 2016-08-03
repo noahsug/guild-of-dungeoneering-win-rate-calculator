@@ -37,6 +37,7 @@ const SolveButton = (props) => {
       label={label}
       onClick={props[action]}
       accent={accent}
+      raised={accent}
     />
   )
 }

@@ -15,22 +15,15 @@ const mapStateToProps = (state) => ({
   },
 })
 
-const formatResult = (result) => (
-  result === undefined ? 'Win Rate' :
-      `${result * 100 | 0}% chance to win`
+const formatStats = (result, hero, enemy) => (
+  `${hero.name} ${hero.health}hp vs ${enemy.name} ${enemy.health}hp`
 )
-
-const formatStats = (result, hero, enemy) => {
-  if (!hero.name || !enemy.name) return ''
-  if (result === undefined) return `${hero.name} vs ${enemy.name}`
-  return `${hero.name} ${hero.health}hp vs ${enemy.name} ${enemy.health}hp`
-}
 
 const WinRate = ({ result, hero, enemy }) => (
   <div>
     <CardTitle
       theme={cardTitleTheme}
-      title={formatResult(result)}
+      title={`${result * 100 | 0}% chance to win`}
       subtitle={formatStats(result, hero, enemy)}
     />
   </div>

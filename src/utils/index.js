@@ -1,6 +1,7 @@
 import _ from 'underscore'
 import s from 'underscore.string'
 import store from './local-storage'
+import Performance from './performance'
 import './factorial'
 import './smooth-number'
 import './simple-moving-average'
@@ -12,6 +13,8 @@ const time = {}
 _.s = s
 
 _.store = store
+
+_.perf = new Performance()
 
 _.mixin({
   sum: (array, iteratee = _.identity) => (

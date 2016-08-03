@@ -1,0 +1,17 @@
+@import "../common";
+
+.content {
+  font-family: 'Lemons Can Fly';
+  font-size: 2.8 * $unit;
+
+  ol {
+    margin-left: 1.4 * $unit;
+    span {
+      color: $color-accent;
+    }
+  }
+
+  li + li {
+    margin-top: 1.4 * $unit;
+  }
+}

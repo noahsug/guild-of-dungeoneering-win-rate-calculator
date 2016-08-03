@@ -1442,10 +1442,6 @@ export default {
       for: 'hero',
       type: '+HP',
     },
-    '+3HP': {
-      for: 'hero',
-      type: '+HP',
-    },
     'Deathwish': {
       health: 2,
     },
