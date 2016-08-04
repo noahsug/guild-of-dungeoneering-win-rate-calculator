@@ -74,7 +74,9 @@ export default class Results {
     let count = 0
     _.each(byEnemyCard, byHeroCard => {
       if (!byHeroCard) return
-      sum += this.getEnemyCardResult_(byHeroCard)
+      const result = this.getEnemyCardResult_(byHeroCard)
+      if (isNaN(result)) return
+      sum += result
       count++
     })
     return sum / count

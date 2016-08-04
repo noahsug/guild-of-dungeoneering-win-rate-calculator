@@ -2,9 +2,9 @@ import _ from 'underscore'
 
 // Smoothly outputs an every changing number so it doesn't change too fast.
 class SmoothNumber {
-  constructor() {
+  constructor(value) {
     // The smoothed outputted value.
-    this.value_ = null
+    this.value_ = _.ifDef(value, NaN)
 
     // Significant digit of output value.
     this.sigdig = 0.01
@@ -16,8 +16,8 @@ class SmoothNumber {
   }
 
   update(value) {
-    if (!isFinite(value)) return value
-    if (this.value_ === null) {
+    if (!isFinite(value)) return this.value_
+    if (isNaN(this.value_)) {
       this.value_ = value
     } else {
       this.update_(value)
@@ -37,7 +37,7 @@ class SmoothNumber {
     if (distance < .8) return
 
     // Slow down over time, based on total distance traveled.
-    const drag = 0.2 * Math.max(1, this.traveled_ / this.sigdig - 50)
+    const drag = Math.max(1, 0.2 * this.traveled_ / this.sigdig - 25)
     // Number of units to update the value each second.
     const speed = this.sigdig * Math.pow(distance, 2) / drag
     // How much time has passed.

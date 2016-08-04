@@ -21,7 +21,7 @@ export default class Search {
     // If a hero move wins this many times, it's selected as the best and
     // other possible hero moves are pruned.
     this.bestMovePruning =
-        15 - Math.min(10, Math.round(Math.sqrt(complexity) * 2))
+        12 - Math.min(8, Math.round(Math.sqrt(complexity) * 2))
 
     // If a hero move loses this many times without ever winning, it's pruned.
     this.worstMovePruning = Math.round(Math.sqrt(this.bestMovePruning) * 2)

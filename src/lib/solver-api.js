@@ -39,7 +39,7 @@ export default class SolverApi {
     if (this.selectionType === 'HERO_HAND') {
       this.solver_.play(...this.selectionList_.selected.slice(-3))
     }
-    this.resetResultSmoothing_()
+    this.resetResultSmoothing_(selection.result)
   }
 
   back() {
@@ -89,9 +89,9 @@ export default class SolverApi {
     })
   }
 
-  resetResultSmoothing_() {
+  resetResultSmoothing_(result) {
     this.smoothedResults_ = {
-      result: _.smoothNumber(),
+      result: _.smoothNumber(result),
       selections: [],
     }
   }

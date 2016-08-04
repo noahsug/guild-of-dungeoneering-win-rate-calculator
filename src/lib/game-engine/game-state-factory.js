@@ -74,9 +74,9 @@ class GameStateFactory {
     sets = this.addSetNumbers_(sets)
     let deck = []
     sets.forEach(set => {
-      const cards = Card.getSet(set)
+      let cards = Card.getSet(set)
       // Skilled - remove level 1 and level 2 cards
-      if (skilled) cards.splice(0, 2)
+      if (skilled) cards = cards.slice(2, cards.length)
       deck = deck.concat(cards)
     })
     return deck
