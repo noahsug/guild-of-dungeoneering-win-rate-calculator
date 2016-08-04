@@ -6,7 +6,6 @@ import './factorial'
 import './smooth-number'
 import './simple-moving-average'
 
-let uid = 0
 let seed = 0
 const time = {}
 
@@ -287,8 +286,6 @@ _.mixin({
 
   anyValue: (obj) => _.values(obj)[0],
 
-  uid: () => ++uid,
-
   emptyFn: () => {},
 
   shuffleInPlace: (list) => {
@@ -370,6 +367,12 @@ _.mixin({
       return target
     }
     return value + absAmount * Math.sign(d)
+  },
+
+  bound: (value, min, max) => {
+    if (value <= min) return min
+    if (value >= max) return max
+    return value
   },
 })
 

@@ -15,16 +15,16 @@ export default class Search {
 
   set initState(initState) {
     this.resolver_.initState = initState
-    const complexity = _.minZero(gs.cards(initState.hero).length *
-                                 gs.cards(initState.enemy).length - 50)
+    const complexity = Math.pow(gs.cards(initState.hero).length, 2) *
+        initState.enemy.health
+    const complexityRatio = _.bound((complexity - 200) / 900, 0, 1)
 
     // If a hero move wins this many times, it's selected as the best and
     // other possible hero moves are pruned.
-    this.bestMovePruning =
-        12 - Math.min(8, Math.round(Math.sqrt(complexity) * 2))
+    this.bestMovePruning = 15 - 11 * complexityRatio;
 
     // If a hero move loses this many times without ever winning, it's pruned.
-    this.worstMovePruning = Math.round(Math.sqrt(this.bestMovePruning) * 2)
+    this.worstMovePruning = Math.sqrt(this.bestMovePruning) * 2
   }
 
   clearCache() {
@@ -59,7 +59,7 @@ export default class Search {
     for (let i = 0; i < len; i++) {
       const heroCard = hand[i]
       const moveHash = this.hasher_.hashMove(hash, heroCard)
-      if (this.worstMoves_.get(moveHash) >= this.worstMovePruning) continue
+      if (this.worstMoves_.get(moveHash) > this.worstMovePruning) continue
       const result = this.getResultForMove_(
           state, heroCard, enemyCard, hash, moveHash, depth)
       if (result) {
@@ -108,7 +108,7 @@ export default class Search {
     const bestMove = this.bestMoves_.get(moveHash)
     if (bestMove === undefined) {
       this.bestMoves_.set(moveHash, 1)
-    } else if (bestMove >= this.bestMovePruning) {
+    } else if (bestMove > this.bestMovePruning) {
       this.bestMoves_.set(hash, heroCard)
     } else {
       this.bestMoves_.set(moveHash, bestMove + 1)
