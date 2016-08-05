@@ -2,6 +2,8 @@ import _ from '../../utils'
 import { gs, CardResolver, CardMover } from '../game-engine'
 import { MAX_DEPTH } from './constants'
 import Hasher from './hasher'
+// FIXME
+import { gameData } from '../game-engine'
 
 export default class Search {
   constructor() {
@@ -33,6 +35,7 @@ export default class Search {
   }
 
   solve(state, order) {
+    window.h = {}
     this.visited_ = new Set()
     this.order_ = order
     this.hasher_.order = order
@@ -41,6 +44,9 @@ export default class Search {
   }
 
   getWinningMove_(state, depth) {
+    if (!_.perf.maxDepth || _.perf.maxDepth < depth) {
+      _.perf.maxDepth = depth
+    }
     const hash = this.hasher_.hash(state, depth)
     if (this.visited_.has(hash)) return 0
     this.visited_.add(hash)
@@ -50,7 +56,7 @@ export default class Search {
       const moveHash = this.hasher_.hashMove(hash, bestMove)
       const result = this.getResultForMove_(
           state, bestMove, enemyCard, hash, moveHash, depth)
-      return result && bestMove
+      return result > 0 && bestMove
     }
 
     const hand = _.uniq(state.hero.hand)
@@ -59,14 +65,23 @@ export default class Search {
     for (let i = 0; i < len; i++) {
       const heroCard = hand[i]
       const moveHash = this.hasher_.hashMove(hash, heroCard)
-      if (this.worstMoves_.get(moveHash) > this.worstMovePruning) continue
+      if (this.worstMoves_.get(moveHash) >= this.worstMovePruning) continue
       const result = this.getResultForMove_(
           state, heroCard, enemyCard, hash, moveHash, depth)
-      if (result) {
-        this.updateBestMoves_(state, heroCard, enemyCard, hash, moveHash)
+      if (result > 0) {
+        console.log(state.hero.health, 'vs', state.enemy.health, '|',
+                    state.hero.deck.length, state.hero.hand.length,
+                    state.hero.discard.length);
+        // Update best move if we haven't already.
+        if (result !== Infinity) {
+          this.updateBestMoves_(state, heroCard, enemyCard, hash, moveHash)
+        }
         return heroCard
       }
-      this.updateWorstMoves_(state, heroCard, enemyCard, hash, moveHash)
+      // Update worst move if we haven't already.
+      if (result !== -Infinity) {
+        this.updateWorstMoves_(state, heroCard, enemyCard, hash, moveHash)
+      }
     }
     return 0
   }
@@ -74,22 +89,27 @@ export default class Search {
   getResultForMove_(state, heroCard, enemyCard, hash, moveHash, depth) {
     if (this.visited_.has(moveHash)) return 0
     this.visited_.add(moveHash)
-    const result = this.searchForResult_(
-        state, heroCard, enemyCard, hash, depth)
-    return result
+    return this.searchForResult_(
+        state, heroCard, enemyCard, hash, moveHash, depth)
   }
 
-  searchForResult_(state, heroCard, enemyCard, hash, depth) {
+  searchForResult_(state, heroCard, enemyCard, hash, moveHash, depth) {
     const nextState = gs.clone(state)
     let result = this.resolver_.resolve(nextState, heroCard, enemyCard)
     if (result) {
       this.bestMoves_.set(hash, heroCard)
-    } else if (depth < MAX_DEPTH && result === undefined) {
+      return Infinity
+    } else if (result === 0) {
+      this.worstMoves_.set(moveHash, this.worstMovePruning)
+      return -Infinity
+    } else if (depth < MAX_DEPTH) {
       const i = state.hero.hand.indexOf(heroCard)
       this.mover_.moveCards(nextState, i, depth)
       // TODO: Check visited to see if nextState has a result?
       result = this.getWinningMove_(nextState, depth + 1)
     }
+    // FIXME
+    if (depth == MAX_DEPTH) return 1
     return result
   }
 
@@ -108,7 +128,7 @@ export default class Search {
     const bestMove = this.bestMoves_.get(moveHash)
     if (bestMove === undefined) {
       this.bestMoves_.set(moveHash, 1)
-    } else if (bestMove > this.bestMovePruning) {
+    } else if (bestMove >= this.bestMovePruning) {
       this.bestMoves_.set(hash, heroCard)
     } else {
       this.bestMoves_.set(moveHash, bestMove + 1)

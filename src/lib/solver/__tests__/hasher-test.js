@@ -7,6 +7,7 @@ import gs from '../../game-engine/game-state'
 import Hasher from '../hasher'
 
 let hasher
+let order
 let enemyDraws
 
 function createState(hero = {}, enemy = {}) {
@@ -31,9 +32,10 @@ describe('hasher', () => {
   })
 
   beforeEach(() => {
-    enemyDraws = _.range(100)
+    enemyDraws = _.range(5).concat(_.range(5))
     hasher = new Hasher()
-    hasher.order = { enemyDraws }
+    order = { enemyDraws, cycleStartIndex: 0 }
+    hasher.order = order
   })
 
   afterAll(() => {
@@ -53,7 +55,9 @@ describe('hasher', () => {
   it('detects changes in depth', () => {
     const hash = hasher.hash(createState(), 0)
     const hash2 = hasher.hash(createState(), 1)
+    const hash3 = hasher.hash(createState(), 1)
     expect(hash).not.toBe(hash2)
+    expect(hash2).toBe(hash3)
   })
 
   it('detects changes in health', () => {
@@ -86,5 +90,12 @@ describe('hasher', () => {
     const moveHash3 = hasher.hashMove(hash, 2)
     expect(moveHash).toBe(moveHash2)
     expect(moveHash).not.toBe(moveHash3)
+  })
+
+  it('detects infinite loops', () => {
+    const hash1 = hasher.hash(createState(), 1)
+    order.cycleStartIndex = 5
+    const hash2 = hasher.hash(createState(), 6)
+    expect(hash1).toBe(hash2)
   })
 })

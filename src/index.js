@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import solverApp from './reducers'
-import { solverSega, selectionSega, keyboardHandler } from './sagas'
+import { solverSaga, selectionSaga, keyboardHandler } from './sagas'
 import App from './components/App'
 import { SolverApi } from './lib'
 
@@ -17,8 +17,8 @@ const store = createStore(
 )
 
 const solver = new SolverApi()
-sagaMiddleware.run(solverSega, solver)
-sagaMiddleware.run(selectionSega, solver)
+sagaMiddleware.run(solverSaga, solver)
+sagaMiddleware.run(selectionSaga, solver)
 sagaMiddleware.run(keyboardHandler)
 
 render(

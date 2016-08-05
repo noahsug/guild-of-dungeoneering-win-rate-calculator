@@ -49,16 +49,20 @@ export default class CardOrder {
   }
 
   get enemyDeck() {
-    return this.enemyDraws.slice(this.depth_, this.deckEndIndex)
+    return this.enemyDraws.slice(this.depth_, this.cycleEndIndex)
   }
 
-  get deckEndIndex() {
+  get cycleEndIndex() {
     return this.nextCycle_ * this.enemyCards_.length
+  }
+
+  get cycleStartIndex() {
+    return (this.nextCycle_ - 1) * this.enemyCards_.length
   }
 
   randomize() {
     const numEnemyCards = this.enemyCards_.length
-    _.shuffleRange(this.enemyDraws, this.depth_, this.deckEndIndex)
+    _.shuffleRange(this.enemyDraws, this.depth_, this.cycleEndIndex)
     for (let i = this.nextCycle_; i < this.enemyCardCycles_; i++) {
       _.shuffleRange(
           this.enemyDraws, i * numEnemyCards, (i + 1) * numEnemyCards)

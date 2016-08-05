@@ -44,11 +44,11 @@ export default class Hasher {
 
   hashEnemyDeck_(depth) {
     let result = this.hashes_.enemyCard * this.order_.enemyDraws[depth]
-    const len = this.order_.deckEndIndex
-    for (let i = depth + 1; i < len; i++) {
+    for (let i = this.order_.cycleStartIndex; i < depth; i++) {
       result += this.hashes_.enemyDraws[this.order_.enemyDraws[i]]
     }
-    return result
+    // Depth may not be specified, in which case we return 0.
+    return result || 0
   }
 
   hashStats_(state) {
