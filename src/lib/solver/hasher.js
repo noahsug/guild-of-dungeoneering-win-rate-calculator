@@ -1,3 +1,4 @@
+import _ from '../../utils'
 import { gameData } from '../game-engine'
 
 export default class Hasher {
@@ -17,7 +18,7 @@ export default class Hasher {
 
   getHashes_(len) {
     const hashes = new Uint32Array(len)
-    window.crypto.getRandomValues(hashes)
+    _.crypto.getRandomValues(hashes)
     return hashes
   }
 

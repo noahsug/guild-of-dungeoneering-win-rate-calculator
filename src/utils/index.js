@@ -15,6 +15,9 @@ _.store = store
 
 _.perf = new Performance()
 
+// Support IE 11
+_.crypto = window.crypto || window.msCrypto
+
 _.mixin({
   sum: (array, iteratee = _.identity) => (
     array.reduce((p, c) => p + iteratee(c), 0)

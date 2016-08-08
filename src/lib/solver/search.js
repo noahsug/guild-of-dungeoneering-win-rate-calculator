@@ -2,7 +2,7 @@ import _ from '../../utils'
 import { gs, CardResolver, CardMover } from '../game-engine'
 import { MAX_DEPTH } from './constants'
 import Hasher from './hasher'
-// import EndgameAnalyzer from './endgame-analyzer'
+//import EndgameAnalyzer from './endgame-analyzer'
 
 export default class Search {
   constructor() {
@@ -10,7 +10,7 @@ export default class Search {
     this.resolver_ = new CardResolver()
     this.bestMoves_ = new Map()
     this.worstMoves_ = new Map()
-    // this.endgameAnalyzer_ = new EndgameAnalyzer()
+    //this.endgameAnalyzer_ = new EndgameAnalyzer()
 
     this.hasher_ = new Hasher()
   }
@@ -29,7 +29,7 @@ export default class Search {
     // If a hero move loses this many times without ever winning, it's pruned.
     this.worstMovePruning = Math.sqrt(this.bestMovePruning) * 2
 
-    // this.endgameAnalyzer_.initState = initState
+    //this.endgameAnalyzer_.initState = initState
   }
 
   clearCache() {

@@ -2,7 +2,6 @@ import _ from '../../utils'
 import { gs, CardResolver } from '../game-engine'
 import { gameData } from '../game-engine'
 
-// TODO: This is still a work in progress.
 export default class EndgameAnalyzer {
   constructor() {
     this.resolver_ = new CardResolver()
@@ -28,10 +27,6 @@ export default class EndgameAnalyzer {
     //} else {
     //  this.lowestHealthLoss_ = enemyHealth
     //}
-
-    if (Math.random() < .1) {
-      console.log(state.hero.health, enemyHealth, result)
-    }
 
     return result
   }
@@ -110,7 +105,9 @@ export default class EndgameAnalyzer {
     if (this.initState_.hero.burn || this.initState_.enemy.burn) return
     if (this.efficiency_.taken >= this.efficiency_.given) return
     // Check if we can take no damage while giving damage
-    if (this.efficiency_.taken <= 0 && this.dmg_.given > 0) {
+    if (this.efficiency_.taken <= 0 &&
+        this.efficiency_.taken < this.efficiency_.given &&
+        this.dmg_.given > 0) {
       this.willWinWithFullHand_ = true
     }
   }
