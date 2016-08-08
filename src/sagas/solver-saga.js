@@ -4,8 +4,6 @@ import { race, call, fork, take, cancel, cancelled, select }
 import { putp } from '../actions/utils'
 import { getSolverInput } from '../selectors'
 import { updateBreakdown } from './utils'
-// FIXME
-import _ from '../utils'
 
 function* reset(solver) {
   const input = yield select(getSolverInput)
@@ -15,18 +13,11 @@ function* reset(solver) {
 function* solve(solver) {
   try {
     const resultGen = solver.start()
-    // FIXME
-    _.perf.start('total')
-    resultGen.next()
-    _.perf.end('total')
-    yield call(updateBreakdown, solver)
-    _.perf.print()
-    console.log('max depth:', _.perf.maxDepth)
-    //while (true) {
-    //  resultGen.next()
-    //  yield call(updateBreakdown, solver)
-    //  yield call(delay, 5)
-    //}
+    while (true) {
+      resultGen.next()
+      yield call(updateBreakdown, solver)
+      yield call(delay, 5)
+    }
   } catch (e) {
     console.error(e)  // eslint-disable-line no-console
   } finally {

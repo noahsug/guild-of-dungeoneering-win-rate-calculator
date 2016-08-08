@@ -28,10 +28,8 @@ export default class Solver {
     this.results_ = new Results()
     this.results_.bestMovePruning = this.search_.bestMovePruning
 
-    _.perf.start('starting states')
     const ungroupedChildren = this.mover_.getStartingStates(this.state)
     this.setState_(this.state, ungroupedChildren)
-    _.perf.end('starting states')
   }
 
   next() {

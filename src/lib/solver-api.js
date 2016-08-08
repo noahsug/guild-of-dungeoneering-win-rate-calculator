@@ -18,14 +18,12 @@ export default class SolverApi {
 
   * start() {
     this.running_ = true
-    // FIXME
-    this.iterateResult_(1)
-    //this.iterateResult_(10)
-    //yield
-    //while (this.running_) {
-    //  this.iterateResult_(100)
-    //  yield
-    //}
+    this.iterateResult_(10)
+    yield
+    while (this.running_) {
+      this.iterateResult_(100)
+      yield
+    }
   }
 
   iterateResult_(iterations) {
